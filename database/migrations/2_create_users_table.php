@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreign('id_salary_recipe')->references('id')->on('SalaryRecipe')->onUpdate('cascade');
             $table->index(['email_address', 'name', 'phone_number']);
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -52,6 +53,7 @@ return new class extends Migration
             $table->string('email_address', 255)->nullable();
             $table->string('address', 1000)->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->index('name', 'phone_number');
         });
 
@@ -64,6 +66,7 @@ return new class extends Migration
             $table->foreign('id_parent')->references('id')->on('Parents')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
             $table->index('average_grade');
         });
 

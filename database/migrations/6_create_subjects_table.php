@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_teacher');
             $table->timestamps();
             $table->foreign('id_teacher')->references('id')->on('users')->onUpdate('cascade');
+            $table->softDeletes();
             $table->index('name');
         });
 
@@ -36,6 +37,7 @@ return new class extends Migration
             $table->foreign('id_subject')->references('id')->on('Subject')->onDelete('SET DEFAULT');
             $table->foreign('id_student')->references('id')->on('Student')->onDelete('SET DEFAULT');
             $table->foreign('id_employee')->references('id')->on('users')->onDelete('SET DEFAULT');
+            $table->softDeletes();
             $table->index(['id_student', 'id_employee', 'date_collect']);
         });
 
@@ -47,6 +49,7 @@ return new class extends Migration
             $table->index('grade');
             $table->foreign('id_subject')->references('id')->on('Subject')->onDelete('cascade');
             $table->foreign('id_student')->references('id')->on('Student')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

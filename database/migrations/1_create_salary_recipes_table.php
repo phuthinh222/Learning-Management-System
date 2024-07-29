@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->decimal('total_salary', 15, 2)->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

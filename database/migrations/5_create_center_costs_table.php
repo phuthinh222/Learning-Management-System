@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_employee');
             $table->timestamps();
             $table->foreign('id_employee')->references('id')->on('users')->onUpdate('cascade');
+            $table->softDeletes();
             $table->index(['date', 'amount']);
         });
     }

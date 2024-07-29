@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_employee');
             $table->timestamps();
             $table->foreign('id_employee')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->index(['job_to_do', 'date_start', 'date_end', 'result_must_reach']);
         });
 
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->date('date_post');
             $table->unsignedBigInteger('id_employee')->default(0);
             $table->foreign('id_employee')->references('id')->on('users')->onDelete('SET DEFAULT');
+            $table->softDeletes();
             $table->index(['title', 'date_post']);
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('symbol', 5)->unique();
             $table->decimal('amount', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
             $table->index('name');
         });
         
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->float('factor')->nullable()->default(1);
             $table->foreign('id_recipe')->references('id')->on('SalaryRecipe')->onDelete('cascade');
             $table->foreign('id_type')->references('id')->on('SalaryType')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

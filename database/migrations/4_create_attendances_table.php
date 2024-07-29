@@ -17,6 +17,7 @@ return new class extends Migration
             $table->time('time_check_in');
             $table->time('time_check_out');
             $table->timestamps();
+            $table->softDeletes();
             $table->index('date');
         });
 
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_attendance');
             $table->foreign('id_teacher')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_attendance')->references('id')->on('Attendance')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
