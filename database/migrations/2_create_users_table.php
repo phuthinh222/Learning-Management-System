@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address', 1000)->nullable();
             $table->string('phone_number', 15)->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_verify_token', 15)->nullable();
             $table->unsignedBigInteger('id_salary_recipe')->default(1);
             $table->foreign('id_salary_recipe')->references('id')->on('SalaryRecipe')->onUpdate('cascade');
             $table->index(['email_address', 'name', 'phone_number']);
