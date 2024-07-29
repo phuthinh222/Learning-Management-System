@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email_address',
         'date_of_birth',
         'address',
+        'email_verify_token',
         'phone_number',
         'id_salary_recipe',
         'google_id'
