@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Attendance', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->time('time_check_in');
@@ -21,11 +21,11 @@ return new class extends Migration
             $table->index('date');
         });
 
-        Schema::create('AttendanceTeacher', function (Blueprint $table) {
+        Schema::create('attendance_teachers', function (Blueprint $table) {
             $table->unsignedBigInteger('id_teacher');
             $table->unsignedBigInteger('id_attendance');
             $table->foreign('id_teacher')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_attendance')->references('id')->on('Attendance')->onDelete('cascade');
+            $table->foreign('id_attendance')->references('id')->on('attendances')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,8 +36,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Attendance');
+        Schema::dropIfExists('attendances');
 
-        Schema::dropIfExists('AttendanceTeacher');
+        Schema::dropIfExists('attendance_teachers');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('CenterCost', function (Blueprint $table) {
+        Schema::create('center_costs', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->decimal('amount', 15, 2);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('CenterCost');
+        Schema::dropIfExists('center_costs');
     }
 };

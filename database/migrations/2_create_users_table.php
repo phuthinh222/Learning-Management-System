@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('email_verify_token', 15)->nullable();
             $table->unsignedBigInteger('id_salary_recipe')->default(1);
-            $table->foreign('id_salary_recipe')->references('id')->on('SalaryRecipe')->onUpdate('cascade');
+            $table->foreign('id_salary_recipe')->references('id')->on('salary_recipes')->onUpdate('cascade');
             $table->index(['email_address', 'name', 'phone_number']);
             $table->rememberToken();
             $table->softDeletes();
@@ -46,7 +46,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        Schema::create('Parents', function (Blueprint $table) {
+        Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->date('date_of_birth')->nullable();
@@ -58,13 +58,13 @@ return new class extends Migration
             $table->index('name', 'phone_number');
         });
 
-        Schema::create('Student', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('note', 1000)->nullable();
             $table->float('average_grade')->nullable();
             $table->unsignedBigInteger('id_parent');
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_parent')->references('id')->on('Parents')->onDelete('cascade');
+            $table->foreign('id_parent')->references('id')->on('parents')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
@@ -81,7 +81,7 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
-        Schema::dropIfExists('Student');
-        Schema::dropIfExists('Parents');
+        Schema::dropIfExists('students');
+        Schema::dropIfExists('parents');
     }
 };

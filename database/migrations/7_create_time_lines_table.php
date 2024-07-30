@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('TimeLine', function (Blueprint $table) {
+        Schema::create('time_lines', function (Blueprint $table) {
             $table->id();
             $table->string('job_to_do');
             $table->date('date_start');
@@ -26,13 +26,13 @@ return new class extends Migration
             $table->index(['job_to_do', 'date_start', 'date_end', 'result_must_reach']);
         });
 
-        Schema::create('Marketing', function (Blueprint $table) {
+        Schema::create('marketings', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->string('content', 10000);
             $table->date('date_post');
             $table->unsignedBigInteger('id_employee')->default(0);
-            $table->foreign('id_employee')->references('id')->on('users')->onDelete('SET DEFAULT');
+            $table->foreign('id_employee')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->index(['title', 'date_post']);
             $table->timestamps();
@@ -44,8 +44,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('TimeLine');
+        Schema::dropIfExists('time_lines');
 
-        Schema::dropIfExists('Marketing');
+        Schema::dropIfExists('marketings');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Subject', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->decimal('amount', 10, 2);
@@ -27,28 +27,28 @@ return new class extends Migration
             $table->index('name');
         });
 
-        Schema::create('StudyFee', function (Blueprint $table) {
+        Schema::create('study_fees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_subject')->default(1);
             $table->unsignedBigInteger('id_student')->default(1);
             $table->unsignedBigInteger('id_employee')->default(1);
             $table->date('date_collect')->nullable();
             $table->timestamps();
-            $table->foreign('id_subject')->references('id')->on('Subject')->onDelete('SET DEFAULT');
-            $table->foreign('id_student')->references('id')->on('Student')->onDelete('SET DEFAULT');
-            $table->foreign('id_employee')->references('id')->on('users')->onDelete('SET DEFAULT');
+            $table->foreign('id_subject')->references('id')->on('subjects')->onDelete('cascade');
+            $table->foreign('id_student')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('id_employee')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->index(['id_student', 'id_employee', 'date_collect']);
         });
 
-        Schema::create('Grade', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_subject');
             $table->float('grade');
             $table->timestamps();
             $table->index('grade');
-            $table->foreign('id_subject')->references('id')->on('Subject')->onDelete('cascade');
-            $table->foreign('id_student')->references('id')->on('Student')->onDelete('cascade');
+            $table->foreign('id_subject')->references('id')->on('subjects')->onDelete('cascade');
+            $table->foreign('id_student')->references('id')->on('students')->onDelete('cascade');
             $table->softDeletes();
         });
     }
@@ -58,8 +58,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Subject');
-        Schema::dropIfExists('Grade');
-        Schema::dropIfExists('StudyFee');
+        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('grades');
+        Schema::dropIfExists('study_fees');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('SalaryRecipe', function (Blueprint $table) {
+        Schema::create('salary_recipes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->decimal('total_salary', 15, 2)->default(0);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('SalaryRecipe');
+        Schema::dropIfExists('salary_recipes');
     }
 };
