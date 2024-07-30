@@ -23,13 +23,13 @@ class LoginRequest extends FormRequest
     {
         if (strpos($this->user_name, '@')) {
             return [
-                'user_name' => 'required | regex: /^[a-zA-Z0-9_\-\*\!\#\%\&\'\*\+\^]{3,64}@[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,}){1,}$/',
+                'user_name' => ['required', 'regex: /^[a-zA-Z0-9_\-\*\!\#\%\&\'\*\+\^]{3,64}@[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,}){1,}$/'],
                 'password' => 'required'
             ];
         }
 
         return [
-            'user_name' => 'required | regex: /^[a-zA-Z0-9_\-\*\!\#\%\&\'\*\+\^]{3,64}/',
+            'user_name' => ['required', 'regex: /^[a-zA-Z0-9_\-\*\!\#\%\&\'\*\+\^]{3,64}$/'],
             'password' => 'required'
         ];
     }
