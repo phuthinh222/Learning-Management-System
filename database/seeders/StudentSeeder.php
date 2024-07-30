@@ -13,7 +13,7 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('Parents')->insert([
+        DB::table('parents')->insert([
             [
                 'name' => 'Nguyễn Văn Thoại',
                 'date_of_birth' => '1988-07-01',
@@ -51,7 +51,7 @@ class StudentSeeder extends Seeder
             ]
         ]);
 
-        DB::table('Student')->insert([
+        DB::table('students')->insert([
             [
                 'note' => 'Đang học tôt môn Toán',
                 'average_grade' => 8.2,

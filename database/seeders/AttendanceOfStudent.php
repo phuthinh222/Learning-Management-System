@@ -13,7 +13,7 @@ class AttendanceOfStudent extends Seeder
      */
     public function run(): void
     {
-         DB::table('AttendaceStudent')->insert([
+         DB::table('attendance_students')->insert([
             [
                 'date' => '2024-07-28',
                 'is_attend' => true,

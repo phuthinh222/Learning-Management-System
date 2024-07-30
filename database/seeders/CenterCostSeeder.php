@@ -13,7 +13,7 @@ class CenterCostSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('CenterCost')->insert([
+        DB::table('center_costs')->insert([
             [
                 'name' => 'Tiền Điện Tháng 6',
                 'amount' => 1000000,

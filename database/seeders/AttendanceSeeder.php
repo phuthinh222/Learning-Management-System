@@ -13,7 +13,7 @@ class AttendanceSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('Attendance')->insert([
+        DB::table('attendances')->insert([
             [
                 'date' => '2024-07-21',
                 'time_check_in' => '08:00:00',
@@ -36,7 +36,7 @@ class AttendanceSeeder extends Seeder
             ],
         ]);
 
-        DB::table('AttendanceTeacher')->insert([
+        DB::table('attendance_teachers')->insert([
             [
                 'id_teacher' => 2,
                 'id_attendance' => 1,

@@ -13,7 +13,7 @@ class SalarySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('SalaryRecipe')->insert([
+        DB::table('salary_recipes')->insert([
             [
                 'name' => 'Stydent Salary',
                 'total_salary' => 0
@@ -32,7 +32,7 @@ class SalarySeeder extends Seeder
             ]
         ]);
 
-        DB::table('SalaryType')->insert([
+        DB::table('salary_types')->insert([
             [
                 'name' => 'Lương Cứng Quản trị',
                 'symbol' => 'LCQT',
@@ -70,7 +70,7 @@ class SalarySeeder extends Seeder
             ],
         ]);
 
-        DB::table('TypeRecipe')->insert([
+        DB::table('type_recipes')->insert([
             [
                 'id_type' => 1,
                 'id_recipe' => 2,

@@ -13,7 +13,7 @@ class TimeLineSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('TimeLine')->insert([
+        DB::table('time_lines')->insert([
             [
                 'job_to_do' => 'Hoàn thành việc thanh toán lương cho toàn bộ giáo viên trong trung tâm',
                 'date_start' => '2024-07-01',
@@ -32,7 +32,7 @@ class TimeLineSeeder extends Seeder
             ],
         ]);
 
-        DB::table('Marketing')->insert([
+        DB::table('marketings')->insert([
             [
                 'title' => 'Tin tức mới về chương trình học mới',
                 'content' => 'Đây là tin tức mới về chương trình học mới của trung tâm. Bạn có thể đăng ký nhận thông tin từ trung tâm để cập nhật thông tin mới nhất.',

@@ -13,7 +13,7 @@ class SubjectSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('Subject')->insert([
+        DB::table('subjects')->insert([
             [
                 'name' => 'Deleted Subject',
                 'amount' => 0,
@@ -76,7 +76,7 @@ class SubjectSeeder extends Seeder
             ],
         ]);
 
-        DB::table('StudyFee')->insert([
+        DB::table('study_fees')->insert([
             [
                 'id_subject' => 2,
                 'id_student' => 1,
@@ -115,7 +115,7 @@ class SubjectSeeder extends Seeder
             ],
         ]);
 
-        DB::table('Grade')->insert([
+        DB::table('grades')->insert([
             [
                 'id_student' => 1,
                 'id_subject' => 2,
