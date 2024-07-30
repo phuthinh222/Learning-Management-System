@@ -12,5 +12,5 @@ class SalaryType extends Model
 
     protected $fillable = ['name', 'symbol', 'amount'];
 
-    protected $table = 'SalaryType';
+    protected $table = 'salary_types';
 }

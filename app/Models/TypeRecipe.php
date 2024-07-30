@@ -12,5 +12,5 @@ class TypeRecipe extends Model
 
     protected $fillable = ['id_type', 'id_recipe', 'factor'];
 
-    protected $table = 'TypeRecipe';
+    protected $table = 'type_recipes';
 }

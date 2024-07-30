@@ -19,5 +19,5 @@ class TimeLine extends Model
         'is_monthly',
         'id_employee'
     ];
-    protected $table = 'TimeLine';
+    protected $table = 'time_lines';
 }

@@ -12,5 +12,5 @@ class Grade extends Model
 
     protected $fillable = ['grade', 'id_student', 'id_subject'];
     
-    protected $table = 'Grade';
+    protected $table = 'grades';
 }

@@ -13,8 +13,9 @@ class StudyFee extends Model
     protected $fillable = [
         'id_subject',
         'id_student',
-        'id_employee'
+        'id_employee',
+        'date_collect'
     ];
 
-    protected $table = 'StudyFee';
+    protected $table = 'study_fees';
 }

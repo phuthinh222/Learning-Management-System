@@ -12,5 +12,5 @@ class CenterCost extends Model
 
     protected $fillable = ['name', 'amount', 'date', 'description', 'note', 'id_employee'];
 
-    protected $table = 'CenterCost';
+    protected $table = 'center_costs';
 }

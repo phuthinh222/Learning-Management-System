@@ -11,5 +11,5 @@ class AttendanceTeacher extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['id_teacher', 'id_attendance'];
-    protected $table = 'AttendanceTeacher';
+    protected $table = 'attendance_teachers';
 }

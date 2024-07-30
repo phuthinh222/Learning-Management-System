@@ -12,5 +12,5 @@ class Student extends Model
 
     protected $fillable = ['note', 'average_grade', 'id_parent', 'id_user'];
 
-    protected $table = 'Student';
+    protected $table = 'students';
 }

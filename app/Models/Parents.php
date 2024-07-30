@@ -18,5 +18,5 @@ class Parents extends Model
         'address'
     ];
 
-    protected $table = 'Parents';
+    protected $table = 'parents';
 }

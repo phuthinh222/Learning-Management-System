@@ -21,5 +21,5 @@ class Subject extends Model
         'id_teacher'
     ];
 
-    protected $table = 'Subject';
+    protected $table = 'subjects';
 }

@@ -11,5 +11,5 @@ class SalaryRecipe extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['name', 'total_salary'];
 
-    protected $table = 'SalaryRecipe';
+    protected $table = 'salary_recipes';
 }

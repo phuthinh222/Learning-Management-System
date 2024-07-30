@@ -10,7 +10,7 @@ class AttendanceStudent extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['id_student', 'id_attendance', 'id_subject'];
+    protected $fillable = ['id_student', 'id_subject', 'date', 'is_attend'];
 
-    protected $table = 'AttendaceStudent';
+    protected $table = 'attendance_students';
 }

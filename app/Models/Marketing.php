@@ -17,5 +17,5 @@ class Marketing extends Model
         'id_employee'
     ];
 
-    protected $table = 'Marketing';
+    protected $table = 'marketings';
 }

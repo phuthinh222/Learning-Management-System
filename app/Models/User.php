@@ -28,7 +28,8 @@ class User extends Authenticatable
         'email_verify_token',
         'phone_number',
         'id_salary_recipe',
-        'google_id'
+        'google_id',
+        'email_verify_token'
     ];
 
     /**
