@@ -173,13 +173,7 @@ return [
     */
 
     'custom' => [
-        'user_name' => [
-            'required' => 'Bạn chưa nhập tên đăng nhập hoặc email',
-            'regex' => 'Tên đăng nhập hoặc Email sai định dạng'
-        ],
-        'password' => [
-            'required' => 'Bạn chưa nhập mật khẩu'
-        ]
+        
     ],
 
     /*
