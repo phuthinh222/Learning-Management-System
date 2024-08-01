@@ -22,13 +22,20 @@ class AuthenticationService
         $user = $this->user_repository->search($request->user_name);
         if ($user !== null) {
             if (Hash::check($request->password, $user->password)) {
-                Auth::login($user);
-                return $user;
+                if ($user->email_verify_token == NULL) {
+                    Auth::login($user);
+                    return $user;
+                }
+                
+                Session::flash('login_error', __('auth.rerify_login'));
+                return FALSE;
             } 
-            Session::flash('login_error', 'Mật khẩu không đúng');
+
+            Session::flash('login_error', __('auth.password'));
             return FALSE;
         }
-        Session::flash('login_error', 'Tài khoản không tồn tại');
+        
+        Session::flash('login_error', __('auth.failed'));
         return NULL;
         
     }
