@@ -27,15 +27,15 @@ class AuthenticationService
                     return $user;
                 }
                 
-                Session::flash('login_error', __('auth.rerify_login'));
+                Session::flash('login_error_verify', __('auth.rerify_login'));
                 return FALSE;
             } 
 
-            Session::flash('login_error', __('auth.password'));
+            Session::flash('login_error_password', __('auth.password'));
             return FALSE;
         }
         
-        Session::flash('login_error', __('auth.failed'));
+        Session::flash('login_error_username', __('auth.failed'));
         return NULL;
         
     }
