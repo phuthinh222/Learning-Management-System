@@ -37,7 +37,7 @@
                     id="user_name" name="user_name" value="{{old('user_name')}}" type="text" placeholder="Email hoặc tên đăng nhập" required>
                 </div>
                 @if(Session::has('login_error_username')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_username')}}</p></div> @endif
-                @if(Session::has('login_error_vefiry')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_verify')}}</p></div> @endif
+                @if(Session::has('login_error_verify')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_verify')}}</p></div> @endif
                 @error('user_name') <div class="text"><p style="color:#f54254">{{$message}}</p></div> @enderror
                 <div class="input-box">
                     <i class="fas fa-lock"></i>
