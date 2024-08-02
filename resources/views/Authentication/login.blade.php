@@ -25,33 +25,25 @@
         <div class="forms">
             <div class="form-content">
             <div class="login-form">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul style="list-style:none; padding-left:0">
-                            @foreach ( $errors->all() as $error )
-                                <li style="margin-left: 0;" >{{ $error }}</li>                            
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (Session::has('login_error'))
-                    <div class="alert alert-danger">
-                        <ul style="list-style:none; padding-left: 0;">
-                            <li style="margin-left:0px">{{Session::get('login_error')}}</li>
-                        </ul>
-                    </div>
-                @endif
                 <div class="title">Đăng nhập</div>
             <form method="post" action="{{route('login_store')}}">
                 <div class="input-boxes">
                 <div class="input-box">
                     <i class="fas fa-envelope"></i>
-                    <input id="user_name" name="user_name" value="{{old('user_name')}}" type="text" placeholder="Email hoặc tên đăng nhập" required>
+                    <input
+                        @if(Session::has('login_error_username')) style="border-bottom: 2px solid #f54254;" @endif
+                        @if(Session::has('login_error_verify')) style="border-bottom: 2px solid #f54254;" @endif
+                        @error('user_name') style="border-bottom: 2px solid #f54254;" @enderror 
+                    id="user_name" name="user_name" value="{{old('user_name')}}" type="text" placeholder="Email hoặc tên đăng nhập" required>
                 </div>
+                @if(Session::has('login_error_username')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_username')}}</p></div> @endif
+                @if(Session::has('login_error_verify')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_verify')}}</p></div> @endif
+                @error('user_name') <div class="text"><p style="color:#f54254">{{$message}}</p></div> @enderror
                 <div class="input-box">
                     <i class="fas fa-lock"></i>
-                    <input id="password" name="password" type="password" placeholder="Mật khẩu" required>
+                    <input @if(Session::has('login_error_password')) style="border-bottom: 2px solid #f54254;" @endif id="password" name="password" type="password" placeholder="Mật khẩu" required>
                 </div>
+                @if(Session::has('login_error_password')) <div class="text"><p style="color:#f54254">{{Session::get('login_error_password')}}</p></div> @endif
                 <div class="text"><a href="#">Quên mật khẩu?</a></div>
                 <div class="button input-box">
                     <input type="submit" value="Sumbit">
