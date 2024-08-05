@@ -31,16 +31,12 @@ return [
         ],
         'password' => [
             'required' => 'Bạn chưa nhập mật khẩu',
-            'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số'
+            'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số',
+            'confirmed' => 'Mật khẩu nhập lại chưa chính xác'
         ],
         'name' => [
             'required' => 'Bạn chưa nhập họ tên',
             'regex' => 'Họ tên sai định dạng',
-        ],
-        'repeat_password' => [
-            'required' => 'Bạn chưa nhập lại mật khẩu',
-            'regex' => 'Mật khẩu nhập lại sai định dạng',
-            'same' => 'Mật khẩu nhập lại không khớp'
         ],
         'user_name_register' => [
             'required' => 'Bạn chưa nhập tên đăng nhập',
