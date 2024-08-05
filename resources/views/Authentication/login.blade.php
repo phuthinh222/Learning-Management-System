@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com-->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Đăng nhập | Đăng ký</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @vite('resources/css/Authentication/style.css')
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-    <div class="container">
-        <input type="checkbox" id="flip">
-        <div class="cover">
-        <div class="front">
-            <img src="images/Authentication/frontImg.jpg" alt="">
-            <div class="text">
-            <span class="text-1">Học tập là việc cả đời <br> Luôn là cơ hội để thành công</span>
-            <span class="text-2">Hãy kết nối với chúng tôi</span>
-            </div>
-        </div>
-        </div>
-        <div class="forms">
-            <div class="form-content">
+@extends('layouts.auth')
+@section('title', 'Đăng nhập')
+@section('content')
             <div class="login-form">
                 <div class="title">Đăng nhập</div>
             <form method="post" action="{{route('login_store')}}">
@@ -59,8 +36,4 @@
                 @csrf()
             </form>
         </div>
-            
-        </div>
-    </div>
-</body>
-</html>
+@endsection
