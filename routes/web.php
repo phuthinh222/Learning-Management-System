@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\Authentication\Google\GoogleController;
 use App\Http\Controllers\Web\Authentication\LoginController;
+use App\Http\Controllers\Web\Authentication\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
