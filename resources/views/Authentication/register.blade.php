@@ -27,7 +27,7 @@
                 @error('password') <div class="text"><p style="color:#f54254; margin-bottom:0">{{$message}}</p></div> @enderror
                 <div class="input-box">
                     <i class="fas fa-lock"></i>
-                    <input @error('repeat_password') style="border-bottom: 2px solid #f54254;" @enderror type="password" name="repeat_password" placeholder="Xác nhận Mật khẩu" required>
+                    <input @error('repeat_password') style="border-bottom: 2px solid #f54254;" @enderror type="password" name="password_confirmation" placeholder="Xác nhận Mật khẩu" required>
                 </div>
                 @error('repeat_password') <div class="text"><p style="color:#f54254"; margin-bottom:0>{{$message}}</p></div> @enderror
                 <div class="input-box">

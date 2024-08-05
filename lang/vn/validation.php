@@ -30,8 +30,24 @@ return [
             'regex' => 'Tên đăng nhập hoặc Email sai định dạng'
         ],
         'password' => [
-            'required' => 'Bạn chưa nhập mật khẩu'
-        ]
+            'required' => 'Bạn chưa nhập mật khẩu',
+            'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số',
+            'confirmed' => 'Mật khẩu nhập lại chưa chính xác'
+        ],
+        'name' => [
+            'required' => 'Bạn chưa nhập họ tên',
+            'regex' => 'Họ tên sai định dạng',
+        ],
+        'user_name_register' => [
+            'required' => 'Bạn chưa nhập tên đăng nhập',
+            'regex' => 'Tên đăng nhập sai định dạng',
+            'unique' => 'Tên đăng nhập đã tồn tại'
+        ],
+        'email_address' => [
+            'required' => 'Bạn chưa nhập địa chỉ Email',
+            'regex' => 'Email sai định dạng',
+            'unique' => 'Email đã tồn tại'
+        ],
     ],
 
     /*
