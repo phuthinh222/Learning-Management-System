@@ -2,6 +2,7 @@
 
 namespace App\Http\Service\Authentication;
 
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ class AuthenticationService
 {
     protected $user_repository;
 
-    public function __construct(UserRepository $user_repository)
+    public function __construct(UserRepositoryInterface $user_repository)
     {
         $this->user_repository = $user_repository;
     }

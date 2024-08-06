@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Đăng nhập')
+@section('title', 'Đăng ký')
 @section('content')
     <div class="login-form">
         <div class="title">Đăng ký</div>
