@@ -4,9 +4,17 @@ namespace App\Http\Controllers\Web\Authentication;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Authentication\RegisterRequest;
+use App\Http\Service\Authentication\RegisterService;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    protected $register_service;
+
+    public function __construct(RegisterService $register_service)
+    {
+       $this->register_service = $register_service;
+    }
     public function index()
     {
         return view('Authentication.register');
@@ -14,7 +22,26 @@ class RegisterController extends Controller
 
     public function registerStore(RegisterRequest $request)
     {
-        // Store data to database
-        // Redirect to login page with success message
+        $user = $this->register_service->register($request);
+        return redirect()->route('email_verify')->with('user', $user);
+    }
+
+    public function showVerify(Request $request)
+    {
+        $user = $request->session()->get('user');
+        return view('Authentication.email_verify', compact('user'));
+    }
+
+    public function emailVerifyStore($id, Request $request)
+    {
+        $result = $this->register_service->verifyEmail($id, $request->email_verify_token);
+        if($result === TRUE) {
+            return redirect()->route('login');
+        }
+        
+        return redirect()->back()->with([
+            'failed_verify' => __('email.faile_verify'),
+            'user' => $result
+        ]);
     }
 }

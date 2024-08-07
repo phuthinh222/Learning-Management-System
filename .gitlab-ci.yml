@@ -1,24 +1,73 @@
 stages:
   - build
   - test
-  - deploy
+  # - deploy
 
 # Job build
 build_job:
   stage: build
+  image: php:8.3
+  services:
+    - mysql:8.0
+  before_script:
+    - apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev libpng-dev libjpeg-dev libpng-dev libzip-dev unzip
+    - docker-php-ext-configure gd --with-freetype --with-jpeg
+    - docker-php-ext-install gd zip
+    - curl -sS https://getcomposer.org/installer | php
+    - mv composer.phar /usr/local/bin/composer
+    - composer --version
+    - composer install --prefer-dist --no-interaction --no-progress --no-suggest
+    - cp .env.example .env
+    - php artisan key:generate
+    - php artisan migrate
+    - apt-get update
+    - apt-get install -y curl gnupg
+    - curl -fsSL https://deb.nodesource.com/setup_18.x | bash - # Thay thế 18.x bằng phiên bản Node.js mong muốn
+    - apt-get install -y nodejs
+    - node --version                         # Kiểm tra phiên bản Node.js
+    - npm --version                          # Kiểm tra phiên bản npm
+    - npm install                            # Cài đặt các gói npm
+    - npm run build
   script:
-    - echo "Building the project..."
+    - echo "Build completed."
 
 # Job test
 test_job:
   stage: test
+  image: php:8.3
+  services:
+    - mysql:8.0
+  before_script:
+    - apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev libpng-dev libjpeg-dev libpng-dev libzip-dev unzip
+    - docker-php-ext-configure gd --with-freetype --with-jpeg
+    - docker-php-ext-install gd zip
+    - curl -sS https://getcomposer.org/installer | php
+    - mv composer.phar /usr/local/bin/composer
+    - composer --version
+    - composer install --prefer-dist --no-interaction --no-progress --no-suggest
+    - cp .env.example .env
+    - php artisan key:generate
   script:
-    - echo "Running tests..."
+    - php artisan migrate
+    - ./vendor/bin/phpunit
+  artifacts:
+    paths:
+      - storage/logs/
 
 # Job deploy
-deploy_job:
-  stage: deploy
-  script:
-    - ssh ubuntu@52.64.135.244 "cd /var/www/html/ecm01 && git pull origin develop"
-  only:
-    - develop
+# deploy_job:
+#   stage: deploy
+#   before_script:
+#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#     - eval $(ssh-agent -s)
+#     - mkdir -p ~/.ssh
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+#     - echo "$SSH_PRIVATE_KEY"
+#     - chmod 400 ~/.ssh/id_rsa
+#     - eval "$(ssh-agent -s)"
+#     - ssh-keyscan -H 52.64.135.244 >> ~/.ssh/known_hosts
+#     - echo "Deploying to server test"
+#   script:
+#     - ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@52.64.135.244 "cd /var/www/html/ecm01 && git pull origin develop"
+#   only:
+#     - develop
