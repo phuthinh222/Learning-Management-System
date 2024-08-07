@@ -5,16 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Student extends Model
+class Teacher extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $fillable = ['note', 'average_grade', 'id_parent'];
+    protected $table = 'teachers';
 
-    protected $table = 'students';
-
+    protected $fillable = [
+        'id_certificate',
+        'id_experience',
+        'department',
+        'position',
+        'status',
+    ];
     public function user(): MorphOne
     {
         return $this->morphOne(User::class, 'userable');
