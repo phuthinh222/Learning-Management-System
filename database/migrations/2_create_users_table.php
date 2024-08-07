@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('email_verify_token', 15)->nullable();
             $table->unsignedBigInteger('id_salary_recipe')->default(1);
             $table->foreign('id_salary_recipe')->references('id')->on('salary_recipes')->onUpdate('cascade');
+            $table->unsignedBigInteger('userable_id')->nullable();
+            $table->string('userable_type')->nullable();
             $table->index(['email_address', 'name', 'phone_number']);
             $table->rememberToken();
             $table->softDeletes();
@@ -62,15 +64,12 @@ return new class extends Migration
             $table->id();
             $table->string('note', 1000)->nullable();
             $table->float('average_grade')->nullable();
-            $table->unsignedBigInteger('id_parent');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_parent')->nullable();
             $table->foreign('id_parent')->references('id')->on('parents')->onDelete('cascade');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
             $table->index('average_grade');
         });
-
     }
 
     /**

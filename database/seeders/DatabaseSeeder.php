@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +24,8 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             SubjectSeeder::class,
             TimeLineSeeder::class,
-            AttendanceOfStudent::class
+            AttendanceOfStudent::class,
+            TeacherSeeder::class,
         ]);
     }
 }
