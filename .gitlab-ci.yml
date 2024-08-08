@@ -47,6 +47,15 @@ test_job:
     - composer install --prefer-dist --no-interaction --no-progress --no-suggest
     - cp .env.example .env
     - php artisan key:generate
+    - php artisan migrate
+    - apt-get update
+    - apt-get install -y curl gnupg
+    - curl -fsSL https://deb.nodesource.com/setup_18.x | bash - # Thay thế 18.x bằng phiên bản Node.js mong muốn
+    - apt-get install -y nodejs
+    - node --version                         # Kiểm tra phiên bản Node.js
+    - npm --version                          # Kiểm tra phiên bản npm
+    - npm install                            # Cài đặt các gói npm
+    - npm run build
   script:
     - php artisan migrate
     - ./vendor/bin/phpunit
