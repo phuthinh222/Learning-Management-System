@@ -67,7 +67,6 @@ deploy_job:
       - >
         ssh ubuntu@52.64.135.244
         "cd /var/www/html/ecm01;
-        sudo su;
         chown $USER:$USER /var/www/html/ecm01;
         chgrp -R www-data storage bootstrap/cache;
         chmod -R ug+rwx storage bootstrap/cache;
@@ -77,11 +76,5 @@ deploy_job:
         git checkout develop;
         git pull origin develop;
         export COMPOSER_ALLOW_SUPERUSER=1;
-        composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts;
-        composer dump-autoload;
-        php artisan migrate;
-        php artisan queue:restart;
-        php artisan optimize:clear;
-        npm run build;"
   only:
       - develop
