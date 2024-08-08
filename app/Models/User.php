@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,7 +30,9 @@ class User extends Authenticatable
         'phone_number',
         'id_salary_recipe',
         'google_id',
-        'email_verify_token'
+        'email_verify_token',
+        'userable_id',
+        'userable_type'
     ];
 
     /**
@@ -53,5 +56,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function userable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

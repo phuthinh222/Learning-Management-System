@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_certificate');
-            $table->unsignedBigInteger('id_experience');
-            $table->string('department', 255);
-            $table->string('position', 255);
-            $table->boolean('status');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_certificate')->nullable();
+            $table->unsignedBigInteger('id_experience')->nullable();
+            $table->string('department', 255)->nullable()->default(null);
+            $table->string('position', 255)->nullable();
+            $table->boolean('status')->nullable();
             $table->foreign('id_certificate')->references('id')->on('certificates')->onDelete('cascade');
             $table->foreign('id_experience')->references('id')->on('experiences')->onDelete('cascade');
             $table->timestamps();
