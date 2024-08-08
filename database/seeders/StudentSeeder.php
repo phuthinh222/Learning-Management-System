@@ -56,16 +56,12 @@ class StudentSeeder extends Seeder
                 'note' => 'Đang học tôt môn Toán',
                 'average_grade' => 8.2,
                 'id_parent' => 1,
-                'id_user' => 4
             ],
             [
                 'note' => 'Đang học tốt môn Tiếng Anh',
                 'average_grade' => 8.7,
                 'id_parent' => 2,
-                'id_user' => 8
             ],
         ]);
-
-        
     }
 }
