@@ -65,7 +65,7 @@ deploy_job:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
       - >
-        ssh 52.64.135.244
+        ssh ubuntu@52.64.135.244
         "cd /var/www/html/ecm01;
         git stash;
         git checkout develop;
