@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\SalaryRecipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -23,17 +23,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $salaryRecipe = \App\Models\SalaryRecipe::factory()->create();
+        $salaryRecipe = SalaryRecipe::factory()->create();
 
         return [
-            'user_name' => $this->faker->userName,
+            'user_name' => $this->faker->unique()->userName(),
             'password' => bcrypt('password'), // You can use bcrypt or any other hashing method
             'name' => $this->faker->name,
             'email_address' => $this->faker->unique()->safeEmail,
             'google_id' => $this->faker->optional()->uuid,
             'date_of_birth' => $this->faker->optional()->date(),
             'address' => $this->faker->optional()->address,
-            'phone_number' => $this->faker->optional()->phoneNumber,
+            'phone_number' => $this->faker->optional()->numerify('#############'),
             'email_verified_at' => $this->faker->optional()->dateTime(),
             'email_verify_token' => $this->faker->optional()->regexify('[A-Za-z0-9]{15}'), // Shorter token
             'id_salary_recipe' => $salaryRecipe->id, // Default value for this column
