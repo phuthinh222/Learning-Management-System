@@ -5,15 +5,14 @@ namespace App\Http\Service\Authentication;
 use App\Jobs\SendEmailVerifycation;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterService 
 {
     protected $user_repository;
 
-    public function __construct(UserRepositoryInterface $user_repository) 
+    public function __construct(UserRepository $user_repository) 
     {
         $this->user_repository = $user_repository;
     }
@@ -32,7 +31,7 @@ class RegisterService
             'phone_number' => NULL,
         ];
         $user = $this->user_repository->create($data);
-        $user = $this->assignUserType($user, $request->account_type);
+        $this->assignUserType($user, $request->account_type);
         
         SendEmailVerifycation::dispatch($user);
         return $user;
@@ -80,9 +79,7 @@ class RegisterService
             'userable_type' => $account_type::class
         ];
 
-        $user = $this->user_repository->update($user->id, $data);
-
-        return $user;
+        $this->user_repository->update($data, $user->id);
     }
 
     public function find($id) 
