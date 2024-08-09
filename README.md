@@ -42,3 +42,5 @@ Config laradock:<br>
         WORKSPACE_INSTALL_SUPERVISOR=false → true <br>
     - go to php-worker in laradock and copy laravel-worker.conf.example to laravel-worker.conf <br>
     - run the php-worker: docker compose up php-worker <br>
+    Run this command if have email sending problems: <br>
+    - php artisan view:clear
