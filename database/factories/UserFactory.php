@@ -33,7 +33,6 @@ class UserFactory extends Factory
             'google_id' => $this->faker->optional()->uuid,
             'date_of_birth' => $this->faker->optional()->date(),
             'address' => $this->faker->optional()->address,
-            'phone_number' => $this->faker->optional()->phoneNumber,
             'email_verified_at' => $this->faker->optional()->dateTime(),
             'email_verify_token' => $this->faker->optional()->regexify('[A-Za-z0-9]{15}'), // Shorter token
             'id_salary_recipe' => $salaryRecipe->id, // Default value for this column

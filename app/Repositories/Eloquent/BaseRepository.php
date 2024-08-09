@@ -26,6 +26,8 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model_to_update = $this->model->findOrFail($id);
         $model_to_update->update($data);
+        $model_to_update->save();
+        return $model_to_update;
     }
 
     public function destroy($id)

@@ -66,9 +66,6 @@ class RegisterRequest extends FormRequest
             'user_name.regex' => __('validation.custom.user_name_register.regex'),
             'password.required' => __('validation.custom.password.required'),
             'password.regex' => __('validation.custom.password.regex'),
-            'repeat_password.required' => __('validation.custom.repeat_password.required'),
-            'repeat_password.regex' => __('validation.custom.repeat_password.regex'),
-            'repear_password.same' => __('validation.custom.password.same')
         ];
      }
 }
