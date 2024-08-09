@@ -36,7 +36,7 @@ class RegisterController extends Controller
     {
         $result = $this->register_service->verifyEmail($id, $request->email_verify_token);
         if($result === TRUE) {
-            return redirect()->route('login');
+            return redirect()->route('login')->with('register_successfull', __('auth.verify_successfull'));
         }
         
         return redirect()->back()->with([

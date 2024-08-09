@@ -6,8 +6,9 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/css/Authentication/style.css', 
+                'resources/css/Authentication/style.scss', 
                 'resources/js/app.js',
+                'resources/js/Authentication/register_toastr.js'
             ],
             refresh: true,
         }),
