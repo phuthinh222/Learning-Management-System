@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Authentication;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Service\Authentication\AuthenticationService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -34,9 +36,13 @@ class LoginController extends Controller
         
     }
 
-    public function logout() 
-    {
-        $this->auth_service->logout();
-        return redirect()->route('login');
-    }
+    public function logout(Request $request)  
+    {  
+        Auth::logout();  
+        
+        $request->session()->invalidate();  
+        $request->session()->regenerateToken();  
+    
+        return redirect('/')->with('message', 'Successfully logged out.');  
+    } 
 }

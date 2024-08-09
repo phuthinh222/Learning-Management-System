@@ -48,11 +48,6 @@ deploy_job:
         ssh ubuntu@52.64.135.244
         "cd /var/www/html/ecm01;
         sudo su;
-        chown $USER:$USER /var/www/html/ecm01;
-        chgrp -R www-data storage bootstrap/cache;
-        chmod 777 storage bootstrap/cache;
-        chmod -R 755 /var/www/html/ecm01;
-        chmod -R o+w /var/www/html/ecm01/storage/;
         git stash;
         git checkout develop;
         git pull origin develop;
