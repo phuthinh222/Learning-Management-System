@@ -52,8 +52,8 @@ class LoginTest extends TestCase
         ];
         $response = $this->postTest($this->testUrlStore(), $data);
         
-        $response->assertRedirect(route('dashboard'))
-        ->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND)
+        ->assertRedirect(route('dashboard'));
     }
 
       /** @test */
