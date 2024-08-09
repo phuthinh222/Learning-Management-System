@@ -130,9 +130,9 @@
                                     <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Đăng Xuất</button>
-                                    </form> 
+                                    </form>
                                 </div>
-                                
+
                             </li>
                         </div>
                     </ul>
@@ -143,11 +143,11 @@
     <!-- End Navbar -->
 </div>
 
-1<script>
+1
+<script>
     document.getElementById('logout-form').addEventListener('submit', function(event) {
         if (!confirm('Bạn có chắc chắn muốn đăng xuất không?')) {
             event.preventDefault();
         }
     });
-    </script>
-    
+</script>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\Authentication\LoginController;
 use App\Http\Controllers\Web\Authentication\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('admin.index');
@@ -17,14 +18,14 @@ Route::get('/dashboard', function () {
 
 Route::group([
     'middleware' => ['auth:web']
-], function() {
+], function () {
     Route::resource('/admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::group([
     'middleware' => ['guest']
-], function() {
+], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'loginStore'])->name('login_store');
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -36,3 +37,7 @@ Route::group([
 });
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('admin')->group(function () {
+    Route::get('student/create', [StudentController::class, 'create'])->name('student.create');
+});

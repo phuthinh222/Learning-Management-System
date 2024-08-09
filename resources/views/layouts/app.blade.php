@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>ECM APP</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon" />
     <!-- Fonts and icons -->
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
@@ -57,10 +58,10 @@
                     {{-- <div class="row">
                         <div class="col-md-12">
                             <div class="card"> --}}
-                                <main>
-                                    @yield('content')
-                                </main>
-                            {{-- </div>
+                    <main>
+                        @yield('content')
+                    </main>
+                    {{-- </div>
                         </div>
                     </div> --}}
                 </div>
@@ -74,8 +75,11 @@
 
     <!-- Core JS Files -->
     <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/jquery-ui.js') }}"></script>
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+
+    @vite('resources/js/datepicker.js')
 
     <!-- jQuery Scrollbar -->
     <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
@@ -90,4 +94,3 @@
 </body>
 
 </html>
-
