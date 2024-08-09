@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user_name">Tên đăng nhập</label>
                                 <input type="email" class="form-control" id="user_name" name="user_name"
@@ -50,6 +50,8 @@
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Nguyen123456" />
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">Địa chỉ email</label>
                                 <input type="email" class="form-control" id="email" name="email_address"
@@ -60,15 +62,18 @@
                                 <input type="tel" class="form-control" id="phone" name="phone_number"
                                     placeholder="0123456789" />
                             </div>
-                            <div class="form-group">
-                                <label for="address">Nơi ở hiện tại</label>
-                                <input type="text" class="form-control" id="address" name="address"
-                                    placeholder="Thừa Thiên Huế" />
-                            </div>
+
                             <div class="form-group">
                                 <label for="datepicker">Sinh nhật</label>
                                 <input type="text" class="form-control" id="datepicker" class="datepicker"
                                     name="date_of_birth" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="address">Nơi ở hiện tại</label>
+                                <input type="text" class="form-control" id="address" name="address"
+                                    placeholder="Thừa Thiên Huế" />
                             </div>
                         </div>
                     </div>
