@@ -7,27 +7,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 
-Route::get('/', function () {
-    return view('admin.index');
-})->middleware('auth');
-
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->name('dashboard')->middleware('auth');
-
-
+// Authentication
 Route::group([
     'middleware' => ['auth:web']
 ], function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    });
+    Route::get('/dashboard', function () {
+        return view('admin.index');
+    })->name('dashboard');
     Route::resource('/admin', AdminController::class);
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+    // Manager Student routes
     Route::prefix('admin')->group(function () {
         Route::get('student/create', [StudentController::class, 'create'])->name('student.create');
     });
 });
 
+// Guest routes
 Route::group([
     'middleware' => ['guest']
 ], function () {

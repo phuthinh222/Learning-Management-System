@@ -143,7 +143,6 @@
     <!-- End Navbar -->
 </div>
 
-1
 <script>
     document.getElementById('logout-form').addEventListener('submit', function(event) {
         if (!confirm('Bạn có chắc chắn muốn đăng xuất không?')) {
