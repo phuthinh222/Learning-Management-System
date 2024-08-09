@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\ParallelTesting;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -41,7 +42,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_login_page(): void
     {
         $user = $this->createUser();
@@ -49,7 +50,6 @@ class LoginTest extends TestCase
             'user_name' => $user->user_name,
             'password' => 'ValidPassword'
         ];
-        
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertRedirect(route('dashboard'))

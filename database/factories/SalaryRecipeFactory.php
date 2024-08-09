@@ -17,8 +17,8 @@ class SalaryRecipeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'total_salary' => $this->faker->randomFloat(2, 1000, 10000)
+            'name' => $this->faker->word,
+            'total_salary' => $this->faker->randomFloat(2, 1000, 10000),
         ];
     }
 }
