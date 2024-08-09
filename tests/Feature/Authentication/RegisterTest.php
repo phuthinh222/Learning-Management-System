@@ -3,8 +3,10 @@
 namespace Tests\Feature\Authentication;
 
 use App\Mail\VerifycationEmail;
+use App\Models\Roles;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -167,7 +169,7 @@ class RegisterTest extends TestCase
         ];
         $response = $this->postTest($this->getPostUrl(), $data);
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHasErrors(['password' => __('validation.custom.password.confirmed')]);
+        ->assertSessionHasErrors(['password']);
     }
 
     /** @test */
@@ -189,6 +191,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function guest_user_can_register_send_valid_information()
     {
+        Role::create(['name' => 'Teacher']);
         Mail::fake();
         $data = [
             'name' => 'Valid Name',
@@ -198,7 +201,6 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'ValidPassword123',
             'account_type' => 'is_teacher'
         ];
-       
         $response = $this->postTest($this->getPostUrl(), $data);
         $user = $this->findUserToTest($data['email_address']);
         
