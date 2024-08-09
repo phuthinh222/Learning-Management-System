@@ -21,6 +21,11 @@ Route::group([
 ], function () {
     Route::resource('/admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::prefix('admin')->group(function () {
+        Route::get('student/create', [StudentController::class, 'create'])->name('student.create');
+    });
 });
 
 Route::group([
@@ -34,10 +39,4 @@ Route::group([
     Route::post('/verify/{id}', [RegisterController::class, 'emailVerifyStore'])->name('email_verify_store');
     Route::get('/auth/google', [GoogleController::class, 'index'])->name('google_index');
     Route::get('/auth/google/callback', [GoogleController::class, 'callBack'])->name('google_callback');
-});
-
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::prefix('admin')->group(function () {
-    Route::get('student/create', [StudentController::class, 'create'])->name('student.create');
 });

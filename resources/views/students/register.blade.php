@@ -36,29 +36,29 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user_name">Tên đăng nhập</label>
+                                <label for="user_name">Tên đăng nhập <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" id="user_name" name="user_name"
                                     placeholder="nva123" />
                             </div>
                             <div class="form-group">
-                                <label for="name">Họ tên học sinh</label>
+                                <label for="name">Họ tên học sinh <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Nguyễn Văn A" />
                             </div>
                             <div class="form-group">
-                                <label for="password">Mật khẩu</label>
+                                <label for="password">Mật khẩu <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Nguyen123456" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="email">Địa chỉ email</label>
+                                <label for="email">Địa chỉ email <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" id="email" name="email_address"
                                     placeholder="nguyenvana@gmail.com" />
                             </div>
                             <div class="form-group">
-                                <label for="phone">Số điện thoại</label>
+                                <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
                                 <input type="tel" class="form-control" id="phone" name="phone_number"
                                     placeholder="0123456789" />
                             </div>
@@ -71,16 +71,16 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="address">Nơi ở hiện tại</label>
+                                <label for="address">Nơi ở hiện tại <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="address" name="address"
                                     placeholder="Thừa Thiên Huế" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-action">
-                    <button class="btn btn-success">Submit</button>
-                    <button class="btn btn-danger">Cancel</button>
+                <div class="card-action ">
+                    <button class="btn btn-danger">Back</button>
+                    <button class="btn btn-success">Create</button>
                 </div>
             </div>
         </div>

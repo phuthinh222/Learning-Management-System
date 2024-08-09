@@ -8,9 +8,9 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/css/Authentication/style.css",
                 "resources/js/app.js",
-                "resources/js/datepicker.js",
             ],
             refresh: true,
         }),
     ],
+    resolve: { alias: { $: "jquery" } },
 });
