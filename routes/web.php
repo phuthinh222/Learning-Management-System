@@ -6,24 +6,32 @@ use App\Http\Controllers\Web\Authentication\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
-
-Route::get('/', function () {
-    return view('admin.index');
-})->middleware('auth');
-
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->name('dashboard');
+use App\Http\Controllers\StudentController;
 
 
-Route::group(['middleware' => ['auth:web']], function() {
-    Route::resource('/admin', AdminController::class);
+// Authentication Routes
+Route::middleware(['auth:web'])->group(function () {
+
+    // Logout route
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::view('/', 'admin.index');
+    Route::view('/dashboard', 'admin.index')->name('dashboard');
+    
     Route::resource('/teacher', TeacherController::class);
+
+    Route::resource('/admin', AdminController::class);
+
+    Route::prefix('admin')->group(function () {
+        Route::resource('/student', StudentController::class);
+
+    });
 });
 
+// Guest routes
 Route::group([
     'middleware' => ['guest']
-], function() {
+], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'loginStore'])->name('login_store');
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -33,5 +41,3 @@ Route::group([
     Route::get('/auth/google', [GoogleController::class, 'index'])->name('google_index');
     Route::get('/auth/google/callback', [GoogleController::class, 'callBack'])->name('google_callback');
 });
-
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');

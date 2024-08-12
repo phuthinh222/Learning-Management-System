@@ -4,7 +4,8 @@
               <!-- Logo Header -->
               <div class="logo-header " data-background-color="light">
                   <a href="/" class="logo">
-                      <img src="assets/img/logo-ECM01.png" alt="navbar brand " class="navbar-brand"  height="150" />
+                      <img src="{{ asset('assets/img/logo-ECM01.png') }}" alt="navbar brand " class="navbar-brand"
+                          height="150" />
                   </a>
                   <div class="nav-toggle">
                       <button class="btn btn-toggle toggle-sidebar">
@@ -30,14 +31,30 @@
                           </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('teacher.index') }}" class="dashboard">
-                            <i class="fas fa-home"></i>
-                            <p>Quản lý giáo viên</p>
-                        </a>
-                    </li>
+                          <a href="{{ route('teacher.index') }}" class="dashboard">
+                            <i class="fa fa-briefcase"></i>
+                              <p>Quản lý giáo viên</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                              <i class="fa fa-graduation-cap"></i>
+                              <p>Học sinh</p>
+                              <span class="caret"></span>
+                          </a>
+                          <div class="collapse" id="sidebarLayouts">
+                              <ul class="nav nav-collapse">
+                                  <li>
+                                      <a href="{{ route('student.create') }}">
+                                          <span class="sub-item">Thêm học sinh</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
                   </ul>
               </div>
           </div>
-          
+
       </div>
       <!-- End Sidebar -->
