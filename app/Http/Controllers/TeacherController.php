@@ -19,7 +19,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teachers.create');
+        //
     }
 
     /**
@@ -41,9 +41,9 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('teachers.edit');
     }
 
     /**
@@ -60,5 +60,10 @@ class TeacherController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }

@@ -31,6 +31,12 @@
                           </a>
                       </li>
                       <li class="nav-item">
+                          <a href="{{ route('teacher.inactive') }}" class="dashboard">
+                              <i class="fa fa-briefcase"></i>
+                              <p>Quản lý giáo viên</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a data-bs-toggle="collapse" href="#sidebarLayouts">
                               <i class="fa fa-graduation-cap"></i>
                               <p>Học sinh</p>
@@ -43,27 +49,18 @@
                                           <span class="sub-item">Thêm học sinh</span>
                                       </a>
                                   </li>
-                              </ul>
-                          </div>
-                      </li>
-                      <li class="nav-item">
-                          <a data-bs-toggle="collapse" href="#teacherLayouts">
-                              <i class="fas fa-chalkboard-teacher"></i>
-                              <p>Giáo viên</p>
-                              <span class="caret"></span>
-                          </a>
-                          <div class="collapse" id="teacherLayouts">
-                              <ul class="nav nav-collapse">
                                   <li>
-                                      <a href="{{ route('teachers.create') }}">
-                                          <span class="sub-item">Thêm giáo viên</span>
+                                      <a href="{{ route('student.create') }}">
+                                          <span class="sub-item">Thêm học sinh</span>
                                       </a>
                                   </li>
                               </ul>
                           </div>
                       </li>
+
                   </ul>
               </div>
           </div>
+
       </div>
       <!-- End Sidebar -->
