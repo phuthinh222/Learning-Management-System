@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Authentication\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 
 // Authentication
 Route::group([
@@ -23,6 +24,8 @@ Route::group([
     // Manager Student routes
     Route::prefix('admin')->group(function () {
         Route::get('student/create', [StudentController::class, 'create'])->name('student.create');
+
+        Route::resource('teachers', TeacherController::class);
     });
 });
 

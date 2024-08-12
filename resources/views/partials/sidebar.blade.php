@@ -46,6 +46,22 @@
                               </ul>
                           </div>
                       </li>
+                      <li class="nav-item">
+                          <a data-bs-toggle="collapse" href="#teacherLayouts">
+                              <i class="fas fa-chalkboard-teacher"></i>
+                              <p>Giáo viên</p>
+                              <span class="caret"></span>
+                          </a>
+                          <div class="collapse" id="teacherLayouts">
+                              <ul class="nav nav-collapse">
+                                  <li>
+                                      <a href="{{ route('teachers.create') }}">
+                                          <span class="sub-item">Thêm giáo viên</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
                   </ul>
               </div>
           </div>
