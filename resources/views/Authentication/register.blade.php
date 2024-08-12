@@ -31,7 +31,7 @@
                 </div>
                 <div class="input-box">
                     <p>Bạn là: </p>
-                    <div class="radio-select" style="display: flex;">
+                    <div class="radio-select">
                         <input type="radio" name="account_type" id="is_student" value="is_student" checked>
                         <label for="is_student"> Học sinh</label>
                         <input type="radio" name="account_type" id="is_teacher" value="is_teacher">

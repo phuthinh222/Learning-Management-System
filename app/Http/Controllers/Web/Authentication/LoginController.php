@@ -33,9 +33,30 @@ class LoginController extends Controller
         } 
     
         return redirect()->route('dashboard');
-        
     }
 
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+
+        // Map roles to their respective index routes
+        $roleRedirects = [
+            'Admin' => '/admin',
+            'Teacher' => '/teacher',
+            'Student' => '/student',
+            'Employee' => '/employee',
+        ];
+
+        // Find the user's role and return the corresponding redirect path
+        foreach ($roleRedirects as $role => $redirectPath) {
+            if ($user->hasRole($role)) {
+                return $redirectPath;
+            }
+        }
+
+        // Default redirect if no role matches
+        return '/home';
+    }
     public function logout(Request $request)  
     {  
         Auth::logout();  
@@ -45,4 +66,5 @@ class LoginController extends Controller
     
         return redirect('/')->with('message', 'Successfully logged out.');  
     } 
+
 }

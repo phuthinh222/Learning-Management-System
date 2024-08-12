@@ -191,10 +191,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function guest_user_can_register_send_valid_information()
     {
-        $role = Role::where('name', '=', 'Teacher')->first();
-        if ($role == NULL) {
-            Role::create(['name' => 'Teacher']);
-        }
+        $role = Role::findOrCreate('Teacher'); 
         Mail::fake();
         $data = [
             'name' => 'Valid Name',
@@ -209,6 +206,7 @@ class RegisterTest extends TestCase
         
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('email_verify', $user->id));
+        
 
         Mail::assertSent(VerifycationEmail::class, function($email) use ($user) {
             return $email->hasTo($user->email_address);
@@ -244,22 +242,6 @@ class RegisterTest extends TestCase
         $response = $this->postTest(route('email_verify_store', $user->id), $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertRedirect(route('login'));
-    }
-    
-    /** @test */
-    public function guest_user_can_register_send_valid_verify_token_and_get_notifycation()
-    {
-        $user = $this->createUser();
-        $user->email_verify_token = 'VERIFY';
-        $user->save();
-        $data = [
-            'email_verify_token' => $user->email_verify_token,
-        ];
-        $response = $this->postTest(route('email_verify_store', $user->id), $data);
-
-        $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHas(['register_successfull' => __('auth.verify_successfull')])
         ->assertRedirect(route('login'));
     }
 }

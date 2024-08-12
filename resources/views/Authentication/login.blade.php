@@ -36,5 +36,4 @@
                 @csrf()
             </form>
         </div>
-     
 @endsection
