@@ -30,4 +30,11 @@ abstract class TestCase extends BaseTestCase
     {
         return $this->post($url, $data);
     }
+
+    protected function findUserToTest($email_address)
+    {
+        return User::where('email_address', $email_address)->first();
+    }
+
+    
 }
