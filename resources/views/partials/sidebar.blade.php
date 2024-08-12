@@ -31,6 +31,12 @@
                           </a>
                       </li>
                       <li class="nav-item">
+                          <a href="{{ route('teacher.inactive') }}" class="dashboard">
+                            <i class="fa fa-briefcase"></i>
+                              <p>Quản lý giáo viên</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a data-bs-toggle="collapse" href="#sidebarLayouts">
                               <i class="fa fa-graduation-cap"></i>
                               <p>Học sinh</p>
@@ -49,5 +55,6 @@
                   </ul>
               </div>
           </div>
+
       </div>
       <!-- End Sidebar -->

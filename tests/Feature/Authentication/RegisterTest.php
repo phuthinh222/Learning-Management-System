@@ -191,12 +191,12 @@ class RegisterTest extends TestCase
     /** @test */
     public function guest_user_can_register_send_valid_information()
     {
-        Role::create(['name' => 'Teacher']);
+        $role = Role::findOrCreate('Teacher'); 
         Mail::fake();
         $data = [
             'name' => 'Valid Name',
-            'email_address' => 'Validemail@example.com',
-            'user_name' => 'ValidUsername',
+            'email_address' => fake()->unique()->safeEmail(),
+            'user_name' => fake()->unique()->userName(),
             'password' => 'ValidPassword123',
             'password_confirmation' => 'ValidPassword123',
             'account_type' => 'is_teacher'
@@ -206,6 +206,7 @@ class RegisterTest extends TestCase
         
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('email_verify', $user->id));
+        
 
         Mail::assertSent(VerifycationEmail::class, function($email) use ($user) {
             return $email->hasTo($user->email_address);
