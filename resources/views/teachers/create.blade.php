@@ -181,11 +181,11 @@
                                                     </div>
                                                     <div class="modal-footer border-0">
                                                         <button type="button" id="addRowButton" class="btn btn-primary">
-                                                            Add
+                                                            Thêm
                                                         </button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-bs-dismiss="modal">
-                                                            Close
+                                                            Đóng
                                                         </button>
                                                     </div>
                                                 </form>
@@ -288,11 +288,11 @@
                                                 </div>
                                                 <div class="modal-footer border-0">
                                                     <button type="button" id="addRowButton" class="btn btn-primary">
-                                                        Add
+                                                        Thêm
                                                     </button>
                                                     <button type="button" class="btn btn-danger"
                                                         data-bs-dismiss="modal">
-                                                        Close
+                                                        Đóng
                                                     </button>
                                                 </div>
                                             </div>
@@ -338,8 +338,8 @@
                     </div>
                 </div>
                 <div class="card-action ">
-                    <button class="btn btn-danger">Back</button>
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-danger">Trở lại</button>
+                    <button class="btn btn-success">Lưu dữ liệu</button>
                 </div>
             </div>
         </div>

@@ -38,7 +38,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-
 </head>
 
 <body>
@@ -75,7 +74,6 @@
 
     </div>
 
-
     <!-- Core JS Files -->
     <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -89,6 +87,7 @@
 
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
+
 
 </body>
 
