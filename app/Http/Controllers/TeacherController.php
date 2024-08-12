@@ -11,7 +11,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('teachers.index');
+        //
     }
 
     /**
@@ -60,5 +60,10 @@ class TeacherController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }
