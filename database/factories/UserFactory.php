@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'address' => $this->faker->optional()->address,
             'phone_number' => $this->faker->optional()->numerify('#############'),
             'email_verified_at' => $this->faker->optional()->dateTime(),
-            'email_verify_token' => $this->faker->optional()->regexify('[A-Za-z0-9]{15}'), // Shorter token
+            'email_verify_token' => NULL, 
             'id_salary_recipe' => $salaryRecipe->id, // Default value for this column
             'userable_id' => $this->faker->optional()->randomNumber(),
             'userable_type' => $this->faker->optional()->word,
