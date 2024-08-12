@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\Authentication\LoginController;
 use App\Http\Controllers\Web\Authentication\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TeacherController;
 
 Route::get('/', function () {
     return view('admin.index');
@@ -12,14 +13,12 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('admin.index');
-})->name('dashboard')->middleware('auth');
+})->name('dashboard');
 
 
-Route::group([
-    'middleware' => ['auth:web']
-], function() {
+Route::group(['middleware' => ['auth:web']], function() {
     Route::resource('/admin', AdminController::class);
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::resource('/teacher', TeacherController::class);
 });
 
 Route::group([

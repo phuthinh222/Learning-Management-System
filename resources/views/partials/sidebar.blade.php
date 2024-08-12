@@ -24,13 +24,20 @@
               <div class="sidebar-content">
                   <ul class="nav nav-secondary">
                       <li class="nav-item">
-                          <a href="#" class="dashboard">
+                          <a href="{{ route('admin.index') }}" class="dashboard">
                               <i class="fas fa-home"></i>
-                              <p>Dashboard</p>
+                              <p>Trang chủ</p>
                           </a>
                       </li>
+                      <li class="nav-item">
+                        <a href="{{ route('teacher.index') }}" class="dashboard">
+                            <i class="fas fa-home"></i>
+                            <p>Quản lý giáo viên</p>
+                        </a>
+                    </li>
                   </ul>
               </div>
           </div>
+          
       </div>
       <!-- End Sidebar -->
