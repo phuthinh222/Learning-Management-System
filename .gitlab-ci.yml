@@ -23,9 +23,9 @@ test_job:
     - apt-get install -y curl gnupg
     - curl -fsSL https://deb.nodesource.com/setup_18.x | bash - # Thay thế 18.x bằng phiên bản Node.js mong muốn
     - apt-get install -y nodejs
-    - node --version                         # Kiểm tra phiên bản Node.js
-    - npm --version                          # Kiểm tra phiên bản npm
-    - npm install                            # Cài đặt các gói npm
+    - node --version # Kiểm tra phiên bản Node.js
+    - npm --version # Kiểm tra phiên bản npm
+    - npm install # Cài đặt các gói npm
     - npm run build
   script:
     - php artisan migrate
@@ -38,30 +38,25 @@ test_job:
 deploy_job:
   stage: deploy
   before_script:
-    - 'which ssh-agent || ( apk update -y && apk add openssh-client -y )'
+    - "which ssh-agent || ( apk update -y && apk add openssh-client -y )"
     - eval $(ssh-agent -s)
     - echo ${SSH_PASSPHRASE_STAGING} |ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-      - >
-        ssh ubuntu@52.64.135.244
-        "cd /var/www/html/ecm01;
-        sudo su;
-        chown $USER:$USER /var/www/html/ecm01;
-        chgrp -R www-data storage bootstrap/cache;
-        chmod 777 storage bootstrap/cache;
-        chmod -R 755 /var/www/html/ecm01;
-        chmod -R o+w /var/www/html/ecm01/storage/;
-        git stash;
-        git checkout develop;
-        git pull origin develop;
-        export COMPOSER_ALLOW_SUPERUSER=1;
-        composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts;
-        composer dump-autoload;
-        php artisan migrate;
-        php artisan queue:restart;
-        php artisan optimize:clear;
-        npm run build;"
+    - >
+      ssh ubuntu@52.64.135.244
+      "cd /var/www/html/ecm01;
+      sudo su;
+      git stash;
+      git checkout develop;
+      git pull origin develop;
+      export COMPOSER_ALLOW_SUPERUSER=1;
+      composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts;
+      composer dump-autoload;
+      php artisan migrate;
+      php artisan queue:restart;
+      php artisan optimize:clear;
+      npm run build;"
   only:
-      - develop
+    - develop
