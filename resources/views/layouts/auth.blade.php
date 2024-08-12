@@ -16,10 +16,9 @@
    </head>
    <body>
     <div class="container">
-        <input type="checkbox" id="flip">
         <div class="cover">
         <div class="front">
-            <img src="images/Authentication/frontImg.jpg" alt="">
+            <img src="{{asset('images/Authentication/frontImg.jpg')}}" alt="">
             <div class="text">
             <span class="text-1">Học tập là việc cả đời <br> Luôn là cơ hội để thành công</span>
             <span class="text-2">Hãy kết nối với chúng tôi</span>

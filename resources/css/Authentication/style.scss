@@ -1,6 +1,7 @@
 $color_1: #fff;
 $color_2: #333;
 $color_3: #63b9db;
+$color_4: #f54254;
 $font-family_1: "Poppins" , sans-serif;
 $background-color_1: #f75f54;
 $background-color_2: #333;
@@ -170,20 +171,51 @@ body {
 			color: $color_1;
 			text-decoration: none;
 			padding-top: 13px;
-			p {
-				width: 100%;
-				text-align: center;
-			}
 			i {
+				color: $color_1;
+				margin-right: 15px;
 				margin-left: 50px;
 				margin-right: 15px;
 				margin-top: 4px;
 			}
+			p {
+				width: 100%;
+				text-align: center;
+				color: $color_1;
+				font-size: 17px;
+				margin-left: 10px;
+			}
+		}
+		p {
+			font-size: 20px;
+			color: $color_3;
 		}
 		i {
 			position: absolute;
 			color: $color_3;
 			font-size: 17px;
+		}
+		.input-with-errors {
+			&:valid {
+				height: 100%;
+				width: 100%;
+				outline: none;
+				border: none;
+				padding: 0 30px;
+				font-size: 16px;
+				font-weight: 500;
+				border-bottom: 2px solid #f54254;
+				transition: all 0.3s ease;
+			}
+			height: 100%;
+			width: 100%;
+			outline: none;
+			border: none;
+			padding: 0 30px;
+			font-size: 16px;
+			font-weight: 500;
+			border-bottom: 2px solid #f54254;
+			transition: all 0.3s ease;
 		}
 	}
 }
@@ -263,6 +295,30 @@ body {
 				width: 20px;
 			}
 		}
+	}
+}
+.text {
+	.p-error {
+		color: $color_4;
+		margin-bottom: 0px;
+	}
+}
+.text-sign-up-text {
+	a {
+		margin-left: 5px;
+	}
+}
+.radio-select {
+	display: flex;
+	margin-bottom: 13px;
+	input {
+		margin-left: 20px;
+		margin-top: 5px;
+	}
+	label {
+		text-align: center;
+		margin-left: 5px;
+		white-space: nowrap;
 	}
 }
 .toast-center-top {

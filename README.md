@@ -44,3 +44,8 @@ Config laradock:<br>
     - run the php-worker: docker compose up php-worker <br>
     Run this command if have email sending problems: <br>
     - php artisan view:clear
+    Run this command line to apply L5-Repository: <br>
+    - composer require prettus/l5-repository
+    - php artisan vendor:publish --provider "Prettus\Repository\Providers\RepositoryServiceProvider"
+
+
