@@ -156,9 +156,21 @@ body{
   text-decoration:none; 
   padding-top: 13px;
 }
+
+.form-content .input-box a i {
+  color: #fff;
+  margin-right: 15px
+}
+.form-content .input-box p {
+  font-size:20px;
+  color: #63b9db
+}
 .form-content .input-box a p{
   width: 100%;
   text-align: center;
+  color: #fff;
+  font-size: 17px;
+  margin-left: 10px;
 }
 .form-content .input-box a i{
   margin-left: 50px;
@@ -236,3 +248,53 @@ body{
     background-color: #333;
   }
 }
+
+.form-content .input-box .input-with-errors:valid {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid #f54254;
+  transition: all 0.3s ease;
+}
+
+.form-content .input-box .input-with-errors {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid #f54254;
+  transition: all 0.3s ease;
+}
+.text .p-error {
+  color:#f54254;
+  margin-bottom: 0px;
+}
+
+.text-sign-up-text a{
+  margin-left: 5px;
+}
+.radio-select {
+  Display:flex;
+  margin-bottom:13px;
+}
+
+.radio-select input{
+  margin-left: 20px; 
+  margin-top:5px
+}
+
+.radio-select label {
+  text-align: center; 
+  margin-left:5px;  
+  white-space: nowrap
+}
+
+
+

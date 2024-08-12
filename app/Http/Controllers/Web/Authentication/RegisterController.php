@@ -23,12 +23,12 @@ class RegisterController extends Controller
     public function registerStore(RegisterRequest $request)
     {
         $user = $this->register_service->register($request);
-        return redirect()->route('email_verify')->with('user', $user);
+        return redirect()->route('email_verify', $user->id);
     }
 
-    public function showVerify(Request $request)
+    public function showVerify($id, Request $request)
     {
-        $user = $request->session()->get('user');
+        $user = $this->register_service->find($id);
         return view('Authentication.email_verify', compact('user'));
     }
 
