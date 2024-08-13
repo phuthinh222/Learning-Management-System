@@ -2,6 +2,7 @@
 
 namespace App\Http\Service\Authentication;
 
+use App\Models\Teacher;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -60,6 +61,7 @@ class AuthenticationService
                 'phone_number' => NULL,
             ];
             $user_to_login = $this->user_repository->create($new_user);
+            $this->assignRole($user_to_login, 'Teacher');
             Auth::login($user_to_login);
             return TRUE;
         } catch (\Throwable $th) {
@@ -69,5 +71,16 @@ class AuthenticationService
     public function logout()
     {
         Auth::logout();
+    }
+
+    public function assignRole($user, $role) 
+    {
+        $user->assignRole($role);
+        $account_type = Teacher::create();
+        $data = [
+            'userable_id' => $account_type->id,
+            'userable_type' => $account_type::class
+        ];
+        $this->user_repository->update($data, $user->id);
     }
 }

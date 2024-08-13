@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('teachers.index');
     }
 
     /**
@@ -60,5 +60,10 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }
