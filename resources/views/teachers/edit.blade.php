@@ -3,25 +3,6 @@
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Giáo viên</h3>
-        <ul class="breadcrumbs mb-3">
-            <li class="nav-home">
-                <a href="#">
-                    <i class="icon-home"></i>
-                </a>
-            </li>
-            <li class="separator">
-                <i class="icon-arrow-right"></i>
-            </li>
-            <li class="nav-item">
-                <a href="#">Giáo viên</a>
-            </li>
-            <li class="separator">
-                <i class="icon-arrow-right"></i>
-            </li>
-            <li class="nav-item">
-                <a href="#">Thêm giáo viên</a>
-            </li>
-        </ul>
     </div>
 @endsection
 
@@ -30,7 +11,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Đăng ký thông tin giáo viên</div>
+                    <div class="card-title">Cập nhật thông tin giáo viên</div>
                 </div>
                 <div class="card-body">
                     <div class="row">

@@ -36,6 +36,8 @@ class RegisterController extends Controller
     {
         $result = $this->register_service->verifyEmail($id, $request->email_verify_token);
         if($result === TRUE) {
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->success(__('auth.verify_successfull'));
             return redirect()->route('login');
         }
         

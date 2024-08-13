@@ -36,27 +36,6 @@
                               <p>Quản lý giáo viên</p>
                           </a>
                       </li>
-                      <li class="nav-item">
-                          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                              <i class="fa fa-graduation-cap"></i>
-                              <p>Học sinh</p>
-                              <span class="caret"></span>
-                          </a>
-                          <div class="collapse" id="sidebarLayouts">
-                              <ul class="nav nav-collapse">
-                                  <li>
-                                      <a href="{{ route('student.create') }}">
-                                          <span class="sub-item">Thêm học sinh</span>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a href="{{ route('student.create') }}">
-                                          <span class="sub-item">Thêm học sinh</span>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </li>
 
                   </ul>
               </div>

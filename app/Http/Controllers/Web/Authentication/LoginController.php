@@ -33,7 +33,6 @@ class LoginController extends Controller
         } 
     
         return redirect()->route('dashboard');
-        
     }
 
     protected function redirectTo()
