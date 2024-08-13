@@ -1,5 +1,6 @@
-<?php 
+<?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
@@ -9,8 +10,6 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
     // Logout route
 
-    // Route::resource('/teacher', TeacherController::class);
-
     Route::resource('/admin', AdminController::class);
 
     Route::prefix('admin')->group(function () {
@@ -18,4 +17,4 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
         Route::get('/teacher/inactive', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.inactive');
     });
-}); 
+});

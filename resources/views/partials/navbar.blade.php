@@ -108,8 +108,14 @@
                                     <div class="u-text">
                                         <h4>{{ Auth::user()->name }}</h4>
                                         <p class="text-muted">{{ Auth::user()->email }}</p>
-                                        <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View
-                                            Profile</a>
+                                        @if (Auth::user()->hasRole('Teacher'))
+                                            <a href="{{ route('teacher.edit', ['teacher' => $teacher->id]) }}"
+                                                class="btn btn-xs btn-secondary btn-sm">View
+                                                Profile</a>
+                                        @endif
+                                        @if (Auth::user()->hasRole('Admin'))
+                                        @endif
+
                                     </div>
                                 </div>
                             </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -11,7 +12,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('teachers.index');
+        $teacher = Auth::user();
+        return view('teachers.index', compact('teacher'));
     }
 
     /**
@@ -41,9 +43,9 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('teachers.edit');
     }
 
     /**

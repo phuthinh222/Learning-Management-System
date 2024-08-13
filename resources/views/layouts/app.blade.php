@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>ECM APP</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon" />
     <!-- Fonts and icons -->
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
@@ -36,6 +36,8 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body>
@@ -57,10 +59,10 @@
                     {{-- <div class="row">
                         <div class="col-md-12">
                             <div class="card"> --}}
-                                <main>
-                                    @yield('content')
-                                </main>
-                            {{-- </div>
+                    <main>
+                        @yield('content')
+                    </main>
+                    {{-- </div>
                         </div>
                     </div> --}}
                 </div>
@@ -90,4 +92,3 @@
 </body>
 
 </html>
-
