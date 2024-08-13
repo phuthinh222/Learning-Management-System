@@ -1,0 +1,67 @@
+<?php
+
+namespace Tests\Feature\Admin;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+
+class GetListUserTest extends TestCase
+{
+
+    /**
+     * A basic feature test example.
+     */
+    /** @test */
+    public function test_show_user_list_with_admin_success(): void
+    {
+        $user = $this->createUserWithRole('Admin');
+
+        $this->actingAs($user);
+        $response = $this->get(route('user.listuser'));
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_show_user_list_with_teacher_fail(): void
+    {
+        $user = $this->createUserWithRole('Teacher');
+
+        $this->actingAs($user);
+        $response = $this->get(route('user.listuser'));
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function test_show_user_list_with_student_fail(): void
+    {
+        $user = $this->createUserWithRole('Student');
+
+        $this->actingAs($user);
+        $response = $this->get(route('user.listuser'));
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function test_show_user_list_with_employee_fail(): void
+    {
+        $user = $this->createUserWithRole('Employee');
+
+        $this->actingAs($user);
+        $response = $this->get(route('user.listuser'));
+
+        $response->assertStatus(403);
+    }
+    private function createUserWithRole(string $role): User
+    {
+        $user = User::factory()->create();
+        $role = Role::findOrCreate($role);
+        $user->assignRole($role);
+
+        return $user;
+    }
+}
