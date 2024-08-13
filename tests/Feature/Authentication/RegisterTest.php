@@ -217,19 +217,25 @@ class RegisterTest extends TestCase
     public function guest_user_can_register_send_wrong_verify_token()
     {
         $user = $this->createUser();
+
+        $user->email_verify_token = 'VERIFY';
+        $user->save();
         $data = [
             'email_verify_token' => 'WrongVerifyToken',
         ];
+    
         $response = $this->postTest(route('email_verify_store', $user->id), $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHas(['failed_verify' => __('email.faile_verify')]);
     }
     
-     /** @test */
-     public function guest_user_can_register_send_valid_verify_token()
-     {
+    /** @test */
+    public function guest_user_can_register_send_valid_verify_token()
+    {
         $user = $this->createUser();
+        $user->email_verify_token = 'VERIFY';
+        $user->save();
         $data = [
             'email_verify_token' => $user->email_verify_token,
         ];
@@ -237,6 +243,5 @@ class RegisterTest extends TestCase
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('login'));
-     }
-     
+    }
 }
