@@ -24,7 +24,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -33,7 +33,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
     public function getAll()
     {
         return $this->model->paginate(10);
@@ -42,9 +42,9 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function search($search_string)
     {
         $user = $this->model->where('user_name', '=', $search_string)
-        ->orWhere('email_address', '=', $search_string)
-        ->orWhere('phone_number', '=', $search_string)
-        ->first();
+            ->orWhere('email_address', '=', $search_string)
+            ->orWhere('phone_number', '=', $search_string)
+            ->first();
         return $user;
     }
 }
