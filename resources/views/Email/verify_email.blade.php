@@ -10,7 +10,7 @@
             <h1>Xác Thực Tài Khoản</h1>
         </div>
         <div class="content">
-            <p>Xin chào, <strong>{{$user->name}}</strong></p>
+            <p>Xin chào, <strong>{{$user->name}}</strong> - <strong>{{$user->email_address}}</strong></p>
             <p>Chúc mừng bạn đã đăng ký thành công tài khoản trên hệ thông ECM. Dưới đây là mã xác thực tài khoản của bạn:</p>
             <h3><strong>{{$user->email_verify_token}}</strong></h3>
             <p>Nếu bạn không yêu cầu xác thực này, vui lòng bỏ qua email này.</p>

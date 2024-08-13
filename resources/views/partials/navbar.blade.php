@@ -109,7 +109,7 @@
                                         <h4>{{ Auth::user()->name }}</h4>
                                         <p class="text-muted">{{ Auth::user()->email }}</p>
                                         @if (Auth::user()->hasRole('Teacher'))
-                                            <a href="{{ route('teacher.edit') }}"
+                                            <a href="{{ route('teacher.edit', ['teacher' => $teacher->id]) }}"
                                                 class="btn btn-xs btn-secondary btn-sm">View
                                                 Profile</a>
                                         @endif
