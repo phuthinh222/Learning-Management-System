@@ -1,0 +1,58 @@
+$color_1: white;
+$background-color_1: #007bff;
+$background-color_2: white;
+$background-color_3: #28a745;
+
+.filter-container {
+	position: relative;
+	width: 300px;
+	label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+	select {
+		width: 100%;
+		padding: 8px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+	}
+	.submit-button {
+		background-color: $background-color_3;
+		color: $color_1;
+		border: none;
+		padding: 10px;
+		font-size: 16px;
+		cursor: pointer;
+		border-radius: 4px;
+	}
+}
+.filter-button {
+	background-color: $background-color_1;
+	color: $color_1;
+	border: none;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+.filter-options {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	background-color: $background-color_2;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	padding: 15px;
+	box-sizing: border-box;
+}
+.filter-options.show {
+	display: block;
+}
+.form-group {
+	margin-bottom: 15px;
+}

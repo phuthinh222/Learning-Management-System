@@ -31,8 +31,14 @@
                           </a>
                       </li>
                       <li class="nav-item">
+                          <a href="{{ route('user.listuser') }}" class="dashboard">
+                              <i class="bi bi-person-fill"></i>
+                              <p>Quản lý người dùng</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a href="{{ route('teacher.inactive') }}" class="dashboard">
-                            <i class="fa fa-briefcase"></i>
+                              <i class="fa fa-briefcase"></i>
                               <p>Quản lý giáo viên</p>
                           </a>
                       </li>

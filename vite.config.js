@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/Authentication/style.scss', 
                 'resources/js/app.js',
+                'resources/css/Table/style.scss', 
             ],
             refresh: true,
         }),
