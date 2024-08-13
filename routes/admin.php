@@ -1,4 +1,5 @@
 <?php 
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
