@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Service\Student\StudentService;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    protected $studentService;
+
+    public function __construct(StudentService $studentService){
+        $this->studentService = $studentService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.index');
     }
 
     /**
@@ -43,7 +51,8 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        return view('students.update_information');
     }
 
     /**
@@ -51,7 +60,11 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+      
+        $this->studentService->UpdateInformation($request->all(),$id);
+        return redirect()->route('student.index');
+
+
     }
 
     /**
