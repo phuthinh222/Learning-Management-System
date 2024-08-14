@@ -2,13 +2,7 @@
 
 namespace Tests\Feature\Authentication;
 
-use App\Models\User;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\ParallelTesting;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -23,7 +17,7 @@ class LoginTest extends TestCase
     {
         return route('login_store');
     }
-    /** @test */
+    #[Test]
     public function guest_user_can_access_to_login_page(): void
     {
         $response = $this->getTest($this->testUrlPage());
@@ -31,7 +25,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    /** @test */
+    #[Test]
     public function auth_user_cannot_access_to_login_page(): void
     {
         $user = $this->createUser();
@@ -56,7 +50,7 @@ class LoginTest extends TestCase
         ->assertRedirect(route('dashboard'));
     }
 
-      /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_wrong_user_name(): void
     {
         $user = $this->createUser();
@@ -74,7 +68,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_invalid_user_name(): void
     {
         $user = $this->createUser();
@@ -92,7 +86,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_wrong_password(): void
     {
         $user = $this->createUser();
@@ -110,7 +104,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_email_not_verified(): void
     {
         $user = $this->createUser();

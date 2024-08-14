@@ -87,11 +87,13 @@ class UpdateInfoTest extends TestCase
     #[Test]
     public function authenticated_user_role_student_can_update_profile(): void
     {
-        $user = $this->createUser()->assignRole('Student');
+        $prefix = fake()->randomElement(['032', '033', '034', '035', '036', '037', '038', '039', '052', '056', '058', '070', '076', '077', '078', '079', '083', '084', '085', '081', '082', '086', '088', '089', '090', '091', '092', '093', '094', '096', '097', '098', '099']);
+        $phone_number = $prefix. fake()->unique()->numerify('#######');
+        $user = $this->createStudentUser();
         $this->actingAs($user);
         $dataUpdate = [
             'name' => 'ten_moi',
-            'phone_number' => '077777',
+            'phone_number' => $phone_number,
             'date_of_birth' => '1990-01-01',
             'address' => 'dia_chi_moi'
         ];
@@ -101,7 +103,7 @@ class UpdateInfoTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'name' => 'ten_moi',
-            'phone_number' => '077777',
+            'phone_number' => $phone_number,
             'date_of_birth' => '1990-01-01',
             'address' => 'dia_chi_moi'
         ]);

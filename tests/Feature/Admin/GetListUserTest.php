@@ -6,15 +6,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Role;
 
 class GetListUserTest extends TestCase
 {
 
-    /**
-     * A basic feature test example.
-     */
-    /** @test */
+    #[Test]
     public function test_show_user_list_with_admin_success(): void
     {
         $user = $this->createUserWithRole('Admin');
@@ -24,7 +22,7 @@ class GetListUserTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function test_show_user_list_with_teacher_fail(): void
     {
         $user = $this->createUserWithRole('Teacher');
@@ -35,7 +33,7 @@ class GetListUserTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function test_show_user_list_with_student_fail(): void
     {
         $user = $this->createUserWithRole('Student');
@@ -46,7 +44,7 @@ class GetListUserTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function test_show_user_list_with_employee_fail(): void
     {
         $user = $this->createUserWithRole('Employee');
