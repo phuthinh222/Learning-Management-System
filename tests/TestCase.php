@@ -20,10 +20,19 @@ abstract class TestCase extends BaseTestCase
     {
         return $this->get($url);
     }
+    protected function putTest($url, $data)
+    {
+        return $this->put($url, $data);
+    }
 
     protected function getTestWithAuth($url, $user)
     {
         return $this->actingAs($user)->get($url);
+    }
+
+    protected function getTestWithAuthNotURL($user)
+    {
+        return $this->actingAs($user);
     }
 
     protected function postTest($url, $data)

@@ -61,10 +61,14 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
       
-        $this->studentService->UpdateInformation($request->all(),$id);
+        $this->studentService->update_information($request->all(),$id);
+        flash()
+        ->options([
+            'timeout' => 3000, 
+            'position' => 'top-center',
+        ])
+        ->success('Cập nhật thông tin thành công');
         return redirect()->route('student.index');
-
-
     }
 
     /**

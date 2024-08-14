@@ -10,11 +10,20 @@ use Tests\TestCase;
 
 class UpdateInfoTest extends TestCase
 {
+    protected function getUrlView($id)
+    {
+        return route('student.edit',$id);
+    }
+    protected function getUrlUpdateStudent($id)
+    {
+        return route('student.update',$id);
+    }
+
     #[Test]
     public function user_not_login_user_not_see_view_edit()
     {
-        $user = User::factory()->create();
-        $response = $this->get(route('student.edit',$user->id));
+        $user = $this->createUser();
+        $response = $this->getTest($this->getUrlView($user->id));;
         $response->assertRedirect(route('login'));
         $response->assertStatus(302);
     }
@@ -23,28 +32,25 @@ class UpdateInfoTest extends TestCase
     public function authenticated_user_role_teacher_not_see_view_student(): void
     {
        
-        $user = User::factory()->create()->assignRole('Teacher');
-        $this->actingAs($user);
-        $response = $this->get(route('student.edit',$user->id));
+       
+        $user = $this->createUser()->assignRole('Teacher');
+        $response = $this->getTestWithAuth($this->getUrlView($user->id), $user);
         $response->assertStatus(403);
     }
 
     #[Test]
     public function authenticated_user_role_admin_not_see_view_student(): void
     {
-       
-        $user = User::factory()->create()->assignRole('Admin');
-        $this->actingAs($user);
-        $response = $this->get(route('student.edit',$user->id));
+        $user = $this->createUser()->assignRole('Admin');
+        $response = $this->getTestWithAuth($this->getUrlView($user->id), $user);
         $response->assertStatus(403);
     }
 
     #[Test]
     public function authenticated_user_role_student_id_not_exist(): void
     {
-       
-        $user = User::factory()->create()->assignRole('Student');
-        $this->actingAs($user);
+        $user = $this->createUser()->assignRole('Student');
+        $this->getTestWithAuthNotURL($user);
         $user_id = -1;
         $dataUpdate = [
             'name' => 'ten_moi',
@@ -52,9 +58,8 @@ class UpdateInfoTest extends TestCase
             'date_of_birth' => '1990-01-01',
             'address' => 'dia_chi_moi'
         ];
-        $response = $this->put(route('student.update', $user_id), $dataUpdate);
+        $response = $this->putTest($this->getUrlUpdateStudent($user_id),$dataUpdate);
         $response->assertStatus(404);
-       
        
     }
 
@@ -63,9 +68,8 @@ class UpdateInfoTest extends TestCase
     public function authenticated_user_role_student_can_see_view_edit_profile(): void
     {
        
-        $user = User::factory()->create()->assignRole('Student');
-        $this->actingAs($user);
-        $response = $this->get(route('student.edit',$user->id));
+        $user = $this->createUser()->assignRole('Student');
+        $response = $this->getTestWithAuth($this->getUrlView($user->id), $user);
         $response->assertStatus(200);
         $response->assertViewIs('students.update_information');
         $response->assertSee($user->name);
@@ -83,21 +87,21 @@ class UpdateInfoTest extends TestCase
     #[Test]
     public function authenticated_user_role_student_can_update_profile(): void
     {
-        $user = User::factory()->create()->assignRole('Student');
+        $user = $this->createUser()->assignRole('Student');
         $this->actingAs($user);
         $dataUpdate = [
             'name' => 'ten_moi',
-            'phone_number' => '0333333',
+            'phone_number' => '077777',
             'date_of_birth' => '1990-01-01',
             'address' => 'dia_chi_moi'
         ];
-        $response = $this->put(route('student.update', $user->id), $dataUpdate);
+        $response = $this->putTest($this->getUrlUpdateStudent($user->id),$dataUpdate);
         $response->assertStatus(302);
         $response->assertRedirect(route('student.index'));
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'name' => 'ten_moi',
-            'phone_number' => '0333333',
+            'phone_number' => '077777',
             'date_of_birth' => '1990-01-01',
             'address' => 'dia_chi_moi'
         ]);

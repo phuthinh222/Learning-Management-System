@@ -14,7 +14,7 @@ class StudentService
         $this->student_repository = $student_repository;
     }
 
-    public function UpdateInformation($data,$id)
+    public function update_information($data,$id)
     {
         return $this->student_repository->update($data,$id);
     }

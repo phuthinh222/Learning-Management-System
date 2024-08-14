@@ -37,10 +37,5 @@ class StudentRepositoryEloquent extends BaseRepository implements StudentReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-
-    public function update(array $data, $id)
-    {
-        return parent::update($data, $id);
-    }
     
 }
