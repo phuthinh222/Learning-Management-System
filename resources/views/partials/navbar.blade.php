@@ -115,6 +115,10 @@
                                         @endif
                                         @if (Auth::user()->hasRole('Admin'))
                                         @endif
+                                        @if (Auth::user()->hasRole('Student'))
+                                            <a href="{{ route('student.edit',Auth::user()->id) }}"
+                                                class="btn btn-xs btn-secondary btn-sm">Thông tin cá nhân</a>
+                                        @endif
 
                                     </div>
                                 </div>
