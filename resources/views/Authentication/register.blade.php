@@ -32,9 +32,9 @@
                 <div class="input-box">
                     <p>Bạn là: </p>
                     <div class="radio-select">
-                        <input type="radio" name="account_type" id="is_student" value="is_student" checked>
+                        <input type="radio" name="account_type" id="is_student" value="is_student" {{ old('account_type', 'is_student') == 'is_student' ? 'checked' : '' }}>
                         <label for="is_student"> Học sinh</label>
-                        <input type="radio" name="account_type" id="is_teacher" value="is_teacher">
+                        <input type="radio" name="account_type" id="is_teacher" value="is_teacher" {{ old('account_type') == 'is_teacher' ? 'checked' : '' }}>
                         <label for="is_teacher">Giáo viên</label>
                     </div>
                 </div>

@@ -30,24 +30,23 @@
                               <p>Trang chủ</p>
                           </a>
                       </li>
-                      <li class="nav-item">
-                          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                              <i class="fa fa-graduation-cap"></i>
-                              <p>Học sinh</p>
-                              <span class="caret"></span>
-                          </a>
-                          <div class="collapse" id="sidebarLayouts">
-                              <ul class="nav nav-collapse">
-                                  <li>
-                                      <a href="{{ route('student.create') }}">
-                                          <span class="sub-item">Thêm học sinh</span>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </li>
+                      @if (Auth::check() && Auth::user()->hasRole('Admin'))
+                          <li class="nav-item">
+                              <a href="{{ route('user.listuser') }}" class="dashboard">
+                                  <i class="bi bi-person-fill"></i>
+                                  <p>Quản lý người dùng</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('teacher.inactive') }}" class="dashboard">
+                                  <i class="fa fa-briefcase"></i>
+                                  <p>Quản lý giáo viên</p>
+                              </a>
+                          </li>
+                      @endif
                   </ul>
               </div>
           </div>
+
       </div>
       <!-- End Sidebar -->

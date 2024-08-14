@@ -50,6 +50,82 @@ return [
         ],
     ],
 
+    'teacher_department' => [
+        'required' => 'Bạn chưa nhập Phòng Ban',
+        'max' => 'Tên Phòng Ban quá dài',
+        'regex' => 'Tên Phòng ban chứa các ký tự không hợp lệ'
+    ],
+
+    'teacher_phone_number' => [
+        'required' => 'Bạn chưa nhập số điện thoại',
+        'regex' => 'Số điện thoại sai định dạng',
+        'unique' => 'Số điện thoại đã tồn tại'
+    ],
+
+    'teacher_date_of_birth' => [
+        'date_format' => 'Ngày tháng năm sinh sai định dạng (YYYYY-MM-DD)',
+        'before' => 'Chọn sai ngày tháng năm sinh',
+        'after' => 'Chọn sai ngày tháng năm sinh'
+    ],
+
+    'teacher_name' => [
+        'required' => 'Bạn chưa nhập họ và tên',
+        'regex' => 'Họ và tên chứa các ký tự không hợp lệ',
+        'max' => 'Họ và tên quá dài'
+    ],
+
+    'teacher_position' => [
+        'required' => 'Bạn chưa nhập vị trí làm việc',
+        'max' => 'Tên vị trí quá dài',
+        'regex' => 'Tên vị trí chứa các ký tự không hợp lệ'
+    ],
+
+    'teacher_address' => [
+        'required' => 'Bạn chưa nhập địa chỉ',
+        'max' => 'Địa chỉ quá dài'
+    ],
+
+    'teacher_certificate' => [
+        'major' => [
+            'required' => 'Bạn chưa nhập chuyên ngành',
+            'max' => 'Tên chuyên ngành quá dài',
+            'regex' => 'Tên chuyên ngành chứa các ký tự không hợp lệ'
+        ],
+        'level' => [
+            'required' => 'Bạn chưa nhập cấp độ làm việc',
+            'max' => 'Cấp độ làm việc quá dài',
+            'regex' => 'Cấp độ làm việc chứa các ký tự không hợp lệ',
+        ],
+        'school_name' => [
+            'required' => 'Bạn chưa nhập tên trường học',
+            'max' => 'Tên trường học quá dài',
+            'regex' => 'Tên trường học chứa các ký tự không hợp lệ'
+        ],
+        'certificate_image' => [
+            'required' => 'Bạn chưa chọn ảnh minh chứng',
+            'mimes' => 'Định dạng file không được hỗ trợ',
+            'max' => 'Kích thước file quá lớn'
+        ]
+    ],
+    
+    'teacher_experiences' => [
+        'company' => [
+            'required' => 'Bạn chưa nhập tên công ty',
+            'max' => 'Tên công ty quá dài',
+            'regex' => 'Tên công ty chứa ký tự không hợp lệ'
+        ],
+        'position' => [
+            'required' => 'Bạn chưa nhập vị trí',
+            'max' => 'Vị trí quá dài',
+            'regex' => 'Vị trí chứa ký tự không hợp lệ'
+        ],
+        'year' => [
+            'required' => 'Bạn chưa nhập số năm kinh nghiệm',
+            'min' => 'Số năm kinh nghiệm phải lớn hơn hoặc bằng 0',
+            'max' => 'Số năm kinh nghiệm quá lớn',
+            'numeric' => 'Số năm kinh nghiệm sai định dạng'
+        ]
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
