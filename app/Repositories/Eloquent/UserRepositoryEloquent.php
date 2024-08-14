@@ -45,4 +45,11 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             ->first();
         return $user;
     }
+    
+    public function getUsersByRoles(array $roles, $perPage = 10)
+    {
+        return $this->model->whereHas('roles', function($query) use ($roles) {
+            $query->whereIn('roles.name', $roles);
+        })->paginate($perPage);
+    }
 }
