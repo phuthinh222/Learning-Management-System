@@ -70,7 +70,6 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-8">
-                            
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="input-group mb-3">
@@ -90,84 +89,46 @@
                                     <th>Tên tài khoản</th>
                                     <th>Tên</th>
                                     <th>Email</th>
-                                    <th>Ngày sinh</th>
+                                    <th style="width: 10%">Ngày sinh</th>
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày tạo</th>
-                                    <th>Chức vụ</th>
-                                    <th style="width: 10%">Thao tác</th>
+                                    <th style="width: 8%">Chức vụ</th>
+                                    <th style="width: 8%">Thao tác</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                <tr>
-                                    <td>ecm01</td>
-                                    <td>Name test</td>
-                                    <td>ecm01@example.com</td>
-                                    <td>01-01-2000</td>
-                                    <td>28 Nguyễn Tri Phương, Huế</td>
-                                    <td>0123456789</td>
-                                    <td>01:01 01-01-2000</td>
-                                    <td>Teacher</td>
-                                    <td>
-                                        <div class="form-button-action">
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-danger" data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ecm01</td>
-                                    <td>Name test</td>
-                                    <td>ecm01@example.com</td>
-                                    <td>01-01-2000</td>
-                                    <td>28 Nguyễn Tri Phương, Huế</td>
-                                    <td>0123456789</td>
-                                    <td>01:01 01-01-2000</td>
-                                    <td>Student</td>
-                                    <td>
-                                        <div class="form-button-action">
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-danger" data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ecm01</td>
-                                    <td>Name test</td>
-                                    <td>ecm01@example.com</td>
-                                    <td>01-01-2000</td>
-                                    <td>28 Nguyễn Tri Phương, Huế</td>
-                                    <td>0123456789</td>
-                                    <td>01:01 01-01-2000</td>
-                                    <td>Employee</td>
-                                    <td>
-                                        <div class="form-button-action">
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-danger" data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->user_name }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email_address }}</td>
+                                        <td>{{ $user->date_of_birth }}</td>
+                                        <td>{{ $user->address }}</td>
+                                        <td>{{ $user->phone_number }}</td>
+                                        <td>{{ $user->email_verified_at }}</td>
+                                        <td>
+                                            @foreach ($user->roles as $role)
+                                                {{ $roleTranslations[$role->name] ?? $role->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <div class="form-button-action">
+                                                <button type="button" data-bs-toggle="tooltip" title=""
+                                                    class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <button type="button" data-bs-toggle="tooltip" title=""
+                                                    class="btn btn-link btn-danger" data-original-title="Remove">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        {{ $users->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>
