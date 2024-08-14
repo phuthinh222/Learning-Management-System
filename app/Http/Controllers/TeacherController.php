@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\TeacherInformationRequest;
+use App\Models\Certificate;
+use App\Models\Experience;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +17,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $teacher = Auth::user();
         return view('teachers.index', compact('teacher'));
     }
@@ -43,17 +49,21 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('teachers.edit');
+        $teacher =  User::find($id);
+        $user = $teacher;
+        $certificates = Certificate::all();
+        $experiences = Experience::all();
+        return view('teachers.edit', compact(['teacher', 'user', 'certificates', 'experiences']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TeacherInformationRequest $request, string $id)
     {
-        //
+        
     }
 
     /**
