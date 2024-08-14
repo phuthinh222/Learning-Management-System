@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\UserController;
 // Authentication Routes
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
@@ -16,5 +16,6 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
         Route::resource('/student', StudentController::class);
 
         Route::get('/teacher/inactive', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.inactive');
+        Route::get('/user/listuser', [UserController::class, 'listUsers'])->name('user.listuser');
     });
 });
