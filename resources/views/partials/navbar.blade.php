@@ -112,13 +112,26 @@
                                     <div class="u-text">
                                         <h4>{{ Auth::user()->name }}</h4>
                                         <p class="text-muted">{{ Auth::user()->email }}</p>
-                                        <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View
-                                            Profile</a>
+                                        @if (Auth::user()->hasRole('Teacher'))
+                                            <a href="{{ route('teacher.edit', ['teacher' => Auth::user()->id]) }}"
+                                                class="btn btn-xs btn-secondary btn-sm">View
+                                                Profile</a>
+                                        @endif
+                                        @if (Auth::user()->hasRole('Admin'))
+                                        @endif
+                                        @if (Auth::user()->hasRole('Student'))
+                                            <a href="{{ route('student.edit', Auth::user()->id) }}"
+                                                class="btn btn-xs btn-secondary btn-sm">Thông tin cá nhân</a>
+                                        @endif
+
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="dropdown-divider"></div>
+                                @if (Auth::user()->hasRole('Teacher'))
+                                    <a class="dropdown-item" href="{{route('teacher.listTimeKeeping')}}">Chấm công</a>
+                                @endif
                                 <a class="dropdown-item" href="#">My Profile</a>
                                 <a class="dropdown-item" href="#">My Balance</a>
                                 <a class="dropdown-item" href="#">Inbox</a>
@@ -141,7 +154,10 @@
         </div>
     </nav>
     <!-- End Navbar -->
+
+  
 </div>
+
 
 <script>
     document.getElementById('logout-form').addEventListener('submit', function(event) {
