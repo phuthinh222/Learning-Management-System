@@ -38,11 +38,9 @@ class StudentRepositoryEloquent extends BaseRepository implements StudentReposit
     }
 
 
-    public function update($data,$id)
+    public function update(array $data, $id)
     {
-        $student = $this->model->findOrFail($id);
-        $student->update($data);
-        return $student;
+        return parent::update($data, $id);
     }
     
 }
