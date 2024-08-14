@@ -17,7 +17,6 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $teacher = Auth::user();
         return view('teachers.index', compact('teacher'));
     }

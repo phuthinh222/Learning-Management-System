@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Roles;
 use App\Models\SalaryRecipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

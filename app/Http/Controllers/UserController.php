@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Service\Student\StudentService;
-use App\Models\Student;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class UserController extends Controller
 {
-
-    protected $studentService;
-
-    public function __construct(StudentService $studentService){
-        $this->studentService = $studentService;
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.index');
+        //
+    }
+
+    public function listUsers()
+    {
+        return view('users.list_user');
     }
 
     /**
@@ -51,8 +48,7 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        
-        return view('students.update_information');
+        //
     }
 
     /**
@@ -60,15 +56,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-      
-        $this->studentService->update_information($request->all(),$id);
-        flash()
-        ->options([
-            'timeout' => 3000, 
-            'position' => 'top-center',
-        ])
-        ->success('Cập nhật thông tin thành công');
-        return redirect()->route('student.index');
+        //
     }
 
     /**

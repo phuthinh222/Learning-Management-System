@@ -41,6 +41,15 @@ abstract class TestCase extends BaseTestCase
     {
         return $this->get($url);
     }
+    protected function putTest($url, $data)
+    {
+        return $this->put($url, $data);
+    }
+
+    protected function getTestWithAuthNotURL($user)
+    {
+        return $this->actingAs($user);
+    }
 
     protected function postTest($url, $data)
     {
@@ -67,6 +76,4 @@ abstract class TestCase extends BaseTestCase
     {
         return User::where('email_address', $email_address)->first();
     }
-
-    
 }
