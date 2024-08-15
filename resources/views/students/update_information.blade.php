@@ -40,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="user_name">Tên đăng nhập <span class="text-danger">*</span></label>
-                                    <input disabled type="email" class="form-control" id="user_name" name="user_name" value="{{Auth::user()->user_name}}"
+                                    <input disabled type="text" class="form-control" value="{{Auth::user()->user_name}}"
                                         placeholder="nva123" />
                                 </div>
                                 <div class="form-group">
@@ -58,7 +58,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Địa chỉ email <span class="text-danger">*</span></label>
-                                    <input disabled type="email" class="form-control" id="email" name="email_address" value="{{Auth::user()->email_address}}"
+                                    <input disabled type="email" class="form-control" value="{{Auth::user()->email_address}}"
                                         placeholder="nguyenvana@gmail.com" />
                                 </div>
                                 <div class="form-group">
@@ -77,7 +77,8 @@
                         </div>
                     </div>
                     <div class="card-action ">
-                        <button class="btn btn-danger">Trở lại</button>
+
+                        <a href="{{route('student.back')}}" class="btn btn-danger">Trở lại</a>
                         <button type="submit" class="btn btn-success">Lưu</button>
                     </div>
                 </form>

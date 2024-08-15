@@ -38,7 +38,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss','resources/css/Teacher/timekeeping.scss'])
 
 </head>
 

@@ -77,4 +77,12 @@ class TeacherController extends Controller
     {
         return view('teachers.inactive');
     }
+
+
+    public function  listTimeKeeping()
+    {
+        return view('teachers.timekeeping');
+    }
+   
+
 }

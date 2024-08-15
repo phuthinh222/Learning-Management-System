@@ -116,7 +116,7 @@
                                         @if (Auth::user()->hasRole('Admin'))
                                         @endif
                                         @if (Auth::user()->hasRole('Student'))
-                                            <a href="{{ route('student.edit',Auth::user()->id) }}"
+                                            <a href="{{ route('student.edit', Auth::user()->id) }}"
                                                 class="btn btn-xs btn-secondary btn-sm">Thông tin cá nhân</a>
                                         @endif
 
@@ -125,6 +125,9 @@
                             </li>
                             <li>
                                 <div class="dropdown-divider"></div>
+                                @if (Auth::user()->hasRole('Teacher'))
+                                    <a class="dropdown-item" href="{{route('teacher.listTimeKeeping')}}">Chấm công</a>
+                                @endif
                                 <a class="dropdown-item" href="#">My Profile</a>
                                 <a class="dropdown-item" href="#">My Balance</a>
                                 <a class="dropdown-item" href="#">Inbox</a>
@@ -147,7 +150,10 @@
         </div>
     </nav>
     <!-- End Navbar -->
+
+  
 </div>
+
 
 <script>
     document.getElementById('logout-form').addEventListener('submit', function(event) {

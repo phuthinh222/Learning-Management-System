@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
 Route::group(['middleware' => ['auth', 'role:Teacher']], function () {
+    Route::get('teacher/list_timekeeping',[TeacherController::class , 'listTimeKeeping'])->name('teacher.listTimeKeeping');
     Route::resource('/teacher', TeacherController::class);
     Route::post('/teacher/{teacher}/certificate', [CertificateController::class, 'create'])->name('teacher_certificate');
     Route::post('/teacher/{teacher}/experiences', [ExperienceController::class, 'create'])->name('teacher_experiences');

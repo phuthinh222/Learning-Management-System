@@ -7,4 +7,5 @@ use Illuminate\Support\Facades\Route;
 // Authentication Routes
 Route::group(['middleware' => ['auth', 'role:Student']], function () {
     Route::resource('/student', StudentController::class);
+    Route::get('/back',[StudentController::class , 'redirectBack'])->name('student.back');
 });

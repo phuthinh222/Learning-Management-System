@@ -19,7 +19,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        return view('students.index');
     }
 
     /**
@@ -77,5 +77,11 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function redirectBack()
+    {
+        return redirect(route('student.index'));
     }
 }
