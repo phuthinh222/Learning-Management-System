@@ -1,12 +1,21 @@
 import "./bootstrap";
-import "./action";
+import "./date_picker_boostrap";
+import "./filter-user";
+import "./date_picker_boostrap";
+import "./filter-user";
 import { editExperience, delExperience, createExperience } from "./experience";
-import { editCertificate, delCertificate } from "./certificate";
+import {
+    createCertificate,
+    editCertificate,
+    delCertificate,
+} from "./certificate";
 
 document.addEventListener("DOMContentLoaded", () => {
+    createCertificate();
+    editCertificate();
+    delCertificate();
+
     createExperience();
     editExperience();
     delExperience();
-    editCertificate();
-    delCertificate();
 });

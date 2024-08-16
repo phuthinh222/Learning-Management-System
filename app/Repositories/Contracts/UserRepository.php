@@ -13,5 +13,8 @@ interface UserRepository extends RepositoryInterface
 {
     public function getAll();
     
-    public function search($search_string);
+    public function searchToLogin($searchString);
+
+    public function getUsersByRoles(array $roles, $searchString);
+
 }

@@ -9,6 +9,7 @@
     <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon" />
     <!-- Fonts and icons -->
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script>
         WebFont.load({
             google: {
@@ -33,6 +34,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
+    <!-- font_awesome Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
@@ -40,6 +43,7 @@
     @if (request()->routeIs('teacher.edit') || request()->routeIs('student.edit'))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
+    @vite(['resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss'])
 
 
 </head>
@@ -93,6 +97,7 @@
     <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
 
 
+    @yield('after_js')
 </body>
 
 </html>

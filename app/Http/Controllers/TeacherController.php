@@ -6,6 +6,7 @@ use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
@@ -18,7 +19,8 @@ class TeacherController extends Controller
     }
     public function index()
     {
-        return view('teachers.index');
+        $teacher = Auth::user();
+        return view('teachers.index', compact('teacher'));
     }
     public function edit(string $id)
     {
@@ -31,21 +33,6 @@ class TeacherController extends Controller
 
     public function update(Request $request, Teacher $teacher)
     {
-        // $user = User::find($request->user_id);
-        // if ($user->user_name == $request->user_name) {
-        //     $user->update($request->all());
-        //     $teacher->update($request->all());
-        //     if ($user) {
-        //         flash()->success('Bạn đã cập nhật thành công');
-        //         return redirect()->route('teacher.index');
-        //     } else {
-        //         flash()->warning('Cập nhật thông tin bị lỗi');
-        //         return redirect()->route('teacher.edit', ['teacher' => $request->user_id]);
-        //     }
-        // } else {
-        //     flash()->warning('Cập nhật thông tin bị lỗi');
-        //     return redirect()->route('teacher.edit', ['teacher' => $request->user_id]);
-        // }
         DB::beginTransaction();
         try {
             $this->teacher->update($request->all(), $request->user_id);
@@ -55,5 +42,14 @@ class TeacherController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
+    }
+
+
+
+    public function  listTimeKeeping()
+    {
+        $teacher = $this->teacher->getTeacherByAuth();
+        $attendance = $this->teacher->getCheckinStatus();
+        return view('teachers.timekeeping', compact('teacher', 'attendance'));
     }
 }

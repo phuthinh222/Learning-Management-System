@@ -19,17 +19,6 @@
     <!-- Navbar Header -->
     <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="z-index: 1">
         <div class="container-fluid">
-            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pe-1">
-                            <i class="fa fa-search search-icon"></i>
-                        </button>
-                    </div>
-                    <input type="text" placeholder="Search ..." class="form-control" />
-                </div>
-            </nav>
-
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -125,6 +114,10 @@
                                         @endif
                                         @if (Auth::user()->hasRole('Admin'))
                                         @endif
+                                        @if (Auth::user()->hasRole('Student'))
+                                            <a href="{{ route('student.edit', Auth::user()->id) }}"
+                                                class="btn btn-xs btn-secondary btn-sm">Thông tin cá nhân</a>
+                                        @endif
 
                                     </div>
                                 </div>
@@ -132,6 +125,9 @@
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                                @if (Auth::user()->hasRole('Teacher'))
+                                    <a class="dropdown-item" href="{{ route('teacher.listTimeKeeping') }}">Chấm công</a>
+                                @endif
                                 <a class="dropdown-item" href="#">My Balance</a>
                                 <a class="dropdown-item" href="#">Inbox</a>
                                 <div class="dropdown-divider"></div>
@@ -153,7 +149,10 @@
         </div>
     </nav>
     <!-- End Navbar -->
+
+
 </div>
+
 
 <script>
     document.getElementById('logout-form').addEventListener('submit', function(event) {

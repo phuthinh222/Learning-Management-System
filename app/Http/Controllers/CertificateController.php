@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\CertificationCreateRequest;
 use App\Http\Service\Teacher\CertificateService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;

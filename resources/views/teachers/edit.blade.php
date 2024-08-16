@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Giáo viên</h3>
@@ -28,8 +29,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Họ tên giáo viên <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="name" name="name"
+                                    <input type="text" @error('name') class="form-control is-invalid" @enderror
+                                        class="form-control" id="name" name="name"
+                                        @error('phone_number') value="{{ old('name') }}" @enderror
                                         value="{{ $user->name }}" />
+                                    @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -40,29 +48,57 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="datepicker">Sinh nhật</label>
-                                    <input type="text" class="form-control" id="datepicker" class="datepicker"
-                                        name="date_of_birth" value="{{ $user->date_of_birth }}" />
+                                    <input type="text" @error('date_of_birth') class="form-control is-invalid" @enderror
+                                        class="form-control" id="datepicker" class="datepicker" name="date_of_birth"
+                                        @error('date_of_birth') value="{{ old('date_of_birth') }}" @enderror
+                                        value="{{ $user->date_of_birth }}" />
+                                    @error('date_of_birth')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" id="phone" name="phone_number"
+                                    <input type="tel" @error('phone_number') class="form-control is-invalid" @enderror
+                                        class="form-control" id="phone" name="phone_number"
+                                        @error('phone_number') value="{{ old('phone_number') }}" @enderror
                                         value="{{ $user->phone_number }}" />
+                                    @error('phone_number')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="department">Phòng ban <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="department" name="department"
+                                    <input @error('department') class="form-control is-invalid" @enderror type="text"
+                                        class="form-control" id="department" name="department"
+                                        @error('department') value="{{ old('department') }}" @enderror
                                         value="{{ $teacher->department }}" />
+                                    @error('department')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="position">Vị trí <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="position" name="position"
+                                    <input type="text" @error('position') class="form-control is-invalid" @enderror
+                                        class="form-control" id="position" name="position"
+                                        @error('position') value="{{ old('position') }}" @enderror
                                         value="{{ $teacher->position }}" />
+                                    @error('position')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -90,8 +126,15 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="address">Nơi ở hiện tại <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="address" name="address"
+                                    <input type="text" @error('address') class="form-control is-invalid" @enderror
+                                        class="form-control" id="address" name="address"
+                                        @error('address') value="{{ old('address') }}" @enderror
                                         value="{{ $user->address }}" />
+                                    @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -122,9 +165,8 @@
                                                     @foreach ($certificates as $item)
                                                         <tr>
                                                             <td>
-                                                                <img src="{{ asset('storage/teachers/' . $item->photo) }}"
-                                                                    alt="Certificate Image" alt="No image"
-                                                                    style="width: 150px;">
+                                                                <img src="{{ $item->photo ? asset('storage/teachers/' . $item->photo) : asset('assets/img/default.jpg') }}"
+                                                                    alt="" style="width: 150px">
                                                             </td>
                                                             <td>{{ $item->major }}</td>
                                                             <td>{{ $item->level }}</td>
@@ -332,4 +374,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('after_js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 @endsection

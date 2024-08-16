@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AttendanceSeeder::class,
             CenterCostSeeder::class,
+            EmployeeSeeder::class,
+            TeacherSeeder::class,
             StudentSeeder::class,
             SubjectSeeder::class,
             TimeLineSeeder::class,
