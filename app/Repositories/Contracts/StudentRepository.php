@@ -11,7 +11,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface StudentRepository extends RepositoryInterface
 {
- /**
+    /**
      * Update a student entity by id
      *
      * @param array $data

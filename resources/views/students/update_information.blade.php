@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-action ">
 
-                        <a href="{{route('student.back')}}" class="btn btn-danger">Trở lại</a>
+                        <a href="{{route('student.index')}}" class="btn btn-danger">Trở lại</a>
                         <button type="submit" class="btn btn-success">Lưu</button>
                     </div>
                 </form>

@@ -1,3 +1,3 @@
 import "./bootstrap";
-import "./action";
+import "./date_picker_boostrap";
 import "./filter-user";

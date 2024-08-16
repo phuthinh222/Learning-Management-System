@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\TeacherInformationRequest;
+use App\Http\Service\Teacher\TeacherService;
 use App\Models\Certificate;
 use App\Models\Experience;
 use App\Models\User;
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
+    protected $teacherService;
+
+    public function __construct(TeacherService $teacherService){
+        $this->teacherService = $teacherService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -81,7 +88,9 @@ class TeacherController extends Controller
 
     public function  listTimeKeeping()
     {
-        return view('teachers.timekeeping');
+        $teacher = $this->teacherService->getTeacherByAuth();
+        $attendance =$this->teacherService->getCheckinStatus();
+        return view('teachers.timekeeping', compact('teacher', 'attendance'));
     }
    
 

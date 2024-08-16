@@ -9,7 +9,7 @@ export default defineConfig({
                 'resources/css/Authentication/style.scss', 
                 'resources/js/app.js',
                 'resources/css/Table/style.scss', 
-                'resources/css/Teacher/timekeeping.scss',
+                'resources/css/Teacher/timekeeping.scss', 
             ],
             refresh: true,
         }),
