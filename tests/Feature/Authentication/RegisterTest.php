@@ -18,7 +18,7 @@ class RegisterTest extends TestCase
 
     protected function getPostUrl()
     {
-        return route('register_store');
+        return route('register');
     }
     #[Test]
     public function guest_user_can_access_register_page()
@@ -224,7 +224,7 @@ class RegisterTest extends TestCase
             'email_verify_token' => 'WrongVerifyToken',
         ];
     
-        $response = $this->postTest(route('email_verify_store', $user->id), $data);
+        $response = $this->postTest(route('email_verify', $user->id), $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHas(['failed_verify' => __('email.faile_verify')]);
@@ -239,7 +239,7 @@ class RegisterTest extends TestCase
         $data = [
             'email_verify_token' => $user->email_verify_token,
         ];
-        $response = $this->postTest(route('email_verify_store', $user->id), $data);
+        $response = $this->postTest(route('email_verify', $user->id), $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('login'));

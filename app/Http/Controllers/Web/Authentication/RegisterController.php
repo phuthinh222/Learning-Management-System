@@ -20,19 +20,19 @@ class RegisterController extends Controller
         return view('Authentication.register');
     }
 
-    public function registerStore(RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $user = $this->register_service->register($request);
         return redirect()->route('email_verify', $user->id);
     }
 
-    public function showVerify($id, Request $request)
+    public function verifyEmail($id, Request $request)
     {
         $user = $this->register_service->find($id);
         return view('Authentication.email_verify', compact('user'));
     }
 
-    public function emailVerifyStore($id, Request $request)
+    public function verifyToken($id, Request $request)
     {
         $result = $this->register_service->verifyEmail($id, $request->email_verify_token);
         if($result === TRUE) {

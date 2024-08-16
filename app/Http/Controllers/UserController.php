@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Service\User\UserService;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -14,12 +15,10 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function listUsers()
-    {
-        $perPage = 10;
-
-        $users = $this->userService->getUserAnotherRoleAdmin($perPage);
-
+    public function listUsers(Request $request)
+    {   
+        $request->flash();
+        $users = $this->userService->getUsersNotAdmin($request);
         $roleTranslations = [
             'Admin' => 'Quản trị viên',
             'Teacher' => 'Giáo viên',
@@ -27,5 +26,11 @@ class UserController extends Controller
             'Employee' => 'Nhân viên'
         ];
         return view('users.list_user', compact('users', 'roleTranslations'));
+    }
+
+    public function getSubjectsForFilter(Request $request)
+    {
+        $subjects = $this->userService->getAllSubjectForUserFilter();
+        return response()->json(['data' => $subjects]);
     }
 }

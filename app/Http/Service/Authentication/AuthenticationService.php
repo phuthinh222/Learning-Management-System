@@ -20,7 +20,7 @@ class AuthenticationService
 
     public function login($request)
     {
-        $user = $this->user_repository->search($request->user_name);
+        $user = $this->user_repository->searchToLogin($request->user_name);
         if ($user !== null) {
             if (Hash::check($request->password, $user->password)) {
                 if ($user->email_verify_token == NULL) {
@@ -45,7 +45,7 @@ class AuthenticationService
     { 
         try {
             $user = Socialite::driver('Google')->user();
-            $user_to_login = $this->user_repository->search($user->email);
+            $user_to_login = $this->user_repository->searchToLogin($user->email);
             if ($user_to_login !== NULL) {
                 Auth::login($user_to_login);
                 return TRUE;
