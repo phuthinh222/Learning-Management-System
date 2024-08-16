@@ -10,7 +10,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::unprepared('DROP FUNCTION IF EXISTS remove_accents');
         DB::unprepared('
             CREATE function remove_accents(input NVARCHAR(255))
             RETURNS VARCHAR(255)
