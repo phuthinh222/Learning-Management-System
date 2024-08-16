@@ -25,7 +25,7 @@ class TeacherService
         if(!$this->attendance_repository->getCheckinStatus())
         {
             $data_checkin = [
-                'date' =>Carbon::now()->toDateString(),
+                'date' =>Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString(),
                 'time_check_in' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s'),
                 'time_check_out' => '00:00:00',
             ];

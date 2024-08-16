@@ -41,14 +41,14 @@ class AttendancesRepositoryEloquent extends BaseRepository implements Attendance
     public function getCheckinStatus()
     {
         $userId = Auth::user()->id;
-        $today = Carbon::now()->toDateString();
-
+        $today = Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString();
+        
         $highestId = Attendance::join('attendance_teachers', 'attendances.id', '=', 'attendance_teachers.id_attendance')
             ->where('attendance_teachers.id_teacher', $userId)
             ->whereDate('attendances.date', $today)
             ->max('attendances.id');
 
-
+        
 
         if ($highestId) {
 
