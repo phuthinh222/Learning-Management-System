@@ -306,7 +306,8 @@
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-sm-10">
                                         <input type="hidden" name="old_photo">
-                                        <img id="photoReview" class="img img-bordered" style="width:200px" />
+                                        <img id="photoReview" class="img img-bordered" style="width:200px"
+                                            src="{{ asset('assets/img/default.jpg') }}" />
                                     </div>
                                 </div>
                             </div>

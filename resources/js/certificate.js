@@ -3,19 +3,22 @@ document.getElementById("cer_photo").addEventListener("change", function () {
         document.getElementById("photoReview").style.display = "none";
     }
 });
-document.getElementById("createCer").onclick = function () {
-    const teacher_id = document.getElementById("teacher_id").value;
-    $.ajax({
-        type: "GET",
-        url: "/teacher/" + teacher_id + "/certificates/create",
-        success: (response) => {
-            $("#cerModal").trigger("reset");
-            $("#photoReview").attr("src", "");
-            $("#certificateModal").modal("show");
-            $("#titleCer").html("Thêm thông tin chứng chỉ");
-        },
-    });
-};
+export function createCertificate() {
+    document.querySelector('[id^="createCer"]').onclick = function () {
+        const teacher_id = document.getElementById("teacher_id").value;
+        $.ajax({
+            type: "GET",
+            url: "/teacher/" + teacher_id + "/certificates/create",
+            success: (response) => {
+                $("#cerModal").trigger("reset");
+                const imagePath = "../../assets/img/default.jpg";
+                $("#photoReview").attr("src", imagePath);
+                $("#certificateModal").modal("show");
+                $("#titleCer").html("Thêm thông tin chứng chỉ");
+            },
+        });
+    };
+}
 export function editCertificate() {
     document.querySelectorAll('[id^="editCer"]').forEach((button) => {
         button.addEventListener("click", () => {
