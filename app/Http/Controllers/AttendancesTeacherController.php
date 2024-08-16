@@ -26,7 +26,7 @@ class AttendancesTeacherController extends Controller
 
     public function attendance_search(Request $request)
     {
-        dd($request->input('search_attendance'));
+        
     }
     
 
