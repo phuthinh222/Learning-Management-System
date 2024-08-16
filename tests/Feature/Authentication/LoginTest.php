@@ -15,7 +15,7 @@ class LoginTest extends TestCase
 
     protected function testUrlStore()
     {
-        return route('login_store');
+        return route('login');
     }
     #[Test]
     public function guest_user_can_access_to_login_page(): void
