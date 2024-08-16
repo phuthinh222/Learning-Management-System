@@ -1,27 +1,47 @@
-<?php 
+<?php
 
 namespace App\Http\Service\Teacher;
+
+use Carbon\Carbon;
+use App\Repositories\Contracts\TeacherRepository;
+use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\AttendancesRepository;
 use App\Repositories\Contracts\AttendanceTeachersRepository;
-use Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
-
-
-class TeacherService 
+class TeacherService
 {
-
+    protected $teacher_repository;
+    protected $user_repository;
     protected $attendance_repository;
     protected $attendance_teacher_repository;
-
-    public function __construct(AttendancesRepository $attendance_repository , AttendanceTeachersRepository $attendance_teacher_repository) 
+    public function __construct(TeacherRepository $teacher_repository, UserRepository $user_repository, AttendancesRepository $attendance_repository, AttendanceTeachersRepository $attendance_teacher_repository)
     {
+        $this->teacher_repository = $teacher_repository;
+        $this->user_repository = $user_repository;
         $this->attendance_repository = $attendance_repository;
         $this->attendance_teacher_repository = $attendance_teacher_repository;
+    }
+    public function getId($id)
+    {
+        return $this->user_repository->find($id);
+    }
+    public function update(array $attributes, $id)
+    {
+        $user = $this->user_repository->find($id);
+        if ($user->user_name == $attributes['user_name'] && $user->email_address == $attributes['email_address']) {
+            $user = $this->user_repository->update($attributes, $id);
+            $teacher = $user->userable;
+            $teacher->update($attributes);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function checkin()
     {
+
         if(!$this->attendance_repository->getCheckinStatus())
         {
             $data_checkin = [
@@ -38,9 +58,7 @@ class TeacherService
         }else{
             return true;
         }
-        
 
-        
     }
     public function checkout()
     {
@@ -54,23 +72,23 @@ class TeacherService
         }
         $attendance->total_hours = $total_hours;
         if ($total_hours < 4) {
-            $hoursMissing = round(4 - $total_hours , 2);
+            $hoursMissing = round(4 - $total_hours, 2);
             $attendance->status = "Chưa đủ nửa công thiếu {$hoursMissing} giờ";
-        } else if($total_hours >= 4 && $total_hours < 8 ) {
-            $hoursMissing = round(8 - $total_hours , 2);
+        } else if ($total_hours >= 4 && $total_hours < 8) {
+            $hoursMissing = round(8 - $total_hours, 2);
             $attendance->status = "Chưa đủ ngày công thiếu {$hoursMissing} giờ";
-        }else{
+        } else {
             $attendance->status = "Đủ ngày công";
         }
-        $attendance->save();  
-        
+        $attendance->save();
     }
     public function getCheckinStatus()
     {
         return $this->attendance_repository->getCheckinStatus();
     }
 
-    public function getTeacherByAuth(){
+    public function getTeacherByAuth()
+    {
         return Auth::user()->userable;
     }
     public function getListAttendances($user_id, $month, $year)
@@ -79,3 +97,4 @@ class TeacherService
     }
 
 }
+
