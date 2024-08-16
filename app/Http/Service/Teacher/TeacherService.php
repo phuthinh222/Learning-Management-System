@@ -22,17 +22,23 @@ class TeacherService
 
     public function checkin()
     {
-        $data_checkin = [
-            'date' =>Carbon::now()->toDateString(),
-            'time_check_in' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s'),
-            'time_check_out' => '00:00:00',
-        ];
-        $id_attendance = $this->attendance_repository->create($data_checkin);
-        $data_checkin_teacher = [
-            'id_teacher' =>Auth::user()->id,
-            'id_attendance' => $id_attendance->id,
-        ];
-        $this->attendance_teacher_repository->create($data_checkin_teacher);
+        if(!$this->attendance_repository->getCheckinStatus())
+        {
+            $data_checkin = [
+                'date' =>Carbon::now()->toDateString(),
+                'time_check_in' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s'),
+                'time_check_out' => '00:00:00',
+            ];
+            $id_attendance = $this->attendance_repository->create($data_checkin);
+            $data_checkin_teacher = [
+                'id_teacher' =>Auth::user()->id,
+                'id_attendance' => $id_attendance->id,
+            ];
+            $this->attendance_teacher_repository->create($data_checkin_teacher);
+        }else{
+            return true;
+        }
+        
 
         
     }
@@ -66,6 +72,10 @@ class TeacherService
 
     public function getTeacherByAuth(){
         return Auth::user()->userable;
+    }
+    public function getListAttendances($user_id, $month, $year)
+    {
+        return $this->attendance_repository->getListAttendances($user_id, $month, $year);
     }
 
 }

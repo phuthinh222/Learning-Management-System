@@ -47,16 +47,25 @@ class AttendancesRepositoryEloquent extends BaseRepository implements Attendance
             ->where('attendance_teachers.id_teacher', $userId)
             ->whereDate('attendances.date', $today)
             ->max('attendances.id');
-        
-       
+
+
 
         if ($highestId) {
-            
+
             $attendance = Attendance::find($highestId);
             return $attendance;
         }
 
-        return null;
+        return false;
+    }
+    public function getListAttendances($user_id, $month, $year)
+    {
+        return Attendance::join('attendance_teachers', 'attendances.id', '=', 'attendance_teachers.id_attendance')
+            ->where('attendance_teachers.id_teacher', $user_id)
+            ->whereMonth('attendances.date', $month)
+            ->whereYear('attendances.date', $year)
+            ->select('attendances.date', 'attendances.time_check_in', 'attendances.time_check_out', 'attendances.total_hours', 'attendances.status')
+            ->paginate(10); 
     }
 
 }

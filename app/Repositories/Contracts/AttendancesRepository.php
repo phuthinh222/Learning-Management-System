@@ -22,4 +22,5 @@ interface AttendancesRepository extends RepositoryInterface
     public function create(array $data);
 
     public function getCheckinStatus();
+    public function getListAttendances($user_id, $month, $year);
 }

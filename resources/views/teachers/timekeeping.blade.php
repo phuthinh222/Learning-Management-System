@@ -32,17 +32,17 @@
                         <div class="col-md-6">
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Tên đăng nhập : </p>
-                                <p class="col-md-4 p-0 card-text">{{Auth::user()->user_name}}</p>
+                                <p class="col-md-4 p-0 card-text">{{ Auth::user()->user_name }}</p>
                             </div>
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Họ tên giáo viên : </p>
-                                <p class="col-md-4 p-0 card-text">{{Auth::user()->name}}</p>
+                                <p class="col-md-4 p-0 card-text">{{ Auth::user()->name }}</p>
                             </div>
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Phòng ban : </p>
                                 <p class="col-md-4 p-0 card-text">
                                     @if ($teacher)
-                                        {{$teacher->department}}
+                                        {{ $teacher->department }}
                                     @else
                                         Chưa có phòng ban
                                     @endif
@@ -52,17 +52,17 @@
                         <div class="col-md-6">
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Số điện thoại : </p>
-                                <p class="col-md-4 p-0 card-text">{{Auth::user()->phone_number}}</p>
+                                <p class="col-md-4 p-0 card-text">{{ Auth::user()->phone_number }}</p>
                             </div>
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Sinh nhật : </p>
-                                <p class="col-md-4 p-0 card-text">{{Auth::user()->date_of_birth}}</p>
+                                <p class="col-md-4 p-0 card-text">{{ Auth::user()->date_of_birth }}</p>
                             </div>
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Vị trí : </p>
                                 <p class="col-md-4 p-0 card-text">
                                     @if ($teacher)
-                                        {{$teacher->position}}
+                                        {{ $teacher->position }}
                                     @else
                                         Chưa có vị trí
                                     @endif
@@ -74,34 +74,40 @@
                         <div class="col-md-6">
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Giờ vào :</p>
-                                <div class="form-control text-danger">{{$attendance ? $attendance->time_check_in : "00:00"}}</div>
+                                <div class="form-control text-danger">
+                                    {{ $attendance ? $attendance->time_check_in : '00:00' }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex p-3">
                                 <p class="col-md-4 mb-0 card-text">Giờ ra :</p>
-                                <div class="form-control text-danger">{{$attendance ? $attendance->time_check_out : "00:00"}}</div>
+                                <div class="form-control text-danger">
+                                    {{ $attendance ? $attendance->time_check_out : '00:00' }}</div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="d-flex align-items-center justify-content-between mt-5 header_content_timekeeping">
+                                    <div
+                                        class="d-flex align-items-center justify-content-between mt-5 header_content_timekeeping">
                                         <h4 class="card-title">Danh sách ngày công</h4>
-                                        <form action="{{ route('attendance.search') }}" method="GET" class="d-flex align-items-center header_content_timekeeping_search">
+                                        <form action="{{ route('teacher.listTimeKeeping') }}" method="GET"
+                                            class="d-flex align-items-center header_content_timekeeping_search">
                                             <div class="input-group">
-                                                <input type="text" id="search_attendance" name="search_attendance" value="{{ old('search_attendance') }}" class="form-control" placeholder="mm/yyyy">
+                                                <input type="text" id="search_attendance" name="search_attendance"
+                                                value="{{ request('search_attendance')}}" class="form-control"
+                                                    placeholder="mm/yyyy">
                                                 <div class="btn btn-dark ms-1 icon_calendar">
                                                     <i class="fa-regular fa-calendar"></i>
                                                 </div>
                                             </div>
                                         </form>
-                                        
+
 
 
                                         <div class="d-flex">
-                                            @if ($attendance && $attendance->time_check_out=="00:00:00")
+                                            @if ($attendance && $attendance->time_check_out == '00:00:00')
                                                 <form action="{{ route('teacher.checkout_teacher') }}" method="GET">
                                                     <button type="submit" class="btn btn-danger btn-round ms-auto">
                                                         Ra ca
@@ -133,35 +139,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>7/8/2024</td>
-                                                    <td>8:00</td>
-                                                    <td>17:00</td>
-                                                    <td>9</td>
-                                                    <td>đủ công</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8/8/2024</td>
-                                                    <td>13:00</td>
-                                                    <td>17:00</td>
-                                                    <td>9</td>
-                                                    <td>nửa công</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8/8/2024</td>
-                                                    <td>13:00</td>
-                                                    <td>00:00</td>
-                                                    <td>>9</td>
-                                                    <td>không công</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8/8/2024</td>
-                                                    <td>00:00</td>
-                                                    <td>17:00</td>
-                                                    <td>>9</td>
-                                                    <td>không công</td>
-                                                </tr>
+                                                @if ($listAttandance->isNotEmpty())
+                                                    @foreach ($listAttandance as $item)
+                                                        <tr>
+                                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}
+                                                            </td>
+                                                            <td>{{ $item->time_check_in }}</td>
+                                                            <td>{{ $item->time_check_out }}</td>
+                                                            <td>{{ $item->total_hours }}</td>
+                                                            <td>{{ $item->status }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">Không có dữ liệu</td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        {{ $listAttandance->links() }}
+                                                       
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

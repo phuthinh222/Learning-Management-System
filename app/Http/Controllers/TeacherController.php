@@ -8,6 +8,7 @@ use App\Http\Service\Teacher\TeacherService;
 use App\Models\Certificate;
 use App\Models\Experience;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,8 @@ class TeacherController extends Controller
 {
     protected $teacherService;
 
-    public function __construct(TeacherService $teacherService){
+    public function __construct(TeacherService $teacherService)
+    {
         $this->teacherService = $teacherService;
     }
 
@@ -57,7 +59,7 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher =  User::find($id);
+        $teacher = User::find($id);
         $user = $teacher;
         $certificates = Certificate::all();
         $experiences = Experience::all();
@@ -69,7 +71,7 @@ class TeacherController extends Controller
      */
     public function update(TeacherInformationRequest $request, string $id)
     {
-        
+
     }
 
     /**
@@ -86,12 +88,26 @@ class TeacherController extends Controller
     }
 
 
-    public function  listTimeKeeping()
+    public function listTimeKeeping(Request $request)
     {
+        $searchDate = $request->input('search_attendance');
         $teacher = $this->teacherService->getTeacherByAuth();
-        $attendance =$this->teacherService->getCheckinStatus();
-        return view('teachers.timekeeping', compact('teacher', 'attendance'));
+        $attendance = $this->teacherService->getCheckinStatus();
+
+
+        if ($searchDate) {
+            list($month, $year) = explode('/', $searchDate);
+            $listAttandance = $this->teacherService->getListAttendances(Auth::user()->id, (int) $month, (int) $year);
+        } else {
+            $listAttandance = $this->teacherService->getListAttendances(Auth::user()->id, Carbon::now()->month, Carbon::now()->year);
+        }
+
+        return view('teachers.timekeeping', [
+            'teacher' => $teacher,
+            'attendance' => $attendance,
+            'listAttandance' => $listAttandance->appends(['search_attendance' => $searchDate]),
+        ]);
     }
-   
+
 
 }

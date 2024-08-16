@@ -15,7 +15,15 @@ class AttendancesTeacherController extends Controller
     }
     public function checkin_teacher()
     {   
-        $this->teacherService->checkin();
+        if($this->teacherService->checkin())
+        {
+            flash()
+            ->options([
+                'timeout' => 3000, 
+                'position' => 'top-center',
+            ])
+            ->error('Không thể  tiếp tục vào ca');
+        }
         return redirect()->route('teacher.listTimeKeeping');
     }
     public function checkout_teacher()
