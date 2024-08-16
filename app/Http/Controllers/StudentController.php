@@ -80,8 +80,5 @@ class StudentController extends Controller
     }
 
 
-    public function redirectBack()
-    {
-        return redirect(route('student.index'));
-    }
+  
 }

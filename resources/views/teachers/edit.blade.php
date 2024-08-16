@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Giáo viên</h3>
@@ -351,4 +352,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('after_js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 @endsection

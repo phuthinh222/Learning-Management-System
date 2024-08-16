@@ -1,27 +1,9 @@
-.form-control{
-    width: max-content;
-}
-.select_year{
-    margin: 0 30px;
-    width: 100%;
-}
-.select_month{
-    width: 100%;
-}
 
 @media (max-width : 739px){
-	.header_content {
-		flex-direction: column;
-	}
-    .select_seach{
+    .header_content_timekeeping{
+        flex-direction: column;
+    }
+    .header_content_timekeeping_search{
         margin: 30px 0;
-    }
-
-    .select_year{
-        margin: 0 30px;
-        width: 60%;
-    }
-    .select_month{
-        width: 60%;
     }
 }
