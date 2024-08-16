@@ -11,26 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class TeacherService
 {
-    protected $teacher;
-    protected $user;
+    protected $teacher_repository;
+    protected $user_repository;
     protected $attendance_repository;
     protected $attendance_teacher_repository;
-    public function __construct(TeacherRepository $teacher, UserRepository $user, AttendancesRepository $attendance_repository, AttendanceTeachersRepository $attendance_teacher_repository)
+    public function __construct(TeacherRepository $teacher_repository, UserRepository $user_repository, AttendancesRepository $attendance_repository, AttendanceTeachersRepository $attendance_teacher_repository)
     {
-        $this->teacher = $teacher;
-        $this->user = $user;
+        $this->teacher_repository = $teacher_repository;
+        $this->user_repository = $user_repository;
         $this->attendance_repository = $attendance_repository;
         $this->attendance_teacher_repository = $attendance_teacher_repository;
     }
     public function getId($id)
     {
-        return $this->user->find($id);
+        return $this->user_repository->find($id);
     }
     public function update(array $attributes, $id)
     {
-        $user = $this->user->find($id);
+        $user = $this->user_repository->find($id);
         if ($user->user_name == $attributes['user_name'] && $user->email_address == $attributes['email_address']) {
-            $user = $this->user->update($attributes, $id);
+            $user = $this->user_repository->update($attributes, $id);
             $teacher = $user->userable;
             $teacher->update($attributes);
             return true;

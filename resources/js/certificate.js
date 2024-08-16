@@ -4,48 +4,58 @@ document.getElementById("cer_photo").addEventListener("change", function () {
     }
 });
 export function createCertificate() {
-    document.querySelector('[id^="createCer"]').onclick = function () {
-        const teacher_id = document.getElementById("teacher_id").value;
-        $.ajax({
-            type: "GET",
-            url: "/teacher/" + teacher_id + "/certificates/create",
-            success: (response) => {
-                $("#cerModal").trigger("reset");
-                const imagePath = "../../assets/img/default.jpg";
-                $("#photoReview").attr("src", imagePath);
-                $("#certificateModal").modal("show");
-                $("#titleCer").html("Thêm thông tin chứng chỉ");
-            },
+    document
+        .querySelector('[id^="createCer"]')
+        .addEventListener("click", () => {
+            const teacherId = document.getElementById("teacher_id").value;
+            fetch(`/teacher/${teacherId}/certificates/create`)
+                .then((response) => response.json())
+                .then((data) => {
+                    const cerModal = document.getElementById("cerModal");
+                    cerModal.reset();
+                    const photoReview = document.getElementById("photoReview");
+                    const imagePath = "../../assets/img/default.jpg";
+                    photoReview.src = imagePath;
+                    const certificateModal = new bootstrap.Modal(
+                        document.getElementById("certificateModal")
+                    );
+                    certificateModal.show();
+                    document.getElementById("titleCer").innerText =
+                        "Thêm thông tin chứng chỉ";
+                })
+                .catch((error) => console.error("Error:", error));
         });
-    };
 }
+
 export function editCertificate() {
     document.querySelectorAll('[id^="editCer"]').forEach((button) => {
         button.addEventListener("click", () => {
-            const teacher = document.getElementById("teacher_id");
-            const id_teacher = teacher.value;
-            const id_cer = button.id.replace("editCer", "");
-            $.ajax({
-                type: "GET",
-                url:
-                    "/teacher/" +
-                    id_teacher +
-                    "/certificates/" +
-                    id_cer +
-                    "/edit",
-                success: (response) => {
-                    $("#cerModal").trigger("reset");
-                    $("#certificateModal").modal("show");
-                    $("#titleCer").html("Cập nhật thông tin chứng chỉ");
-                    $("#cer_id").val(response.id);
-                    $("#cer_major").val(response.major);
-                    $("#cer_level").val(response.level);
-                    $("#cer_school").val(response.school);
-                    var photoUrl = "/storage/teachers/" + response.photo;
-                    $("#photoReview").attr("src", photoUrl);
-                    $("#hiddenImage").attr("src", photoUrl);
-                },
-            });
+            const teacherId = document.getElementById("teacher_id").value;
+            const certificateId = button.id.replace("editCer", "");
+            fetch(`/teacher/${teacherId}/certificates/${certificateId}/edit`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    document.getElementById("cerModal").reset();
+                    const certificateModal = new bootstrap.Modal(
+                        document.getElementById("certificateModal")
+                    );
+                    certificateModal.show();
+                    document.getElementById("titleCer").innerText =
+                        "Cập nhật thông tin chứng chỉ";
+                    document.getElementById("cer_id").value = data.id;
+                    document.getElementById("cer_major").value = data.major;
+                    document.getElementById("cer_level").value = data.level;
+                    document.getElementById("cer_school").value = data.school;
+                    const photoUrl = `/storage/teachers/${data.photo}`;
+                    document.getElementById("photoReview").src = photoUrl;
+                    document.getElementById("hiddenImage").src = photoUrl;
+                })
+                .catch((error) => console.error("Error:", error));
         });
     });
 }
@@ -57,51 +67,75 @@ export function delCertificate() {
                 "Bạn có chắc muốn xóa thông tin này không?"
             );
             if (confirmDelete) {
-                const teacher = document.getElementById("teacher_id").value;
-                const id_teacher = teacher.value;
-                const id_cer = button.id.replace("delCer", "");
-                $.ajax({
+                const teacherId = document.getElementById("teacher_id").value;
+                const certificateId = button.id.replace("delCer", "");
+                const csrfToken = document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content");
+
+                fetch(`/teacher/${teacherId}/certificates/${certificateId}`, {
+                    method: "DELETE",
                     headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
-                        ),
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
                     },
-                    type: "DELETE",
-                    url: "/teacher/" + id_teacher + "/certificates/" + id_cer,
-                    success: (response) => {
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(() => {
                         location.reload();
-                    },
-                });
+                    })
+                    .catch((error) => console.error("Error:", error));
             }
         });
     });
 }
-$("#cerModal").submit(function (event) {
-    event.preventDefault();
-    const id_teacher = document.getElementById("teacher_id").value;
-    const cer = document.getElementById("cer_id");
-    const id_cer = cer.value;
-    const url = !id_cer
-        ? "/teacher/" + id_teacher + "/certificates"
-        : "/teacher/" + id_teacher + "/certificates/" + id_cer;
-    const formData = new FormData(this);
-    if (id_cer) {
-        formData.append("_method", "PUT");
-    }
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        type: "POST",
-        data: formData,
-        url: url,
-        contentType: false,
-        processData: false,
-        success: (response) => {
-            location.reload();
-        },
-        error: (response) => {
-            console.log(response);
-        },
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cerModal = document.getElementById("cerModal");
+    cerModal.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const idTeacher = document.getElementById("teacher_id").value;
+        const cerIdElement = document.getElementById("cer_id");
+        const idCer = cerIdElement.value;
+        const url = idCer
+            ? `/teacher/${idTeacher}/certificates/${idCer}`
+            : `/teacher/${idTeacher}/certificates`;
+        const formData = new FormData(cerModal);
+        if (idCer) {
+            formData.append("_method", "PUT");
+        }
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(() => {
+                location.reload();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    createCertificate();
+    editCertificate();
+    delCertificate();
 });

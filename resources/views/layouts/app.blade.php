@@ -40,10 +40,10 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
-    @if (request()->routeIs('teacher.edit') || request()->routeIs('student.edit'))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if (request()->routeIs('teacher.edit'))
+        @vite(['resources/js/certificate.js', 'resources/js/experience.js'])
     @endif
-    @vite(['resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss'])
 
 
 </head>

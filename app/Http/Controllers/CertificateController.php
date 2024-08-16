@@ -10,11 +10,11 @@ use Illuminate\Http\Response;
 
 class CertificateController extends Controller
 {
-    protected $certificate;
+    protected $certificate_service;
 
-    public function __construct(CertificateService $certificate)
+    public function __construct(CertificateService $certificate_service)
     {
-        $this->certificate = $certificate;
+        $this->certificate_service = $certificate_service;
     }
     public function create()
     {
@@ -22,7 +22,7 @@ class CertificateController extends Controller
     }
     public function edit($id_teacher, $id_cer)
     {
-        $certificate = $this->certificate->getId($id_cer);
+        $certificate = $this->certificate_service->getId($id_cer);
 
         if ($certificate->photo) {
             $certificate->photo_path = asset('storage/teachers/' . $certificate->photo);
@@ -34,20 +34,20 @@ class CertificateController extends Controller
     }
     public function store(Request $request)
     {
-        $this->certificate->create($request->all());
-        flash()->success('Thêm chứng chỉ thành công');
+        $this->certificate_service->create($request->all());
+        flash()->success(__('teacher.certificate.create_success'));
         return response()->json([''], Response::HTTP_OK);
     }
     public function update(Request $request)
     {
-        $certificate = $this->certificate->update($request->all(), $request->cer_id);
-        flash()->success('Cập nhật chứng chỉ thành công');
+        $certificate = $this->certificate_service->update($request->all(), $request->cer_id);
+        flash()->success(__('teacher.experience.create_success'));
         return response()->json($certificate, Response::HTTP_OK);
     }
     public function destroy($id_teacher, $id_cer)
     {
-        $certificate = $this->certificate->delete($id_cer);
-        flash()->success('Xóa chứng chỉ thành công');
+        $certificate = $this->certificate_service->delete($id_cer);
+        flash()->success(__('teacher.experience.delete_success'));
         return response()->json($certificate, Response::HTTP_OK);
     }
 }

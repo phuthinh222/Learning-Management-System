@@ -1,40 +1,52 @@
 export function createExperience() {
-    document.querySelector('[id^="createExc"]').onclick = function () {
-        const teacher_id = document.getElementById("teacher_id").value;
-        $.ajax({
-            type: "GET",
-            url: "/teacher/" + teacher_id + "/experiences/create",
-            success: (response) => {
-                $("#experienceModal").modal("show");
-                $("#titleExc").html("Thêm thông tin kinh nghiệm làm việc");
-                $("#excModal").trigger("reset");
-            },
+    document
+        .querySelector('[id^="createExc"]')
+        .addEventListener("click", function () {
+            const teacherId = document.getElementById("teacher_id").value;
+
+            fetch(`/teacher/${teacherId}/experiences/create`)
+                .then((response) => response.json())
+                .then((data) => {
+                    const experienceModal =
+                        document.getElementById("experienceModal");
+                    const modal = new bootstrap.Modal(experienceModal);
+                    modal.show();
+                    document.getElementById("titleExc").innerText =
+                        "Thêm thông tin kinh nghiệm làm việc";
+
+                    const excModal = document.getElementById("excModal");
+                    excModal.reset();
+                })
+                .catch((error) => console.error("Error:", error));
         });
-    };
 }
+
 export function editExperience() {
     document.querySelectorAll('[id^="editExc"]').forEach((button) => {
         button.addEventListener("click", () => {
-            const teacher_id = document.getElementById("teacher_id");
-            const id = teacher_id.value;
+            const teacherId = document.getElementById("teacher_id").value;
             const numericId = button.id.replace("editExc", "");
-            $.ajax({
-                type: "GET",
-                url: "/teacher/" + id + "/experiences/" + numericId + "/edit",
-                success: (response) => {
-                    $("#experienceModal").modal("show");
-                    $("#titleExc").html(
-                        "Cập nhật thông tin kinh nghiệm làm việc"
-                    );
-                    $("#exc_id").val(response.id);
-                    $("#exc_company").val(response.company);
-                    $("#exc_position").val(response.position);
-                    $("#exc_year").val(response.year);
-                },
-            });
+
+            fetch(`/teacher/${teacherId}/experiences/${numericId}/edit`)
+                .then((response) => response.json())
+                .then((data) => {
+                    const experienceModal =
+                        document.getElementById("experienceModal");
+                    const modal = new bootstrap.Modal(experienceModal);
+                    modal.show();
+
+                    ("Cập nhật thông tin kinh nghiệm làm việc");
+                    document.getElementById("exc_id").value = data.id;
+                    document.getElementById("exc_company").value = data.company;
+                    document.getElementById("exc_position").value =
+                        data.position;
+                    document.getElementById("exc_year").value = data.year;
+                })
+                .catch((error) => console.error("Error:", error));
         });
     });
 }
+
 export function delExperience() {
     document.querySelectorAll('[id^="delExc"]').forEach((button) => {
         button.addEventListener("click", () => {
@@ -43,53 +55,81 @@ export function delExperience() {
             );
             if (confirmDelete) {
                 console.log(confirmDelete);
-                const teacher = document.getElementById("teacher_id");
-                const id_teacher = teacher.value;
-                const id_exc = button.id.replace("delExc", "");
-                $.ajax({
+                const teacherId = document.getElementById("teacher_id").value;
+                const experienceId = button.id.replace("delExc", "");
+                const csrfToken = document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content");
+
+                fetch(`/teacher/${teacherId}/experiences/${experienceId}`, {
+                    method: "DELETE",
                     headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
-                        ),
+                        "X-CSRF-TOKEN": csrfToken,
+                        "Content-Type": "application/json",
                     },
-                    type: "DELETE",
-                    url: "/teacher/" + id_teacher + "/experiences/" + id_exc,
-                    success: (response) => {
-                        location.reload();
-                    },
-                });
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok.");
+                        }
+                        return response.json();
+                    })
+                    .then(() => {
+                        window.location.reload();
+                    })
+                    .catch((error) => console.error("Error:", error));
             }
         });
     });
 }
 
-$("#excModal").submit(function (event) {
-    event.preventDefault();
-    const teacher = document.getElementById("teacher_id");
-    const id_teacher = teacher.value;
-    const experience = document.getElementById("exc_id");
-    const id_exc = experience.value;
-    const url = !id_exc
-        ? "/teacher/" + id_teacher + "/experiences"
-        : "/teacher/" + id_teacher + "/experiences/" + id_exc;
-    const formData = !id_exc ? new FormData(this) : $(this).serialize();
-    const method = !id_exc ? "POST" : "PUT";
-    const contentType = !id_exc ? false : undefined;
-    const processData = !id_exc ? false : undefined;
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        type: method,
-        data: formData,
-        url: url,
-        contentType: contentType,
-        processData: processData,
-        success: (data) => {
-            location.reload();
-        },
-        error: (response) => {
-            console.log(response);
-        },
+document
+    .getElementById("excModal")
+    .addEventListener("submit", function (event) {
+        event.preventDefault();
+        const teacher = document.getElementById("teacher_id");
+        const idTeacher = teacher.value;
+        const experience = document.getElementById("exc_id");
+        const idExc = experience.value;
+        const url = !idExc
+            ? `/teacher/${idTeacher}/experiences`
+            : `/teacher/${idTeacher}/experiences/${idExc}`;
+
+        const formData = new FormData(this);
+        const options = {
+            method: !idExc ? "POST" : "PUT",
+            headers: {
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
+            },
+            body: formData,
+        };
+        if (idExc) {
+            options.headers["Content-Type"] =
+                "application/x-www-form-urlencoded";
+            options.body = new URLSearchParams(new FormData(this)).toString();
+        }
+        fetch(url, options)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                location.reload();
+            })
+            .catch((error) => {
+                console.error(
+                    "There was a problem with the fetch operation:",
+                    error
+                );
+            });
     });
+
+document.addEventListener("DOMContentLoaded", () => {
+    createExperience();
+    editExperience();
+    delExperience();
 });

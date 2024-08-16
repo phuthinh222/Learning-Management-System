@@ -37,7 +37,7 @@ class CertificateRepositoryEloquent extends BaseRepository implements Certificat
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    public function createPhoto(array $attributes)
+    public function create(array $attributes)
     {
         if (isset($attributes['photo_cer'])) {
             $file = $attributes['photo_cer'];
@@ -55,9 +55,9 @@ class CertificateRepositoryEloquent extends BaseRepository implements Certificat
             }
         }
     }
-    public function updatePhoto(array $attributes, $id)
+    public function update(array $attributes, $id)
     {
-        $certificate = $this->model->find($id);
+        $certificate = $this->find($id);
         $filePath = 'public/teachers/' . $certificate->photo;
         if (Storage::exists($filePath)) {
             Storage::delete($filePath);
@@ -83,9 +83,9 @@ class CertificateRepositoryEloquent extends BaseRepository implements Certificat
         $certificate->update($attributes);
         return $certificate;
     }
-    public function deletePhoto($id)
+    public function delete($id)
     {
-        $certificate = $this->model->find($id);
+        $certificate = $this->find($id);
         $filePath = 'public/teachers/' . $certificate->photo;
         if (Storage::exists($filePath)) {
             Storage::delete($filePath);

@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
-    protected $teacher;
+    protected $teacher_service;
 
-    public function __construct(TeacherService $teacher)
+    public function __construct(TeacherService $teacher_service)
     {
-        $this->teacher = $teacher;
+        $this->teacher_service = $teacher_service;
     }
     public function index()
     {
@@ -24,7 +24,7 @@ class TeacherController extends Controller
     }
     public function edit(string $id)
     {
-        $user = $this->teacher->getId($id);
+        $user = $this->teacher_service->getId($id);
         $teacher = $user->userable;
         $experiences = $teacher->experiences;
         $certificates = $teacher->certificates;
@@ -35,7 +35,7 @@ class TeacherController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->teacher->update($request->all(), $request->user_id);
+            $this->teacher_service->update($request->all(), $request->user_id);
             DB::commit();
             flash()->success('Bạn đã cập nhật thành công');
             return redirect()->route('teacher.index');
@@ -48,8 +48,8 @@ class TeacherController extends Controller
 
     public function  listTimeKeeping()
     {
-        $teacher = $this->teacher->getTeacherByAuth();
-        $attendance = $this->teacher->getCheckinStatus();
+        $teacher = $this->teacher_service->getTeacherByAuth();
+        $attendance = $this->teacher_service->getCheckinStatus();
         return view('teachers.timekeeping', compact('teacher', 'attendance'));
     }
 }

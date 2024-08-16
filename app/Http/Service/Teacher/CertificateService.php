@@ -6,27 +6,27 @@ use App\Repositories\Contracts\CertificateRepository;
 
 class CertificateService
 {
-    protected $certificate;
+    protected $certificate_repository;
 
-    public function __construct(CertificateRepository $certificate)
+    public function __construct(CertificateRepository $certificate_repository)
     {
-        $this->certificate = $certificate;
+        $this->certificate_repository = $certificate_repository;
     }
 
-    public function create(array $certificate)
+    public function create(array $attributes)
     {
-        return $this->certificate->createPhoto($certificate);
+        return $this->certificate_repository->create($attributes);
     }
     public function getId($id)
     {
-        return $this->certificate->find($id);
+        return $this->certificate_repository->find($id);
     }
-    public function update(array $certificate, $id)
+    public function update(array $attributes, $id)
     {
-        return $this->certificate->updatePhoto($certificate, $id);
+        return $this->certificate_repository->update($attributes, $id);
     }
     public function delete($id)
     {
-        return $this->certificate->deletePhoto($id);
+        return $this->certificate_repository->delete($id);
     }
 }
