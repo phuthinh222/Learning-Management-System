@@ -21,5 +21,37 @@ class TeacherSeeder extends Seeder
             'position' => 'developer',
             'status' => 1,
         ]);
+
+        DB::table('teachers')->insert([
+            'id_certificate' => null,
+            'id_experience' => null,
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'id_certificate' => null,
+            'id_experience' => null,
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'id_certificate' => null,
+            'id_experience' => null,
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'id_certificate' => null,
+            'id_experience' => null,
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
     }
 }

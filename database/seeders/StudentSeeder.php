@@ -62,6 +62,16 @@ class StudentSeeder extends Seeder
                 'average_grade' => 8.7,
                 'id_parent' => 2,
             ],
+            [
+                'note' => 'Đang học tốt môn Tiếng Nhật',
+                'average_grade' => 8.7,
+                'id_parent' => 2,
+            ],
+            [
+                'note' => 'Đang học tốt môn Tiếng Hàn',
+                'average_grade' => 8.7,
+                'id_parent' => 2,
+            ],
         ]);
     }
 }

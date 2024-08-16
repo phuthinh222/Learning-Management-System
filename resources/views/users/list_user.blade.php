@@ -37,50 +37,47 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-
-                        <div class="col-sm-12 col-md-1">
-                            <div class="filter-container">
-
-                                <button id="filter-button" class="filter-button">
-                                    Lọc
-                                    <i class="bi bi-funnel-fill"></i>
-                                </button>
-                                <div id="filter-options" class="filter-options">
-                                    <form id="filter-form">
-                                        <div class="form-group">
-                                            <label for="type-select">Chọn chức vụ:</label>
-                                            <select id="type-select" name="type">
-                                                <option value="">Tất cả chức vụ</option>
-                                                <option value="student">Sinh viên</option>
-                                                <option value="teacher">Giáo viên</option>
-                                                <option value="accountant">Kế toán</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="detail-select">Chi tiết:</label>
-                                            <select id="detail-select" name="detail">
-                                                <option value="">Chọn chi tiết</option>
-                                                <!-- Options will be populated based on the selection in type-select -->
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="submit-button">Áp dụng</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-8">
-                        </div>
+                    <div class="row align-items-center">
                         <div class="col-sm-12 col-md-3">
-                            <div class="input-group mb-3">
-
-                                <input type="text" placeholder="Search ..." class="form-control" id="basic-addon1" />
-                                <span class="input-group-text btn btn-search" id="basic-addon1">
-                                    <i class="fa fa-search search-icon"></i>
-                                </span>
-                            </div>
+                            <form action="{{route('user.listuser')}}">
+                                <div class="d-flex" >
+                                <div class="col-3">
+                                <div class="filter-container">
+                                    <button type="button" id="filter-button" class="filter-button">
+                                        Lọc
+                                        <i class="bi bi-funnel-fill"></i>
+                                    </button>
+                                    <div id="filter-options" class="filter-options">
+                                            <div class="form-group">
+                                                <label for="type-select">Chọn chức vụ:</label>
+                                                <select id="type-select" name="type" >
+                                                    <option value="">Tất cả chức vụ</option>
+                                                    <option value="Student" {{old('type') == 'Student' ? 'selected' : ''}}>Học sinh</option>
+                                                    <option value="Teacher" {{old('type') == 'Teacher' ? 'selected' : ''}}>Giáo viên</option>
+                                                    <option value="Employee" {{old('type') == 'Employee' ? 'selected' : ''}}>Nhân viên</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="detail-select">Chi tiết:</label>
+                                                <select id="detail-select" name="detail" data-old-value="{{ old('detail', '') }}">
+                                                    <option value="">Chọn chi tiết</option>
+                                                    <!-- Options will be populated based on the selection in type-select -->
+                                                </select>
+                                            </div>
+                                            <button class="submit-button">Áp dụng</button>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="input-group">
+                                    <input name="search_string" value="{{request('search_string')}}" type="text" placeholder="Search ..." class="form-control" id="basic-addon1" />
+                                    <button class="input-group-text btn btn-search" id="basic-addon1">
+                                        <i class="fa fa-search search-icon"></i>
+                                    </button>
+                                </div>
+                                </div>
+                            </form>
                         </div>
-
                     </div>
                     <div class="table-responsive">
                         <table id="add-row" class="display table table-striped table-hover">
@@ -98,6 +95,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($users->total() == 0)
+                                    <tr>
+                                        <td  colspan="9">
+                                            <h5 class="d-flex justify-content-center align-items-center">
+                                                <strong>
+                                                    Không tìm thấy kết quả cho từ khóa "{{old('search_string')}}"
+                                                </strong>
+                                            </h5>
+                                        </td>
+                                    </tr>    
+                                @endif
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->user_name }}</td>
@@ -106,7 +114,7 @@
                                         <td>{{ $user->date_of_birth }}</td>
                                         <td>{{ $user->address }}</td>
                                         <td>{{ $user->phone_number }}</td>
-                                        <td>{{ $user->email_verified_at }}</td>
+                                        <td>{{ $user->created_at }}</td>
                                         <td>
                                             @foreach ($user->roles as $role)
                                                 {{ $roleTranslations[$role->name] ?? $role->name }}
@@ -128,7 +136,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $users->links('pagination::bootstrap-4') }}
+                        {{ $users->appends(['type' => old('type'), 'detail' => old('detail'), 'search_string' => old('search_string'), ])->links() }}
                     </div>
                 </div>
             </div>
