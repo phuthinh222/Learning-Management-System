@@ -30,12 +30,14 @@
                               <p>Trang chủ</p>
                           </a>
                       </li>
-                      <li class="nav-item">
-                          <a href="{{ route('teacher.inactive') }}" class="dashboard">
-                              <i class="fa fa-briefcase"></i>
-                              <p>Quản lý giáo viên</p>
-                          </a>
-                      </li>
+                      @if (Auth::user()->hasRole('Admin'))
+                          <li class="nav-item">
+                              <a href="{{ route('teacher.inactive') }}" class="dashboard">
+                                  <i class="fa fa-briefcase"></i>
+                                  <p>Quản lý giáo viên</p>
+                              </a>
+                          </li>
+                      @endif
 
                   </ul>
               </div>

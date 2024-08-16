@@ -15,5 +15,6 @@ class Experience extends Model
         'company',
         'position',
         'year',
+        'id_teacher'
     ];
 }

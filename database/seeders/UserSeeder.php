@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -116,5 +117,17 @@ class UserSeeder extends Seeder
             'userable_id' => 1,
             'userable_type' => Teacher::class
         ])->assignRole('Teacher');
+        User::create([
+            'user_name' => 'userstudent',
+            'password' => Hash::make('password'),
+            'name' => 'Nguyen Van Anh',
+            'email_address' => 'userstudent@localhost.com',
+            'date_of_birth' => '2001-01-05',
+            'address' => '76 Vu Lap Street',
+            'phone_number' => '123456789',
+            'id_salary_recipe' => 2,
+            'userable_id' => 1,
+            'userable_type' => Student::class
+        ])->assignRole('Student');
     }
 }

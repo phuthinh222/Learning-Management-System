@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>ECM APP</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('assets/img/logo-ECM01.png') }}" type="image/x-icon" />
     <!-- Fonts and icons -->
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -36,7 +37,10 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if (request()->routeIs('teacher.edit') || request()->routeIs('student.edit'))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+
 
 </head>
 
