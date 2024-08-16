@@ -10,7 +10,7 @@ class Attendance extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['date', 'time_check_in', 'time_check_out'];
+    protected $fillable = ['date', 'time_check_in', 'time_check_out','total_hours' ,'status'];
 
     protected $table = 'attendances';
 }
