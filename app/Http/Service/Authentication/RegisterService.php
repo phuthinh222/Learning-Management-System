@@ -6,6 +6,8 @@ use App\Jobs\SendEmailVerifycation;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Repositories\Contracts\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterService 
@@ -30,10 +32,19 @@ class RegisterService
             'address' => NULL,
             'phone_number' => NULL,
         ];
-        $user = $this->user_repository->create($data);
-        $this->assignUserType($user, $request->account_type);
-        
-        SendEmailVerifycation::dispatch($user);
+
+        try {
+            DB::beginTransaction();
+            $user = $this->user_repository->create($data);
+            $this->assignUserType($user, $request->account_type);
+            DB::commit();
+            Auth::login($user);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return FALSE;
+        }
+
+        //SendEmailVerifycation::dispatch($user);
         return $user;
     }
 

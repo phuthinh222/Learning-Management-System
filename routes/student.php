@@ -5,6 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 
 // Authentication Routes
-Route::group(['middleware' => ['auth', 'role:Student']], function () {
+Route::group(['middleware' => ['auth', 'role:Student', 'MustVerifyEmail']], function () {
     Route::resource('/student', StudentController::class);
 });

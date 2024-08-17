@@ -19,4 +19,5 @@
                 @csrf()
             </form>
         </div>
+    @vite('resources/js/Authentication/verify-email.js')
 @endsection

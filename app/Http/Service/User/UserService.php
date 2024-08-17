@@ -29,4 +29,13 @@ class UserService
     {
         return $this->subjectRepository->all();
     }
+
+    public function findSubject($request)
+    {
+        if ($request->detail !== NULL){
+            return $this->subjectRepository->find($request->detail);
+        }
+        
+        return $this->subjectRepository->all();
+    }
 }

@@ -16,5 +16,8 @@ return [
     'failed' => 'Tài khoản không tồn tại.',
     'password' => 'Mật khẩu không đúng.',
     'rerify_login' => 'Tài khoản chưa được xác thực.',
-    'verify_successfull' => 'Đăng ký thành công!'
+    'verify_successfull' => 'Đăng ký thành công!',
+    'register' => [
+        'failed' => 'Đăng ký không thành công'
+    ]
 ];
