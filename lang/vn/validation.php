@@ -54,6 +54,7 @@ return [
             'unique' => 'Số điện thoại đã tồn tại',
         ],
         'date_of_birth' => [
+            'required' => 'Bạn chưa nhập ngày sinh',
             'date_format' => 'Ngày sinh phải theo định dạng Y-m-d',
             'before' => 'Ngày sinh phải ít nhất 18 năm trước',
             'after' => 'Ngày sinh không được quá 70 năm trước',

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\UserInformationRequest;
 use Illuminate\Http\Request;
 use App\Http\Service\User\UserService;
-use App\Http\Requests\User\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -34,7 +34,7 @@ class UserController extends Controller
     }
 
 
-    public function store(StoreUserRequest $request)
+    public function store(UserInformationRequest $request)
     {
         try {
             

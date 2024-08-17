@@ -94,6 +94,4 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         return $this->model->create($data);
     }
-
-
 }
