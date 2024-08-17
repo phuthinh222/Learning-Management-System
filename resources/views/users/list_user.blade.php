@@ -29,7 +29,7 @@
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Quản lý người dùng</h4>
                         <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                            data-bs-target="#addRowModal">
+                            data-bs-target="#createUserModal">
                             <i class="fa fa-plus"></i>
                             Thêm tài khoản
                         </button>
@@ -142,4 +142,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal create user -->
+    @include('users.create_user_modal')
+
 @endsection

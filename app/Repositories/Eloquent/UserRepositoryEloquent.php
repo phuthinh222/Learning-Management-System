@@ -6,6 +6,7 @@ use App\Models\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserRepositoryEloquent.
@@ -50,14 +51,13 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         if (!$request) {
             return $this->model->whereHas('roles', function($query) use ($roles) {
                 $query->whereIn('roles.name', $roles);
-            })->paginate($perPage);    
+            })->latest('id')->paginate($perPage);    
         }
         
         if ($request->type){
             $roles = [$request->type];
         }
         return $this->getAllUsersWithSearchString($request->search_string, $roles, $perPage, $request->detail);
-   
     }
 
     protected function getAllUsersWithSearchString($searchString, $roles, $perPage = 10, $detail = NULL)
@@ -85,7 +85,15 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             ->where('employees.status', '=', (int) $detail);
         })
         ->select('users.*')
+        ->latest('id')
         ->paginate($perPage);
         return $users;
     }
+
+    public function createUser(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+
 }
