@@ -3,8 +3,8 @@
 namespace App\Http\Service\Authentication;
 
 use App\Jobs\SendEmailVerifycation;
-use App\Models\Student;
-use App\Models\Teacher;
+use App\Repositories\Contracts\Student2Repository;
+use App\Repositories\Contracts\TeacherRepository;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Hash;
 class RegisterService 
 {
     protected $user_repository;
+    protected $teacher_repository;
+    protected $student_repository;
 
-    public function __construct(UserRepository $user_repository) 
+    public function __construct(
+            UserRepository $user_repository, 
+            TeacherRepository $teacher_repository, 
+            Student2Repository $student_repository
+        ) 
     {
         $this->user_repository = $user_repository;
+        $this->teacher_repository = $teacher_repository;
+        $this->student_repository = $student_repository;
     }
      
     public function register($request) 
@@ -32,7 +40,6 @@ class RegisterService
             'address' => NULL,
             'phone_number' => NULL,
         ];
-
         try {
             DB::beginTransaction();
             $user = $this->user_repository->create($data);
@@ -44,7 +51,7 @@ class RegisterService
             return FALSE;
         }
 
-        //SendEmailVerifycation::dispatch($user);
+        SendEmailVerifycation::dispatch($user);
         return $user;
     }
 
@@ -52,9 +59,12 @@ class RegisterService
     {
         $user = $this->user_repository->find($id);
         if ($user->email_verify_token === $token) {
-            $user->email_verified_at = now();
-            $user->email_verify_token = NULL;
-            $user->save();
+            $data = [
+                'email_verified_at' => now(),
+                'email_verify_token' => NULL,
+            ];
+            $this->user_repository->update($data, $id);
+            Auth::logout();
             return TRUE;
         }
 
@@ -77,12 +87,12 @@ class RegisterService
     {
         if($account_type === 'is_teacher') {
             $user->assignRole('Teacher');
-            $account_type = Teacher::create();
+            $account_type = $this->teacher_repository->create([]);
         }
 
         if($account_type === 'is_student') {
             $user->assignRole('Student');
-            $account_type = Student::create();
+            $account_type = $this->student_repository->create([]);
         }
 
         $data = [
@@ -96,5 +106,15 @@ class RegisterService
     public function find($id) 
     {
         return $this->user_repository->find($id);
+    }
+
+    public function resendEmailVerification()
+    {
+        try {
+            SendEmailVerifycation::dispatch(Auth::user());
+            return TRUE;
+        } catch (\Throwable $th) {
+            return FALSE;
+        }
     }
 }

@@ -21,10 +21,12 @@ Route::group([
     'middleware' => ['web']
 ], function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/verify/{id}', [RegisterController::class, 'verifyToken'])->name('email_verify');
+    Route::get('/verify/resendEmail', [RegisterController::class, 'resendEmailVerification']);
     Route::group([
         'middleware' => ['VerifyEmail']
     ], function () {
         Route::get('/verify/{id}', [RegisterController::class, 'verifyEmail'])->name('email_verify');
-        Route::post('/verify/{id}', [RegisterController::class, 'verifyToken'])->name('email_verify');
+
     });
 });

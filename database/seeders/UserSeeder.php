@@ -144,7 +144,7 @@ class UserSeeder extends Seeder
             'userable_id' => 1,
             'userable_type' => Employees::class
         ])->assignRole('Employee');
-        
+
         User::create([
             'user_name' => 'employee2',
             'password' => Hash::make('password'),
@@ -183,7 +183,7 @@ class UserSeeder extends Seeder
             'userable_id' => 5,
             'userable_type' => Teacher::class
         ])->assignRole('Teacher');
-        
+
         User::create([
             'user_name' => 'student1',
             'password' => Hash::make('student'),

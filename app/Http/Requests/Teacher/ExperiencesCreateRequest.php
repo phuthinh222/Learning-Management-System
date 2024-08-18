@@ -26,7 +26,7 @@ class ExperiencesCreateRequest extends FormRequest
                 'required',
                 'max: 1000',
                  //allow user to type characters in Vietnamese language and number, '-' symbol
-                'regex: /^[A-Za-zÀ-ỹà-ỹ\.0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.0-9]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ\.\,0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.\,0-9]+)*$/'
             ],
             'position' => [
                 'required',

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Teacher;
 
+use App\Models\Teacher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
@@ -11,29 +12,29 @@ use Tests\TestCase;
 
 class UpdateInformationTest extends TestCase
 {
-    public function getUrlTest($teacher)
+    public function getUrlTest(Teacher $teacher)
     {
-        return route('teacher.edit', $teacher);
+        return route('teacher.edit', $teacher->id);
     }
-    public function postUrlTest($teacher)
+    public function postUrlTest(Teacher $teacher)
     {
-        return route('teacher.update', $teacher);
-    }
-
-    public function postCertificateUrl($teacher)
-    {
-        return route('teacher_certificate', $teacher);
+        return route('teacher.update', ['teacher' => $teacher->id]);
     }
 
-    public function postExperienceUrl($teacher)
+    public function postCertificateUrl(Teacher $teacher)
     {
-        return route('teacher_experiences', $teacher);
+        return route('certificates.store', $teacher->id);
+    }
+
+    public function postExperienceUrl(Teacher $teacher)
+    {
+        return route('experiences.store', $teacher->id);
     }
     #[Test]
     public function guest_user_can_not_access_update_teacher_information_page()
     {
-        $teacher = $this->createUser();
-        $response = $this->getTest($this->getUrlTest($teacher));
+        $teacher = $this->createTeacherUser();
+        $response = $this->getTest($this->getUrlTest($teacher->userable));
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('login'));
     }
@@ -42,7 +43,7 @@ class UpdateInformationTest extends TestCase
     public function auth_teacher_user_can_access_update_teacher_information_page()
     {
         $teacher = $this->createTeacherUser();
-        $response = $this->getTestWithAuth($this->getUrlTest($teacher), $teacher);
+        $response = $this->getTestWithAuth($this->getUrlTest($teacher->userable), $teacher);
         $response->assertStatus(Response::HTTP_OK)
         ->assertViewIs('teachers.edit');
     }
@@ -50,7 +51,8 @@ class UpdateInformationTest extends TestCase
     public function auth_student_user_can_not_access_update_teacher_information_page()
     {
         $student = $this->createStudentUser();
-        $response = $this->getTestWithAuth($this->getUrlTest($student), $student);
+        $teacer = $this->createTeacherUser();
+        $response = $this->getTestWithAuth($this->getUrlTest($teacer->userable), $student);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -58,7 +60,8 @@ class UpdateInformationTest extends TestCase
     public function auth_employee_user_can_not_access_update_teacher_information_page()
     {
         $employee = $this->createEmployeeUser();
-        $response = $this->getTestWithAuth($this->getUrlTest($employee), $employee);
+        $teacher = $this->createTeacherUser();
+        $response = $this->getTestWithAuth($this->getUrlTest($teacher->userable), $employee);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -75,7 +78,7 @@ class UpdateInformationTest extends TestCase
             //Phone number must be at least 
             'phone_number' => '098009877'
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['phone_number' => __('validation.teacher_phone_number.regex')]);
     }
@@ -92,7 +95,7 @@ class UpdateInformationTest extends TestCase
             'address' => '76 Vũ Lập', 
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['name' => __('validation.teacher_name.regex')]);
     }
@@ -108,7 +111,7 @@ class UpdateInformationTest extends TestCase
              'address' => '76 Vũ Lập', 
              'phone_number' => $teacher->phone_number,
          ];
-         $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+         $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
          $response->assertStatus(Response::HTTP_FOUND)
          ->assertSessionHasErrors(['name' => __('validation.teacher_name.required')]);
      }
@@ -124,7 +127,7 @@ class UpdateInformationTest extends TestCase
             'address' => '76 Vũ Lập', 
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['department' => __('validation.teacher_department.regex')]);
     }
@@ -140,7 +143,7 @@ class UpdateInformationTest extends TestCase
             'address' => '76 Vũ Lập', 
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['department' => __('validation.teacher_department.required')]);
     }
@@ -158,7 +161,7 @@ class UpdateInformationTest extends TestCase
             'address' => '76 Vũ Lập', 
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['position' => __('validation.teacher_position.regex')]);
     }
@@ -174,7 +177,7 @@ class UpdateInformationTest extends TestCase
             'address' => '76 Vũ Lập', 
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['position' => __('validation.teacher_position.required')]);
     }
@@ -190,7 +193,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Developper',
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['address' => __('validation.teacher_address.required')]);
     }
@@ -207,7 +210,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Developper',
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['date_of_birth' => __('validation.teacher_date_of_birth.date_format')]);
     }
@@ -224,7 +227,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Developper',
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['date_of_birth' => __('validation.teacher_date_of_birth.before')]);
     }
@@ -241,7 +244,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Developper',
             'phone_number' => $teacher->phone_number,
         ];
-        $response = $this->putTestWithAuth($this->postUrlTest($teacher), $teacher, $data);
+        $response = $this->putTestWithAuth($this->postUrlTest($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['date_of_birth' => __('validation.teacher_date_of_birth.after')]);
     }
@@ -253,10 +256,10 @@ class UpdateInformationTest extends TestCase
         $exemple_file = UploadedFile::fake()->image('certificate.jpg');
         $data = [
             'level' => 'Middle',
-            'school_name' => 'Đại học ',
-            'certificate_image' => $exemple_file
+            'school' => 'Đại học ',
+            'photo' => $exemple_file
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['major' => __('validation.teacher_certificate.major.required')]);
     }
@@ -270,10 +273,10 @@ class UpdateInformationTest extends TestCase
             //Valid major not contain special characters but -
             'major' => 'Công Nghệ Thông Tin @@@',
             'level' => 'Middle',
-            'school_name' => 'Đại học ',
-            'certificate_image' => $exemple_file
+            'school' => 'Đại học ',
+            'photo' => $exemple_file
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['major' => __('validation.teacher_certificate.major.regex')]);
     }
@@ -285,10 +288,10 @@ class UpdateInformationTest extends TestCase
         $exemple_file = UploadedFile::fake()->image('certificate.jpg');
         $data = [
             'major' => 'Công Nghệ Thông Tin',
-            'school_name' => 'Đại học ',
-            'certificate_image' => $exemple_file
+            'school' => 'Đại học ',
+            'photo' => $exemple_file
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['level' => __('validation.teacher_certificate.level.required')]);
     }
@@ -300,12 +303,12 @@ class UpdateInformationTest extends TestCase
         $exemple_file = UploadedFile::fake()->image('certificate.jpg');
         $data = [
             'major' => 'Công Nghệ Thông Tin',
-            'school_name' => 'Đại học ',
+            'school' => 'Đại học ',
             //Valid level not contain special characters but -
             'level' => 'Middle @@@',
-            'certificate_image' => $exemple_file
+            'photo' => $exemple_file
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['level' => __('validation.teacher_certificate.level.regex')]);
     }
@@ -317,14 +320,14 @@ class UpdateInformationTest extends TestCase
         $exemple_file = UploadedFile::fake()->image('certificate.docx');
         $data = [
             'major' => 'Công Nghệ Thông Tin',
-            'school_name' => 'Đại học ',
+            'school' => 'Đại học ',
             'level' => 'Middle',
             //files type allowed: jpeg,jpg,png,gif,svg,webp
-            'certificate_image' => $exemple_file
+            'photo' => $exemple_file
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHasErrors(['certificate_image' => __('validation.teacher_certificate.certificate_image.mimes')]);
+        ->assertSessionHasErrors(['photo' => __('validation.teacher_certificate.certificate_image.mimes')]);
     }
 
     #[Test]
@@ -333,12 +336,12 @@ class UpdateInformationTest extends TestCase
         $teacher = $this->createTeacherUser();
         $data = [
             'major' => 'Công Nghệ Thông Tin',
-            'school_name' => 'Đại học ',
+            'school' => 'Đại học ',
             'level' => 'Middle',
         ];
-        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postCertificateUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHasErrors(['certificate_image' => __('validation.teacher_certificate.certificate_image.required')]);
+        ->assertSessionHasErrors(['photo' => __('validation.teacher_certificate.certificate_image.required')]);
     }
 
     #[Test]
@@ -349,7 +352,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên',
             'year' => 2,5
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['company' => __('validation.teacher_experiences.company.required')]);
     }
@@ -364,7 +367,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên',
             'year' => 2,5
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['company' => __('validation.teacher_experiences.company.regex')]);
     }
@@ -380,7 +383,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên @@@@',
             'year' => 2,5
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['position' => __('validation.teacher_experiences.position.regex')]);
     }
@@ -398,7 +401,7 @@ class UpdateInformationTest extends TestCase
             'position' => $randomString,
             'year' => 2,5
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['position' => __('validation.teacher_experiences.position.max')]);
     }
@@ -411,7 +414,7 @@ class UpdateInformationTest extends TestCase
             'company' => 'Công ty DEHA 1234',
             'position' => 'Lập trình viên',
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['year' => __('validation.teacher_experiences.year.required')]);
     }
@@ -425,7 +428,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên',
             'year' => 100
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['year' => __('validation.teacher_experiences.year.max')]);
     }
@@ -439,7 +442,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên',
             'year' => -2
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['year' => __('validation.teacher_experiences.year.min')]);
     }
@@ -453,7 +456,7 @@ class UpdateInformationTest extends TestCase
             'position' => 'Lập trình viên',
             'year' => 'aa'
         ];
-        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->id), $teacher, $data);
+        $response = $this->postTestWithAuth($this->postExperienceUrl($teacher->userable), $teacher, $data);
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHasErrors(['year' => __('validation.teacher_experiences.year.numeric')]);
     }

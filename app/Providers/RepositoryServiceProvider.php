@@ -16,6 +16,18 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\UserRepositoryEloquent',
         );
         $this->app->bind(
+            'App\Repositories\Contracts\TeacherRepository',
+            'App\Repositories\Eloquent\TeacherRepositoryEloquent',
+        );
+        $this->app->bind(
+            'App\Repositories\Contracts\ExperienceRepository',
+            'App\Repositories\Eloquent\ExperienceRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Contracts\CertificateRepository',
+            'App\Repositories\Eloquent\CertificateRepositoryEloquent'
+        );
+        $this->app->bind(
             'App\Repositories\Contracts\StudentRepository',
             'App\Repositories\Eloquent\StudentRepositoryEloquent'
         );
@@ -30,6 +42,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\Contracts\AttendanceTeachersRepository',
             'App\Repositories\Eloquent\AttendanceTeachersRepositoryEloquent'
+        );
+        $this->app->bind(
+            'App\Repositories\Contracts\Student2Repository',
+            'App\Repositories\Eloquent\Student2RepositoryEloquent'
         );
     }
 

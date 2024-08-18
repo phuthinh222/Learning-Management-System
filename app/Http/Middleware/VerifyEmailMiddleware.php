@@ -17,12 +17,11 @@ class VerifyEmailMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (Auth::user()->id == $request->route('id') && Auth::user()->email_verify_token != NULL) {
+            if (Auth::user()->id == $request->route('id') && Auth::user()->email_verify_token !== NULL) {
                 return $next($request);
             }
         }
 
-        Auth::logout();
         return redirect()->route('login');
     }
 }

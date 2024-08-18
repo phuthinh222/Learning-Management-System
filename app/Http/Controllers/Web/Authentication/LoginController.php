@@ -26,10 +26,14 @@ class LoginController extends Controller
     {
         $request->flashOnly('user_name');
         $result = $this->auth_service->login($request);
-        if (!$result) {
-            return redirect()->route('login');
-        }
+        if ($result === NULL) {
+            return redirect()->route('login')->with('login_error_username', __('auth.not_found'));
+        } 
     
+        if (!$result) {
+            return redirect()->route('login')->with('login_error_password', __('auth.failed')); 
+        }
+        
         return redirect()->route('dashboard');
     }
 
