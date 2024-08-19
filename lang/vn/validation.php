@@ -48,6 +48,8 @@ return [
             'regex' => 'Email sai định dạng',
             'unique' => 'Email đã tồn tại'
         ],
+    ],
+    'update_student' => [
         'phone_number' => [
             'required' => 'Bạn chưa nhập số điện thoại',
             'regex' => 'Số điện thoại sai định dạng',
@@ -60,7 +62,8 @@ return [
         ],
         'date_of_birth' => [
             'date' => 'Ngày sinh sai định dạng',
-            'before' => 'Ngày sinh phải trước ngày này 12 năm trước. Bạn phải ít nhất 12 tuổi.'
+            'before' => 'Ngày sinh phải ít nhất 18 năm trước',
+            'after' => 'Ngày sinh không được quá 70 năm trước',
         ]
     ],
 

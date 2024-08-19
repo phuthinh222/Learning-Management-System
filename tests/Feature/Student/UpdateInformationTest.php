@@ -98,7 +98,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.custom.address.required')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.update_student.address.required')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_invalid_address()
@@ -112,7 +112,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.custom.address.regex')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.update_student.address.regex')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_too_long_address()
@@ -126,7 +126,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.custom.address.max')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['address' => __('validation.update_student.address.max')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_null_phone()
@@ -140,7 +140,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.custom.phone_number.required')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.update_student.phone_number.required')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_invalid_phone()
@@ -154,7 +154,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.custom.phone_number.regex')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.update_student.phone_number.regex')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_exists_phone()
@@ -169,7 +169,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => $this->faker->date
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.custom.phone_number.unique')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['phone_number' => __('validation.update_student.phone_number.unique')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_invalid_date_of_birth()
@@ -183,7 +183,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => 'invalid date'
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['date_of_birth' => __('validation.custom.date_of_birth.date')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['date_of_birth' => __('validation.update_student.date_of_birth.date')]);
     }
     /** @test */
     public function auth_user_can_not_update_if_too_young_date_of_birth()
@@ -197,7 +197,7 @@ class UpdateInformationTest extends TestCase
             'date_of_birth' => Carbon::now()->subYears(10)->format('Y-m-d')
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
-        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['date_of_birth' => __('validation.custom.date_of_birth.before')]);
+        $response->assertStatus(Response::HTTP_FOUND)->assertSessionHasErrors(['date_of_birth' => __('validation.update_student.date_of_birth.before')]);
     }
     /** @test */
     public function auth_user_can_update_if_valid_data()
@@ -208,7 +208,7 @@ class UpdateInformationTest extends TestCase
             'name' => 'valid name',
             'address' => 'valid address',
             'phone_number' => '+84911111111',
-            'date_of_birth' => Carbon::now()->subYears(13)->format('Y-m-d')
+            'date_of_birth' => Carbon::now()->subYears(20)->format('Y-m-d')
         ];
         $response = $this->putTest($this->updateInformationStudentRoute($user->id), $data);
         $response->assertStatus(Response::HTTP_FOUND);

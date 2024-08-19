@@ -54,7 +54,8 @@ class UpdateInformationRequest extends FormRequest
                 'nullable',
                 'date',
                 //this validate allow users at least 12 years old 
-                'before:-12 years'
+                'before:' . now()->subYears(18)->toDateString(),
+                'after:' . now()->subYears(70)->toDateString(),
             ]
         ];
     }
@@ -64,14 +65,15 @@ class UpdateInformationRequest extends FormRequest
         return [
             'name.required' => __('validation.custom.name.required'),
             'name.regex' => __('validation.custom.name.regex'),
-            'phone_number.required' => __('validation.custom.phone_number.required'),
-            'phone_number.regex' => __('validation.custom.phone_number.regex'),
-            'phone_number.unique' => __('validation.custom.phone_number.unique'),
-            'address.required' => __('validation.custom.address.required'),
-            'address.regex' => __('validation.custom.address.regex'),
-            'address.max' => __('validation.custom.address.max'),
-            'date_of_birth.date' => __('validation.custom.date_of_birth.date'),
-            'date_of_birth.before' => __('validation.custom.date_of_birth.before'),
+            'phone_number.required' => __('validation.update_student.phone_number.required'),
+            'phone_number.regex' => __('validation.update_student.phone_number.regex'),
+            'phone_number.unique' => __('validation.update_student.phone_number.unique'),
+            'address.required' => __('validation.update_student.address.required'),
+            'address.regex' => __('validation.update_student.address.regex'),
+            'address.max' => __('validation.update_student.address.max'),
+            'date_of_birth.date' => __('validation.update_student.date_of_birth.date'),
+            'date_of_birth.before' => __('validation.update_student.date_of_birth.before'),
+            'date_of_birth.after' => __('validation.update_student.date_of_birth.after'),
         ];
     }
 }
