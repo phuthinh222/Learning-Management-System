@@ -46,7 +46,6 @@ class TeacherController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-
     }
 
 
@@ -71,5 +70,10 @@ class TeacherController extends Controller
             'attendance' => $attendance,
             'listAttandance' => $listAttandance->appends(['search_attendance' => $searchDate]),
         ]);
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }
