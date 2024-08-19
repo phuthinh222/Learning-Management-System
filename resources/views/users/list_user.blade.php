@@ -39,42 +39,50 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-sm-12 col-md-3">
-                            <form action="{{route('user.listuser')}}">
-                                <div class="d-flex" >
-                                <div class="col-3">
-                                <div class="filter-container">
-                                    <button type="button" id="filter-button" class="filter-button">
-                                        Lọc
-                                        <i class="bi bi-funnel-fill"></i>
-                                    </button>
-                                    <div id="filter-options" class="filter-options">
-                                            <div class="form-group">
-                                                <label for="type-select">Chọn chức vụ:</label>
-                                                <select id="type-select" name="type" >
-                                                    <option value="">Tất cả chức vụ</option>
-                                                    <option value="Student" {{old('type') == 'Student' ? 'selected' : ''}}>Học sinh</option>
-                                                    <option value="Teacher" {{old('type') == 'Teacher' ? 'selected' : ''}}>Giáo viên</option>
-                                                    <option value="Employee" {{old('type') == 'Employee' ? 'selected' : ''}}>Nhân viên</option>
-                                                </select>
+                            <form action="{{ route('user.listuser') }}">
+                                <div class="d-flex">
+                                    <div class="col-3">
+                                        <div class="filter-container">
+                                            <button type="button" id="filter-button" class="filter-button">
+                                                Lọc
+                                                <i class="bi bi-funnel-fill"></i>
+                                            </button>
+                                            <div id="filter-options" class="filter-options">
+                                                <div class="form-group">
+                                                    <label for="type-select">Chọn chức vụ:</label>
+                                                    <select id="type-select" name="type">
+                                                        <option value="">Tất cả chức vụ</option>
+                                                        <option value="Student"
+                                                            {{ old('type') == 'Student' ? 'selected' : '' }}>Học sinh
+                                                        </option>
+                                                        <option value="Teacher"
+                                                            {{ old('type') == 'Teacher' ? 'selected' : '' }}>Giáo viên
+                                                        </option>
+                                                        <option value="Employee"
+                                                            {{ old('type') == 'Employee' ? 'selected' : '' }}>Nhân viên
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail-select">Chi tiết:</label>
+                                                    <select id="detail-select" name="detail"
+                                                        data-old-value="{{ old('detail', '') }}">
+                                                        <option value="">Chọn chi tiết</option>
+                                                        <!-- Options will be populated based on the selection in type-select -->
+                                                    </select>
+                                                </div>
+                                                <button class="submit-button">Áp dụng</button>
+
                                             </div>
-                                            <div class="form-group">
-                                                <label for="detail-select">Chi tiết:</label>
-                                                <select id="detail-select" name="detail" data-old-value="{{ old('detail', '') }}">
-                                                    <option value="">Chọn chi tiết</option>
-                                                    <!-- Options will be populated based on the selection in type-select -->
-                                                </select>
-                                            </div>
-                                            <button class="submit-button">Áp dụng</button>
-                                        
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="input-group">
-                                    <input name="search_string" value="{{request('search_string')}}" type="text" placeholder="Search ..." class="form-control" id="basic-addon1" />
-                                    <button class="input-group-text btn btn-search" id="basic-addon1">
-                                        <i class="fa fa-search search-icon"></i>
-                                    </button>
-                                </div>
+                                    <div class="input-group">
+                                        <input name="search_string" value="{{ request('search_string') }}" type="text"
+                                            placeholder="Search ..." class="form-control" id="basic-addon1" />
+                                        <button class="input-group-text btn btn-search" id="basic-addon1">
+                                            <i class="fa fa-search search-icon"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -96,14 +104,14 @@
                             <tbody>
                                 @if ($users->total() == 0)
                                     <tr>
-                                        <td  colspan="9">
+                                        <td colspan="9">
                                             <h5 class="d-flex justify-content-center align-items-center">
                                                 <strong>
-                                                    Không tìm thấy kết quả cho từ khóa "{{old('search_string')}}"
+                                                    Không tìm thấy kết quả cho từ khóa "{{ old('search_string') }}"
                                                 </strong>
                                             </h5>
                                         </td>
-                                    </tr>    
+                                    </tr>
                                 @endif
                                 @foreach ($users as $user)
                                     <tr>
@@ -134,24 +142,50 @@
                                                     class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button type="button" data-bs-toggle="tooltip" title=""
-                                                    class="btn btn-link btn-danger" data-original-title="Remove">
+                                                <button type="button" class="btn btn-link btn-danger" data-original-title="Remove" data-bs-toggle="modal" data-bs-target="#modal-{{ $user->id }}">
                                                     <i class="fa fa-times"></i>
                                                 </button>
+
+                                                <div class="modal" id="modal-{{ $user->id }}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Delete</h4>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Bạn có chắc chắn muốn xóa người dùng {{ $user->name }}?
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                                <form action="{{route('users.destroy',$user->id)}}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger delete_button">Delete</button>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </form>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {{ $users->appends(['type' => old('type'), 'detail' => old('detail'), 'search_string' => old('search_string'), ])->links() }}
                     </div>
+                    </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                    </table>
+                    {{ $users->appends(['type' => old('type'), 'detail' => old('detail'), 'search_string' => old('search_string')])->links() }}
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Modal create user -->
     @include('users.create_user_modal')
-
 @endsection

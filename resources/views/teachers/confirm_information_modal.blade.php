@@ -2,13 +2,13 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="confirmTeacherInformationLabel">Phê duyệt thông tin Giáo Viên: </h4>
+                <h4 class="modal-title" id="confirmTeacherInformationLabel">Phê duyệt thông tin Giáo Viên </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="">
+            <form action="{{route('teacher.confirmation', 1)}}" method="POST">
+                @csrf()
                 <div class="modal-body">
                     <div class="row">
-                        
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="user_name" class="form-label">Họ tên:</label>
@@ -89,11 +89,12 @@
                     </div>
 
                 </div>
-            </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                     <button type="submit" class="btn btn-primary">Phê duyệt</button>
                 </div>
+            </form>
+                
         </div>
     </div>
 </div>

@@ -32,6 +32,7 @@ class TeacherService
         if ($user->user_name == $attributes['user_name'] && $user->email_address == $attributes['email_address']) {
             $user = $this->user_repository->update($attributes, $id);
             $teacher = $user->userable;
+            $attributes['status'] = 0;
             $teacher->update($attributes);
             return true;
         } else {
@@ -99,6 +100,13 @@ class TeacherService
     public function find($id)
     {
         return $this->teacher_repository->find($id);
+    }
+
+    public function confirmTeacherInformation($id)
+    {
+        $attributes['status'] = 1;
+        $teacher = $this->teacher_repository->find($id);
+        return $teacher->update($attributes);
     }
 }
 

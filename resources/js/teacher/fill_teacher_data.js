@@ -1,5 +1,5 @@
-import { getTeacherCertificates } from "../get_data";
-import { getTeacherExperiences } from "../get_data";
+import { getTeacherCertificates } from "../url/get_data";
+import { getTeacherExperiences } from "../url/get_data";
 $('.confirm_information').on('click', function(e) {
     e.preventDefault();
 
