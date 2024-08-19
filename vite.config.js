@@ -12,6 +12,7 @@ export default defineConfig({
                 "resources/css/Teacher/timekeeping.scss",
                 "resources/js/certificate.js",
                 "resources/js/experience.js",
+                "resources/js/Authentication/verify-email.js"
             ],
             refresh: true,
         }),

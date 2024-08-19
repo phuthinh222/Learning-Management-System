@@ -84,12 +84,11 @@
                             <thead>
                                 <tr>
                                     <th>Tên tài khoản</th>
-                                    <th>Tên</th>
+                                    <th>Họ tên</th>
                                     <th>Email</th>
-                                    <th style="width: 10%">Ngày sinh</th>
-                                    <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày tạo</th>
+                                    <th>Trạng Thái</th>
                                     <th style="width: 8%">Chức vụ</th>
                                     <th style="width: 8%">Thao tác</th>
                                 </tr>
@@ -111,10 +110,19 @@
                                         <td>{{ $user->user_name }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email_address }}</td>
-                                        <td>{{ $user->date_of_birth }}</td>
-                                        <td>{{ $user->address }}</td>
                                         <td>{{ $user->phone_number }}</td>
                                         <td>{{ $user->created_at }}</td>
+                                        <td>
+                                            @if ($user->userable_type == 'App\Models\Teacher')
+                                                {{$user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ việc'}}
+                                            @endif
+                                            @if ($user->userable_type == 'App\Models\Employees')
+                                                {{$user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ Việc'}}
+                                            @endif
+                                            @if ($user->userable_type == 'App\Models\Student')
+                                                Bình thường
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($user->roles as $role)
                                                 {{ $roleTranslations[$role->name] ?? $role->name }}
