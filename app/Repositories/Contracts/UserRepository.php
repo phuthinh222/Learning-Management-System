@@ -18,4 +18,5 @@ interface UserRepository extends RepositoryInterface
     public function getUsersByRoles(array $roles, $searchString);
 
     public function createUser(array $data);
+    
 }

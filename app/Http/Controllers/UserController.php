@@ -50,4 +50,16 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Lỗi tạo tài khoản: ' . $e->getMessage());
         }
     }
+    public function destroy($id)
+    {
+        $this->userService->destroy($id);  
+        flash()
+        ->options([
+            'timeout' => 3000, 
+            'position' => 'top-center',
+        ])
+        ->success('Xóa thông tin thành công');
+        return redirect()->back();
+    }
+
 }
