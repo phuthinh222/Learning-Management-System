@@ -47,13 +47,8 @@ class TeacherController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-
     }
 
-    public function listInactiveTeacher()
-    {
-        return view('teachers.inactive');
-    }
     public function listTimeKeeping(Request $request)
     {
 
@@ -76,4 +71,8 @@ class TeacherController extends Controller
         ]);
     }
 
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
+    }
 }
