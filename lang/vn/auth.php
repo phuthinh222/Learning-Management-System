@@ -13,8 +13,10 @@ return [
     |
     */
 
-    'failed' => 'Tài khoản không tồn tại.',
-    'password' => 'Mật khẩu không đúng.',
-    'rerify_login' => 'Tài khoản chưa được xác thực.',
-    'verify_successfull' => 'Đăng ký thành công!'
+    'not_found' => 'Tài khoản không tồn tại.',
+    'failed' => 'Mật khẩu không đúng hoặc tài khoản chưa xác thực',
+    'verify_successfull' => 'Đăng ký thành công!',
+    'register' => [
+        'failed' => 'Đăng ký không thành công'
+    ]
 ];

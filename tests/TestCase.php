@@ -2,8 +2,12 @@
 
 namespace Tests;
 
+use App\Models\Employees;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 abstract class TestCase extends BaseTestCase
@@ -18,23 +22,60 @@ abstract class TestCase extends BaseTestCase
     //Create the user with roles
     protected function createTeacherUser()
     {
-        $user = $this->createUser();
-        $user->assignRole('Teacher');
-        return $user;
+        try {
+            DB::beginTransaction();
+            $teacher = Teacher::factory()->create([]);
+            $user = $this->createUser();
+            $user->assignRole('Teacher');
+            $data = [
+                'userable_type' => $teacher::class,
+                'userable_id' => $teacher->id,
+            ];
+            $user->update($data);
+            DB::commit();
+            return $user;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+        
     }
 
     protected function createStudentUser()
     {
-        $user = $this->createUser();
-        $user->assignRole('Student');
-        return $user;
+        try {
+            DB::beginTransaction();
+            $stdent = Student::factory()->create([]);
+            $user = $this->createUser();
+            $user->assignRole('Student');
+            $data = [
+                'userable_type' => $stdent::class,
+                'userable_id' => $stdent->id,
+            ];
+            $user->update($data);
+            DB::commit();
+            return $user;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 
     protected function createEmployeeUser()
     {
-        $user = $this->createUser();
-        $user->assignRole('Employee');
-        return $user;
+        try {
+            DB::beginTransaction();
+            $employee = Employees::factory()->create([]);
+            $user = $this->createUser();
+            $user->assignRole('Employee');
+            $data = [
+                'userable_type' => $employee::class,
+                'userable_id' => $employee->id,
+            ];
+            $user->update($data);
+            DB::commit();   
+            return $user;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
     //Test without auth user
     protected function getTest($url)
@@ -74,6 +115,6 @@ abstract class TestCase extends BaseTestCase
     }
     protected function findUserToTest($email_address)
     {
-        return User::where('email_address', $email_address)->first();
+        return User::Where('email_address', $email_address)->first();
     }
 }

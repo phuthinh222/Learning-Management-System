@@ -22,7 +22,7 @@ class ExperienceController extends Controller
         return response()->json([''], Response::HTTP_OK);
     }
 
-    public function store(Request $request)
+    public function store(ExperiencesCreateRequest $request)
     {
         $exc = $this->experience_service->create($request->all());
         flash()->success(__('teacher.certificate.create_success'));

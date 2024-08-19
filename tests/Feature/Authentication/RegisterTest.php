@@ -203,11 +203,9 @@ class RegisterTest extends TestCase
         ];
         $response = $this->postTest($this->getPostUrl(), $data);
         $user = $this->findUserToTest($data['email_address']);
-        
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('email_verify', $user->id));
         
-
         Mail::assertSent(VerifycationEmail::class, function($email) use ($user) {
             return $email->hasTo($user->email_address);
         });
@@ -224,7 +222,7 @@ class RegisterTest extends TestCase
             'email_verify_token' => 'WrongVerifyToken',
         ];
     
-        $response = $this->postTest(route('email_verify', $user->id), $data);
+        $response = $this->postTestWithAuth(route('email_verify', $user->id), $user, $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHas(['failed_verify' => __('email.faile_verify')]);
@@ -239,7 +237,7 @@ class RegisterTest extends TestCase
         $data = [
             'email_verify_token' => $user->email_verify_token,
         ];
-        $response = $this->postTest(route('email_verify', $user->id), $data);
+        $response = $this->postTestWithAuth(route('email_verify', $user->id), $user, $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('login'));

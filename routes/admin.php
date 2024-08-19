@@ -7,7 +7,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 
 // Authentication Routes
-Route::group(['middleware' => ['auth', 'role:Admin']], function () {
+Route::group(['middleware' => ['auth', 'role:Admin', 'MustVerifyEmail']], function () {
 
     // Logout route
 

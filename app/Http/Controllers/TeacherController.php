@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
 use App\Models\User;
@@ -34,7 +35,7 @@ class TeacherController extends Controller
         return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
     }
 
-    public function update(Request $request, Teacher $teacher)
+    public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
 
         DB::beginTransaction();
@@ -46,10 +47,7 @@ class TeacherController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-
     }
-
-
 
     public function listTimeKeeping(Request $request)
     {
@@ -71,5 +69,10 @@ class TeacherController extends Controller
             'attendance' => $attendance,
             'listAttandance' => $listAttandance->appends(['search_attendance' => $searchDate]),
         ]);
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Experience>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employees>
  */
-class ExperienceFactory extends Factory
+class EmployeesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         return [
-            'company' => $this->faker->name(),
-            'position' => $this->faker->jobTitle(),
-            'year' => $this->faker->numberBetween(1, 10)
+            'status' => $this->faker->boolean()
         ];
     }
 }
