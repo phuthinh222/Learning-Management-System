@@ -4,6 +4,19 @@
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Giáo viên</h3>
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a href="{{ route('teacher.index') }}">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('teacher.index') }}">Thông tin giáo viên</a>
+            </li>
+        </ul>
     </div>
 @endsection
 
