@@ -20,5 +20,6 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
         Route::get('/user/listuser', [UserController::class, 'listUsers'])->name('user.listuser');
         Route::get('/filter/getDetails', [UserController::class, 'getSubjectsForFilter'])->name('getFilterDetails');
         Route::post('user/store', [UserController::class, 'store'])->name('users.store');
+        Route::delete('user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 });
