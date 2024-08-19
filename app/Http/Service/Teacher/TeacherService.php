@@ -96,5 +96,9 @@ class TeacherService
         return $this->attendance_repository->getListAttendances($user_id, $month, $year);
     }
 
+    public function find($id)
+    {
+        return $this->teacher_repository->find($id);
+    }
 }
 

@@ -28,7 +28,8 @@ class LoginRequest extends FormRequest
                 //After '@' character, we allow client to type domain at least 2 characters with a-z or A-Z or 0-9 and at least 1 dot('.')
                 //Between dots ('.'), client must type at least 2 characters with a-z or A-Z or 0-9
                 'user_name' => ['required', 'regex: /^[a-zA-Z0-9_\-\*\!\.\#\%\&\'\*\+\^]{3,64}@[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,}){1,}$/'],
-                'password' => 'required'
+                'password' => 'required',
+                'max' => '255'
             ];
         }
 
@@ -45,7 +46,9 @@ class LoginRequest extends FormRequest
         return [
             'user_name.required' => __('validation.custom.user_name.required'),
             'user_name.regex' => __('validation.custom.user_name.regex'),
+            'user_name.max' => __('validation.custom.user_name.max'),
             'password.required' => __('validation.custom.password.required'),
+            'password.max' => __('validation.custom.password.max'),
         ];
     }
 }
