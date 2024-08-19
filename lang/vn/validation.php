@@ -12,7 +12,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-    
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -48,6 +48,44 @@ return [
             'regex' => 'Email sai định dạng',
             'unique' => 'Email đã tồn tại'
         ],
+        'phone_number' => [
+            'required' => 'Bạn chưa nhập số điện thoại',
+            'regex' => 'Số điện thoại sai định dạng',
+            'unique' => 'Số điện thoại đã tồn tại',
+        ],
+        'date_of_birth' => [
+            'required' => 'Bạn chưa nhập ngày sinh',
+            'date_format' => 'Ngày sinh phải theo định dạng Y-m-d',
+            'before' => 'Ngày sinh phải ít nhất 18 năm trước',
+            'after' => 'Ngày sinh không được quá 70 năm trước',
+        ],
+        'address' => [
+            'required' => 'Bạn chưa nhập địa chỉ',
+            'max' => 'Địa chỉ không được vượt quá :max ký tự',
+        ],
+    ],
+
+    'user_name' => [
+        'required' => 'Bạn chưa nhập tên đăng nhập',
+        'regex' => 'Tên đăng nhập sai định dạng',
+        'unique' => 'Tên đăng nhập đã tồn tại'
+    ],
+    'update_student' => [
+        'phone_number' => [
+            'required' => 'Bạn chưa nhập số điện thoại',
+            'regex' => 'Số điện thoại sai định dạng',
+            'unique' => 'Số điện thoại đã tồn tại'
+        ],
+        'address' => [
+            'required' => 'Bạn chưa nhập địa chỉ',
+            'regex' => 'Địa chỉ sai định dạng',
+            'max' => 'Địa chỉ vượt quá số lượng kí tự cho phép'
+        ],
+        'date_of_birth' => [
+            'date' => 'Ngày sinh sai định dạng',
+            'before' => 'Ngày sinh phải ít nhất 18 năm trước',
+            'after' => 'Ngày sinh không được quá 70 năm trước',
+        ]
     ],
 
     'teacher_department' => [
@@ -107,7 +145,7 @@ return [
             'max' => 'Kích thước file quá lớn'
         ]
     ],
-    
+
     'teacher_experiences' => [
         'company' => [
             'required' => 'Bạn chưa nhập tên công ty',
@@ -138,5 +176,4 @@ return [
     */
 
     'attributes' => [],
-
 ];
