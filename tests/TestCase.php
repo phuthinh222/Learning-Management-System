@@ -115,6 +115,6 @@ abstract class TestCase extends BaseTestCase
     }
     protected function findUserToTest($email_address)
     {
-        return User::where('email_address', $email_address)->first();
+        return User::Where('email_address', $email_address)->first();
     }
 }

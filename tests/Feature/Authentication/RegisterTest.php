@@ -203,11 +203,9 @@ class RegisterTest extends TestCase
         ];
         $response = $this->postTest($this->getPostUrl(), $data);
         $user = $this->findUserToTest($data['email_address']);
-        
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('email_verify', $user->id));
         
-
         Mail::assertSent(VerifycationEmail::class, function($email) use ($user) {
             return $email->hasTo($user->email_address);
         });

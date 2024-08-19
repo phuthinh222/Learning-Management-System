@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Student\UpdateInformationRequest;
 use App\Http\Service\Student\StudentService;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateInformationRequest $request, string $id)
     {
       
         $this->studentService->update_information($request->all(),$id);
