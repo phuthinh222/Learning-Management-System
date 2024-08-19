@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\UserInformationRequest;
 use Illuminate\Http\Request;
 use App\Http\Service\User\UserService;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -20,7 +20,6 @@ class UserController extends Controller
         $request->flash();
         $users = $this->userService->getUsersNotAdmin($request);
         $roleTranslations = [
-            'Admin' => 'Quản trị viên',
             'Teacher' => 'Giáo viên',
             'Student' => 'Học sinh',
             'Employee' => 'Nhân viên'
@@ -32,5 +31,23 @@ class UserController extends Controller
     {
         $subjects = $this->userService->getAllSubjectForUserFilter();
         return response()->json(['data' => $subjects]);
+    }
+
+
+    public function store(UserInformationRequest $request)
+    {
+        try {
+            
+            $user = $this->userService->createUser($request);
+            flash()
+            ->options([
+                'timeout' => 3000, 
+                'position' => 'top-center',
+            ])
+            ->success('Cập nhật thông tin thành công');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Lỗi tạo tài khoản: ' . $e->getMessage());
+        }
     }
 }
