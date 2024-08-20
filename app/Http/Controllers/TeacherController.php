@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
+use App\Models\Attendance;
 use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -86,6 +87,20 @@ class TeacherController extends Controller
         return view('teachers.inactive');
     }
 
+
+    public function table_timekeeping(Request $request)
+    {
+        $searchDate = $request->input('search_attendance');
+        $data = $this->teacher_service->getTableDayAttendances(Auth::user()->id, $searchDate);
+
+        $teacher = $this->teacher_service->getTeacherByAuth();
+        return view('teachers.table_timekeeping', array_merge($data, [
+            'teacher' => $teacher
+        ]));
+    }
+
+
+
     public function listCertificatesOfTeacher($id)
     {
         return response()->json([
@@ -114,4 +129,5 @@ class TeacherController extends Controller
             return redirect()->route('teacher.inactive');
         }
     }
+
 }
