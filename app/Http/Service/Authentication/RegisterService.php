@@ -3,7 +3,7 @@
 namespace App\Http\Service\Authentication;
 
 use App\Jobs\SendEmailVerifycation;
-use App\Repositories\Contracts\Student2Repository;
+use App\Repositories\Contracts\StudentRepository;
 use App\Repositories\Contracts\TeacherRepository;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class RegisterService
     public function __construct(
             UserRepository $user_repository, 
             TeacherRepository $teacher_repository, 
-            Student2Repository $student_repository
+            StudentRepository $student_repository
         ) 
     {
         $this->user_repository = $user_repository;
@@ -46,13 +46,12 @@ class RegisterService
             $this->assignUserType($user, $request->account_type);
             DB::commit();
             Auth::login($user);
+            SendEmailVerifycation::dispatch($user);
+            return $user;
         } catch (\Throwable $th) {
             DB::rollback();
             return FALSE;
         }
-
-        SendEmailVerifycation::dispatch($user);
-        return $user;
     }
 
     function verifyEmail($id, $token) 

@@ -41,7 +41,8 @@ class TeacherInformationRequest extends FormRequest
                 'required',
                 //allow user to type valid phone numbers in vietnamese with +84 or start with 0...
                 'regex: /^(\+84|0)(3[2-9]|5[2|5|6|8]|7[0|6|7|8|9]|8[1-9]|9[0|1|4|6|7|8])[0-9]{7}$/',
-             'unique:users,phone_number,' . Auth::user()->id,
+                'unique:users,phone_number,' . Auth::user()->id,
+                'max: 11'
             ],
             'date_of_birth' => [
                 'date_format:Y-m-d',
@@ -73,6 +74,7 @@ class TeacherInformationRequest extends FormRequest
             'phone_number.required' => __('validation.teacher_phone_number.required'),
             'phone_number.regex' => __('validation.teacher_phone_number.regex'),
             'phone_number.unique' => __('validation.teacher_phone_number.unique'),
+            'phone_number.max' => __('validation.teacher_phone_number.max'),
             'date_of_birth.date_format' => __('validation.teacher_date_of_birth.date_format'),
             'date_of_birth.before' => __('validation.teacher_date_of_birth.before'),
             'date_of_birth.after' => __('validation.teacher_date_of_birth.after'),

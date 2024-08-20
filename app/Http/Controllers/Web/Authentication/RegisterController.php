@@ -43,7 +43,7 @@ class RegisterController extends Controller
         return view('Authentication.email_verify', compact('user'));
     }
 
-    public function verifyToken(Request $request, $id)
+    public function verifyEmailToken(Request $request, $id)
     {
         $result = $this->register_service->verifyEmail($id, $request->email_verify_token);
         if($result === TRUE) {
@@ -54,7 +54,7 @@ class RegisterController extends Controller
         }
         
         return redirect()->back()->with([
-            'failed_verify' => __('email.faile_verify'),
+            'failed_verify' => __('email.failed_verify'),
             'user' => $result
         ]);
     }

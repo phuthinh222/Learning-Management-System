@@ -7,6 +7,7 @@ use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -79,5 +80,34 @@ class TeacherController extends Controller
     public function listInactiveTeacher()
     {
         return view('teachers.inactive');
+    }
+
+    public function listCertificatesOfTeacher($id)
+    {
+        return response()->json([
+            'certificates' => $this->teacher_service->find($id)->certificates,
+        ], Response::HTTP_OK);
+    }
+
+    public function listExperiencesOfTeacher($id)
+    {
+        return response()->json([
+            'experiences' => $this->teacher_service->find($id)->experiences,
+        ], Response::HTTP_OK);
+    }
+
+    public function confirmTeacherInformation($id, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            DB::commit();
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->success(__('teacher.confirmations.confirm_successfull'));
+            return redirect()->route('teacher.inactive');
+        } catch (\Throwable $th) {
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->error(__('teacher.confirmations.confirm_failed'));
+            return redirect()->route('teacher.inactive');
+        }
     }
 }

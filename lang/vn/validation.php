@@ -27,31 +27,37 @@ return [
     'custom' => [
         'user_name' => [
             'required' => 'Bạn chưa nhập tên đăng nhập hoặc email',
-            'regex' => 'Tên đăng nhập hoặc Email sai định dạng'
+            'regex' => 'Tên đăng nhập hoặc Email sai định dạng',
+            'max' => 'Tên đăng nhập không được vượt quá :max ký tự'
         ],
         'password' => [
             'required' => 'Bạn chưa nhập mật khẩu',
             'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số',
-            'confirmed' => 'Mật khẩu nhập lại chưa chính xác'
+            'confirmed' => 'Mật khẩu nhập lại chưa chính xác',
+            'max' => 'Mật khẩu không được vượt quá :max ký tự'
         ],
         'name' => [
             'required' => 'Bạn chưa nhập họ tên',
             'regex' => 'Họ tên sai định dạng',
+            'max' => 'Họ tên không được vượt quá :max ký tự'
         ],
         'user_name_register' => [
             'required' => 'Bạn chưa nhập tên đăng nhập',
             'regex' => 'Tên đăng nhập sai định dạng',
-            'unique' => 'Tên đăng nhập đã tồn tại'
+            'unique' => 'Tên đăng nhập đã tồn tại',
+            'max' => 'Tên đăng nhập không được vượt quá :max ký tự'
         ],
         'email_address' => [
             'required' => 'Bạn chưa nhập địa chỉ Email',
             'regex' => 'Email sai định dạng',
-            'unique' => 'Email đã tồn tại'
+            'unique' => 'Email đã tồn tại',
+            'max' => 'Email dài không được vượt quá :max ký tự'
         ],
         'phone_number' => [
             'required' => 'Bạn chưa nhập số điện thoại',
             'regex' => 'Số điện thoại sai định dạng',
             'unique' => 'Số điện thoại đã tồn tại',
+            'max' => 'Số điện thoại không được vượt quá :max ký tự'
         ],
         'date_of_birth' => [
             'required' => 'Bạn chưa nhập ngày sinh',
@@ -97,19 +103,20 @@ return [
     'teacher_phone_number' => [
         'required' => 'Bạn chưa nhập số điện thoại',
         'regex' => 'Số điện thoại sai định dạng',
-        'unique' => 'Số điện thoại đã tồn tại'
+        'unique' => 'Số điện thoại đã tồn tại',
+        'max' => 'Số điện thoại quá dài'
     ],
 
     'teacher_date_of_birth' => [
         'date_format' => 'Ngày tháng năm sinh sai định dạng (YYYYY-MM-DD)',
         'before' => 'Chọn sai ngày tháng năm sinh',
-        'after' => 'Chọn sai ngày tháng năm sinh'
+        'after' => 'Chọn sai ngày tháng năm sinh',
     ],
 
     'teacher_name' => [
         'required' => 'Bạn chưa nhập họ và tên',
         'regex' => 'Họ và tên chứa các ký tự không hợp lệ',
-        'max' => 'Họ và tên quá dài'
+        'max' => 'Họ tên quá dài',
     ],
 
     'teacher_position' => [

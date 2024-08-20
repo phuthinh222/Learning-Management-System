@@ -27,7 +27,7 @@ class UserController extends Controller
         return view('users.list_user', compact('users', 'roleTranslations'));
     }
 
-    public function getSubjectsForFilter(Request $request)
+    public function getSubjectsForFilter()
     {
         $subjects = $this->userService->getAllSubjectForUserFilter();
         return response()->json(['data' => $subjects]);

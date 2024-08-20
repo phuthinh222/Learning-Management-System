@@ -16,5 +16,10 @@ return [
         'update_error' => 'Cập nhật thông tin chứng chỉ thất bại',
         'delete_success' => 'Xóa thông tin chứng chỉ thành công',
         'delete_error' => 'Xóa thông tin chứng chỉ thất bại',
+    ],
+    
+    'confirmations' => [
+        'confirm_successfull' => 'Phê duyệt thông tin giáo viên thành công',
+        'confirm_failed' => 'Phê duyệt thông tin giáo viên thất bại'
     ]
 ];

@@ -10,7 +10,7 @@
                     <i class="fas fa-envelope"></i>
                     <input
                         @if(session('failed_verify')) style="border-bottom: 2px solid #f54254;" @endif
-                    id="email_verify_token" name="email_verify_token" value="{{old('email_verify_token')}}" type="text" placeholder="Mã xác thực" required>
+                    id="email_verify_token" name="email_verify_token" value="{{old('email_verify_token')}}" type="text" placeholder="Mã xác thực">
                 </div>
                 @if(session('failed_verify')) <div class="text"><p style="color:#f54254">{{session('failed_verify')}}</p></div> @endif
                 <div class="button input-box">
