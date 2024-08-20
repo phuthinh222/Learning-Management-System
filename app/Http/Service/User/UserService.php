@@ -30,6 +30,14 @@ class UserService
         return $this->subjectRepository->all();
     }
 
+    public function findSubject($request)
+    {
+        if ($request->detail !== NULL){
+            return $this->subjectRepository->find($request->detail);
+        }
+        
+        return $this->subjectRepository->all();
+    }
     public function createUser($request)
     {
         $data = [
@@ -64,5 +72,10 @@ class UserService
     private function randString($length)
     {
         return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+    }
+
+    public function destroy ($id)
+    {
+        return $this->userRepository->delete($id);
     }
 }

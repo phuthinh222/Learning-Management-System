@@ -4,7 +4,7 @@
             <div class="login-form">
                 <div class="title">Xác thực Email</div>
                 <div class="text sign-up-text">Xin chào {{$user->name}}! Một mã xác thực đã được gửi tới địa chỉ email: {{$user->email_address}} của bạn. Hãy nhập nó để tiến hành xác thực tài khoản nhé!</div>
-                <form method="post" action="{{route('email_verify', ['id' => $user->id])}}">
+                <form method="post" action="{{route('email_verify', ['id' => $user->id])}} id = 'register-form">
                 <div class="input-boxes">
                 <div class="input-box">
                     <i class="fas fa-envelope"></i>
@@ -16,7 +16,11 @@
                 <div class="button input-box">
                     <input type="submit" value="Xác nhận">
                 </div>
+                <div class="button input-box">
+                    <input type="button" id="resend-email"></input>
+                </div>
                 @csrf()
             </form>
         </div>
+    @vite('resources/js/Authentication/verify-email.js')
 @endsection

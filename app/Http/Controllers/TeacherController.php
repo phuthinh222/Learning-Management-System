@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,11 +29,13 @@ class TeacherController extends Controller
 
         $user = $this->teacher_service->getId($id);
         $teacher = $user->userable;
+        // dd($user->date_of_birth->format('d-m-Y'));
         $experiences = $teacher->experiences;
         $certificates = $teacher->certificates;
         return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
     }
-    public function update(Request $request, Teacher $teacher)
+
+    public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
         DB::beginTransaction();
         try {
@@ -72,5 +74,10 @@ class TeacherController extends Controller
             'attendance' => $attendance,
             'listAttandance' => $listAttandance->appends(['search_attendance' => $searchDate]),
         ]);
+    }
+
+    public function listInactiveTeacher()
+    {
+        return view('teachers.inactive');
     }
 }

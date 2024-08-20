@@ -4,6 +4,19 @@
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Giáo viên</h3>
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a href="{{ route('teacher.index') }}">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('teacher.index') }}">Thông tin giáo viên</a>
+            </li>
+        </ul>
     </div>
 @endsection
 
@@ -16,7 +29,7 @@
                     @csrf
                     @method('put')
                     <div class="card-header">
-                        <div class="card-title">Cập nhật thông tin giáo viên</div>
+                        <div class="card-title">Cập nhật thông tin cá nhân</div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -64,7 +77,7 @@
                                     <input type="text" @error('date_of_birth') class="form-control is-invalid" @enderror
                                         class="form-control" id="datepicker" class="datepicker" name="date_of_birth"
                                         @error('date_of_birth') value="{{ old('date_of_birth') }}" @enderror
-                                        value="{{ $user->date_of_birth }}" />
+                                        value="{{ $user->date_of_birth->format('d-m-Y') }}" />
                                     @error('date_of_birth')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -150,123 +163,136 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="d-flex align-items-center">
-                                            <h4 class="card-title">Thư viện chứng chỉ</h4>
-                                            <button type="button" class="btn btn-primary btn-round ms-auto"
-                                                id="createCer">
-                                                <i class="fa fa-plus"></i>
-                                                Thêm
-                                            </button>
-                                        </div>
+                            <div class="">
+                                <a href="{{ route('teacher.index') }}" class="btn btn-light">
+                                    <i class="fas fa-arrow-left me-1"></i>
+                                    Trở về trang chủ
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    Lưu dữ liệu
+                                    <i class="fa fa-save ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="card-title">Cập nhật thông tin làm việc</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title">Thư viện chứng chỉ</h4>
+                                        <button type="button" class="btn btn-primary btn-round ms-auto" id="createCer">
+                                            <i class="fa fa-plus"></i>
+                                            Thêm
+                                        </button>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table id="add-row" class="display table table-striped table-hover">
-                                                <thead>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="add-row" class="display table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hình ảnh</th>
+                                                    <th>Chuyên ngành</th>
+                                                    <th>Cấp độ</th>
+                                                    <th>Trường học/Trung tâm</th>
+                                                    <th style="width: 10%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($certificates as $item)
                                                     <tr>
-                                                        <th>Hình ảnh</th>
-                                                        <th>Chuyên ngành</th>
-                                                        <th>Cấp độ</th>
-                                                        <th>Trường học/Trung tâm</th>
-                                                        <th style="width: 10%"></th>
+                                                        <td>
+                                                            <img src="{{ $item->photo ? asset('storage/teachers/' . $item->photo) : asset('assets/img/default.jpg') }}"
+                                                                alt="" style="width: 150px">
+                                                        </td>
+                                                        <td>{{ $item->major }}</td>
+                                                        <td>{{ $item->level }}</td>
+                                                        <td>{{ $item->school }}</td>
+                                                        <td>
+                                                            <div class="form-button-action">
+                                                                <button type="button"
+                                                                    class="btn btn-link btn-primary btn-lg"
+                                                                    id="editCer{{ $item->id }}">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-danger"
+                                                                    id="delCer{{ $item->id }}">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($certificates as $item)
-                                                        <tr>
-                                                            <td>
-                                                                <img src="{{ $item->photo ? asset('storage/teachers/' . $item->photo) : asset('assets/img/default.jpg') }}"
-                                                                    alt="" style="width: 150px">
-                                                            </td>
-                                                            <td>{{ $item->major }}</td>
-                                                            <td>{{ $item->level }}</td>
-                                                            <td>{{ $item->school }}</td>
-                                                            <td>
-                                                                <div class="form-button-action">
-                                                                    <button type="button"
-                                                                        class="btn btn-link btn-primary btn-lg"
-                                                                        id="editCer{{ $item->id }}">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-link btn-danger"
-                                                                        id="delCer{{ $item->id }}">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="d-flex align-items-center">
-                                            <h4 class="card-title">Thư viện kinh nghiệm</h4>
-                                            <button type="button" id="createExc"
-                                                class="btn btn-primary btn-round ms-auto">
-                                                <i class="fa fa-plus"></i>
-                                                Thêm
-                                            </button>
-                                        </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title">Thư viện kinh nghiệm</h4>
+                                        <button type="button" id="createExc" class="btn btn-primary btn-round ms-auto">
+                                            <i class="fa fa-plus"></i>
+                                            Thêm
+                                        </button>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table id="ajaxExc" class="display table table-striped table-hover">
-                                                <thead>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="ajaxExc" class="display table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Công ty</th>
+                                                    <th>Vị trí</th>
+                                                    <th>Thời gian (năm) </th>
+                                                    <th style="width: 10%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($experiences as $item)
                                                     <tr>
-                                                        <th>Công ty</th>
-                                                        <th>Vị trí</th>
-                                                        <th>Thời gian (năm) </th>
-                                                        <th style="width: 10%"></th>
+                                                        <td>{{ $item->company }}</td>
+                                                        <td>{{ $item->position }}</td>
+                                                        <td>{{ $item->year }}</td>
+                                                        <td>
+                                                            <div class="form-button-action">
+                                                                <button type="button"
+                                                                    class="btn btn-link btn-primary btn-lg "
+                                                                    id="editExc{{ $item->id }}">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-danger"
+                                                                    id="delExc{{ $item->id }}">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($experiences as $item)
-                                                        <tr>
-                                                            <td>{{ $item->company }}</td>
-                                                            <td>{{ $item->position }}</td>
-                                                            <td>{{ $item->year }}</td>
-                                                            <td>
-                                                                <div class="form-button-action">
-                                                                    <button type="button"
-                                                                        class="btn btn-link btn-primary btn-lg "
-                                                                        id="editExc{{ $item->id }}">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-link btn-danger"
-                                                                        id="delExc{{ $item->id }}">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-action ">
-                        <a href="{{ route('teacher.index') }}" class="btn btn-light">
-                            <i class="fas fa-arrow-left me-1"></i>
-                            Trở về trang chủ
-                        </a>
-                        <button type="submit" class="btn btn-success">
-                            Lưu dữ liệu
-                            <i class="fa fa-save ms-1"></i>
-                        </button>
-                    </div>
+                </div>
+
                 </form>
             </div>
         </div>

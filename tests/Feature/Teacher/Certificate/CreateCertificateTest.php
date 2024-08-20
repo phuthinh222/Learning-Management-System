@@ -22,6 +22,7 @@ class CreateCertificateTest extends TestCase
                 'id_teacher' => $teacher->id,
             ]
         )->toArray();
+        // dd($certificate);
         $response = $this->actingAs($this->getTeacherId())->post(route('certificates.store', ['teacher' => $teacher->id]), $certificate);
         $this->assertDatabaseHas('certificates', $certificate);
         $response->assertStatus(Response::HTTP_OK);

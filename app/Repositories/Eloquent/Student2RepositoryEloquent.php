@@ -2,20 +2,17 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Student;
-use App\Models\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\StudentRepository;
-
-use App\Validators\StudentValidator;
+use App\Repositories\Contracts\Student2Repository;
+use App\Models\Student;
 
 /**
- * Class StudentRepositoryEloquent.
+ * Class Student2RepositoryEloquent.
  *
  * @package namespace App\Repositories\Eloquent;
  */
-class StudentRepositoryEloquent extends BaseRepository implements StudentRepository
+class Student2RepositoryEloquent extends BaseRepository implements Student2Repository
 {
     /**
      * Specify Model class name
@@ -24,7 +21,7 @@ class StudentRepositoryEloquent extends BaseRepository implements StudentReposit
      */
     public function model()
     {
-        return User::class;
+        return Student::class;
     }
 
     
@@ -36,6 +33,5 @@ class StudentRepositoryEloquent extends BaseRepository implements StudentReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
     
 }

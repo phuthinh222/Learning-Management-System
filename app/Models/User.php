@@ -62,4 +62,7 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+    protected $casts = [
+        'date_of_birth' => 'datetime'
+    ];
 }

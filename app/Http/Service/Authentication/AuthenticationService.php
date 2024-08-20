@@ -5,6 +5,7 @@ namespace App\Http\Service\Authentication;
 use App\Models\Teacher;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
@@ -28,43 +29,44 @@ class AuthenticationService
                     return $user;
                 }
                 
-                Session::flash('login_error_verify', __('auth.rerify_login'));
                 return FALSE;
             } 
 
-            Session::flash('login_error_password', __('auth.password'));
             return FALSE;
         }
         
-        Session::flash('login_error_username', __('auth.failed'));
         return NULL;
-        
     }
 
     public function loginWithGoogle() 
     { 
+        $user = Socialite::driver('Google')->user();
+        $user_to_login = $this->user_repository->searchToLogin($user->email);
+        if ($user_to_login !== NULL) {
+            Auth::login($user_to_login);
+            return TRUE;
+        }
+
+        $new_user = [
+            'user_name' =>  explode('@' ,$user->email)[0],
+            'password' => Hash::make('Password01'),
+            'name' => $user->name,
+            'email_address' => $user->email,
+            'google_id' => $user->id,
+            'date_of_birth' => NULL,
+            'address' => NULL,
+            'phone_number' => NULL,
+        ];
+
         try {
-            $user = Socialite::driver('Google')->user();
-            $user_to_login = $this->user_repository->searchToLogin($user->email);
-            if ($user_to_login !== NULL) {
-                Auth::login($user_to_login);
-                return TRUE;
-            }
-            $new_user = [
-                'user_name' =>  explode('@' ,$user->email)[0],
-                'password' => Hash::make('123456'),
-                'name' => $user->name,
-                'email_address' => $user->email,
-                'google_id' => $user->id,
-                'date_of_birth' => NULL,
-                'address' => NULL,
-                'phone_number' => NULL,
-            ];
+            DB::beginTransaction();
             $user_to_login = $this->user_repository->create($new_user);
             $this->assignRole($user_to_login, 'Teacher');
             Auth::login($user_to_login);
+            DB::commit();
             return TRUE;
         } catch (\Throwable $th) {
+            DB::rollBack();
             return FALSE;
         }
     }
