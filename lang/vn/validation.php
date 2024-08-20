@@ -89,8 +89,8 @@ return [
         ],
         'date_of_birth' => [
             'date' => 'Ngày sinh sai định dạng',
-            'before' => 'Ngày sinh phải ít nhất 18 năm trước',
-            'after' => 'Ngày sinh không được quá 70 năm trước',
+            'before' => 'Ngày sinh phải ít nhất 6 năm trước',
+            'after' => 'Ngày sinh không được quá 150 năm trước',
         ]
     ],
 
