@@ -188,4 +188,5 @@
 
     <!-- Modal create user -->
     @include('users.create_user_modal')
+    @vite('resources/js/user/user.js')
 @endsection

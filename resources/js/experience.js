@@ -15,7 +15,6 @@ export function createExperience() {
                         "Thêm thông tin kinh nghiệm làm việc";
 
                     const excModal = document.getElementById("excModal");
-                    excModal.reset();
                 })
                 .catch((error) => console.error("Error:", error));
         });
@@ -87,6 +86,9 @@ document
     .getElementById("excModal")
     .addEventListener("submit", function (event) {
         event.preventDefault();
+        const company_input = document.getElementById("exc_company");
+        const position_input = document.getElementById("exc_position");
+        const year_input = document.getElementById("exc_year");
         const teacher = document.getElementById("teacher_id");
         const idTeacher = teacher.value;
         const experience = document.getElementById("exc_id");
@@ -113,18 +115,35 @@ document
         fetch(url, options)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    return response.json().then((errorData) => {
+                        throw new Error(JSON.stringify(errorData.errors));
+                    });
                 }
                 return response.json();
             })
             .then((data) => {
                 location.reload();
             })
-            .catch((error) => {
-                console.error(
-                    "There was a problem with the fetch operation:",
-                    error
-                );
+            .catch((errors) => {
+                const messages = JSON.parse(errors.message);
+                if (typeof messages.company !== 'undefined') {
+                    company_input.classList.add('is-invalid');
+                    document.getElementById("invalid_company").textContent = messages.company
+                } else {
+                    company_input.classList.remove('is-invalid');
+                }
+                if (typeof messages.position !== 'undefined') {
+                    position_input.classList.add('is-invalid');
+                    document.getElementById("invalid_position").textContent = messages.position
+                } else {
+                    position_input.classList.remove('is-invalid');
+                }
+                if (typeof messages.year !== 'undefined') {
+                    year_input.classList.add('is-invalid');
+                    document.getElementById("invalid_year").textContent = messages.year
+                } else {
+                    year_input.classList.remove('is-invalid');
+                }
             });
     });
 

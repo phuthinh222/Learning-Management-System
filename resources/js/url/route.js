@@ -13,4 +13,4 @@ const routes = {
     }
 }
 
-export {route}
+export {routes}

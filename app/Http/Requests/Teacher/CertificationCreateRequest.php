@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Teacher;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
 
 class CertificationCreateRequest extends FormRequest
 {
@@ -63,5 +66,13 @@ class CertificationCreateRequest extends FormRequest
             'photo.required' => __('validation.teacher_certificate.certificate_image.required'),
             'photo.mimes' => __('validation.teacher_certificate.certificate_image.mimes')
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

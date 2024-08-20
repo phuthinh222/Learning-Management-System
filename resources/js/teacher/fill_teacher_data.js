@@ -1,8 +1,6 @@
-import { getTeacherCertificates } from "../url/get_data";
-import { getTeacherExperiences } from "../url/get_data";
+import { getTeacherCertificates, getTeacherExperiences } from "../url/get_data";
 $('.confirm_information').on('click', function(e) {
     e.preventDefault();
-
     //Fill the Certication table of Teacher
     getTeacherCertificates(1).then((certificates) => {
         const certificateTable = document.getElementById('teacher_certificates');
