@@ -90,11 +90,13 @@ class TeacherController extends Controller
 
     public function table_timekeeping(Request $request)
     {
-
         $searchDate = $request->input('search_attendance');
         $data = $this->teacher_service->getTableDayAttendances(Auth::user()->id, $searchDate);
 
-        return view('teachers.table_timekeeping', $data);
+        $teacher = $this->teacher_service->getTeacherByAuth();
+        return view('teachers.table_timekeeping', array_merge($data, [
+            'teacher' => $teacher
+        ]));
     }
 
 

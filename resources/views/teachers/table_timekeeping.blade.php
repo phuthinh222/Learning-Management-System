@@ -58,7 +58,13 @@
                             <tbody>
                                 <tr>
                                     <th class="text-nowrap col-md-3">{{Auth::user()->name}}</th>
-                                    <th class="text-nowrap col-md-3">Develop</th>
+                                    <th class="text-nowrap col-md-3">
+                                        @if ($teacher)
+                                        {{ $teacher->position }}
+                                        @else
+                                            Chưa có vị trí
+                                        @endif
+                                    </th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
                                         <th>
                                             @php
