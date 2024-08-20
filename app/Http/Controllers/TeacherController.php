@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
+use App\Models\Attendance;
 use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
@@ -75,4 +76,16 @@ class TeacherController extends Controller
     {
         return view('teachers.inactive');
     }
+
+    public function table_timekeeping(Request $request)
+    {
+
+        $searchDate = $request->input('search_attendance');
+        $data = $this->teacher_service->getTableDayAttendances(Auth::user()->id, $searchDate);
+
+        return view('teachers.table_timekeeping', $data);
+    }
+
+
+
 }
