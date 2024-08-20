@@ -1,11 +1,16 @@
-export function getTeacherCertificatesRoute(id_teacher) {
-    return '/admin/teacher/getCertificate/' + id_teacher
+//change this to your own domain:
+const domain = 'http://localhost';
+
+//define admin routes here:
+const adminRoute = domain + '/admin'
+const adminTeacher = adminRoute + '/teacher'
+
+//define new route in here:
+const routes = {
+    teacher : {
+        getCertificate : adminTeacher + '/getCertificate',
+        getExperience : adminTeacher + '/getExperience',
+    }
 }
 
-export function getTeacherExperiencesRoute(id_teacher) {
-    return '/admin/teacher/getExperience/' + id_teacher
-}
-
-export function confirmTeacherInformationRoute(id_teacher) {
-    return '/admin/teacher/confirm/' + id_teacher
-}
+export {route}

@@ -28,36 +28,36 @@ return [
         'user_name' => [
             'required' => 'Bạn chưa nhập tên đăng nhập hoặc email',
             'regex' => 'Tên đăng nhập hoặc Email sai định dạng',
-            'max' => 'Tên đăng nhập quá dài'
+            'max' => 'Tên đăng nhập không được vượt quá :max ký tự'
         ],
         'password' => [
             'required' => 'Bạn chưa nhập mật khẩu',
             'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số',
             'confirmed' => 'Mật khẩu nhập lại chưa chính xác',
-            'max' => 'Mật khẩu quá dài'
+            'max' => 'Mật khẩu không được vượt quá :max ký tự'
         ],
         'name' => [
             'required' => 'Bạn chưa nhập họ tên',
             'regex' => 'Họ tên sai định dạng',
-            'max' => 'Họ tên quá dài'
+            'max' => 'Họ tên không được vượt quá :max ký tự'
         ],
         'user_name_register' => [
             'required' => 'Bạn chưa nhập tên đăng nhập',
             'regex' => 'Tên đăng nhập sai định dạng',
             'unique' => 'Tên đăng nhập đã tồn tại',
-            'max' => 'Tên đăng nhập quá dài'
+            'max' => 'Tên đăng nhập không được vượt quá :max ký tự'
         ],
         'email_address' => [
             'required' => 'Bạn chưa nhập địa chỉ Email',
             'regex' => 'Email sai định dạng',
             'unique' => 'Email đã tồn tại',
-            'max' => 'Email quá dài'
+            'max' => 'Email dài không được vượt quá :max ký tự'
         ],
         'phone_number' => [
             'required' => 'Bạn chưa nhập số điện thoại',
             'regex' => 'Số điện thoại sai định dạng',
             'unique' => 'Số điện thoại đã tồn tại',
-            'max' => 'Số điện thoại quá dài'
+            'max' => 'Số điện thoại không được vượt quá :max ký tự'
         ],
         'date_of_birth' => [
             'required' => 'Bạn chưa nhập ngày sinh',

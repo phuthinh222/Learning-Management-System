@@ -1,6 +1,3 @@
-import { getTeacherCertificatesRoute } from "./route";
-import { getTeacherExperiencesRoute } from "./route";
-
 export function getTeacherCertificates(id_teacher) {
     return fetch(getTeacherCertificatesRoute(id_teacher)).then((response) => response.json())
     .then((data) => {

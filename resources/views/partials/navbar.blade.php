@@ -78,8 +78,8 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown">
                         <div class="avatar-sm">
-                            <img src="{{ asset('assets/img/profile.jpg') }}" alt="..."
-                                class="avatar-img rounded-circle" />
+                            <img src="{{ Auth::user()->avatar ? asset('storage/users/' . Auth::user()->avatar) : asset('assets/img/user_default.jpg') }}"
+                                alt="..." class="avatar-img rounded-circle" />
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Chào,</span>
@@ -102,8 +102,8 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        <img src="{{ asset('assets/img/profile.jpg') }}" alt="image profile"
-                                            class="avatar-img rounded" />
+                                        <img src="{{ Auth::user()->avatar ? asset('storage/users/' . Auth::user()->avatar) : asset('assets/img/user_default.jpg') }}"
+                                            alt="image profile" class="avatar-img rounded" />
                                     </div>
                                     <div class="u-text">
                                         <h4>{{ Auth::user()->name }}</h4>

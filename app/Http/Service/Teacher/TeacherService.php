@@ -14,7 +14,11 @@ class TeacherService
     protected $teacher_repository;
     protected $user_repository;
     protected $attendance_repository;
-    protected $attendance_teacher_repository;
+    protected $attendance_teacher_repository;    
+    const CONFIRMED = 1;
+    const UNCONFIRMED = 0;
+
+        
     public function __construct(TeacherRepository $teacher_repository, UserRepository $user_repository, AttendancesRepository $attendance_repository, AttendanceTeachersRepository $attendance_teacher_repository)
     {
         $this->teacher_repository = $teacher_repository;
@@ -30,9 +34,9 @@ class TeacherService
     {
         $user = $this->user_repository->find($id);
         if ($user->user_name == $attributes['user_name'] && $user->email_address == $attributes['email_address']) {
-            $user = $this->user_repository->update($attributes, $id);
+            $user = $this->user_repository->updateUser($attributes, $id);
             $teacher = $user->userable;
-            $attributes['status'] = 0;
+            $attributes['status'] = self::UNCONFIRMED;
             $teacher->update($attributes);
             return true;
         } else {
@@ -43,23 +47,21 @@ class TeacherService
     public function checkin()
     {
 
-        if(!$this->attendance_repository->getCheckinStatus())
-        {
+        if (!$this->attendance_repository->getCheckinStatus()) {
             $data_checkin = [
-                'date' =>Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString(),
+                'date' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString(),
                 'time_check_in' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s'),
                 'time_check_out' => '00:00:00',
             ];
             $id_attendance = $this->attendance_repository->create($data_checkin);
             $data_checkin_teacher = [
-                'id_teacher' =>Auth::user()->id,
+                'id_teacher' => Auth::user()->id,
                 'id_attendance' => $id_attendance->id,
             ];
             $this->attendance_teacher_repository->create($data_checkin_teacher);
-        }else{
+        } else {
             return true;
         }
-
     }
     public function checkout()
     {
@@ -104,9 +106,8 @@ class TeacherService
 
     public function confirmTeacherInformation($id)
     {
-        $attributes['status'] = 1;
+        $attributes['status'] = self::CONFIRMED;
         $teacher = $this->teacher_repository->find($id);
         return $teacher->update($attributes);
     }
 }
-
