@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\Student2Repository;
+use App\Repositories\Contracts\StudentRepository;
 use App\Models\Student;
 
 /**
@@ -12,7 +12,7 @@ use App\Models\Student;
  *
  * @package namespace App\Repositories\Eloquent;
  */
-class Student2RepositoryEloquent extends BaseRepository implements Student2Repository
+class StudentRepositoryEloquent extends BaseRepository implements StudentRepository
 {
     /**
      * Specify Model class name

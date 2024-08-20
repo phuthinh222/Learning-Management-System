@@ -75,10 +75,8 @@ class CertificateRepositoryEloquent extends BaseRepository implements Certificat
                 ];
                 $attributes['photo'] = $filename;
             } else {
-                $data['photo'] = '123.jpg';
+                $data['photo'] = $attributes['photo'];
             }
-        } else {
-            $attributes['photo'] = '123.jpg';
         }
         $certificate->update($attributes);
         return $certificate;

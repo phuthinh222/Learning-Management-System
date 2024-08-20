@@ -1,3 +1,4 @@
+const defaultImagePath = `../../assets/img/default.jpg`;
 document.getElementById("cer_photo").addEventListener("change", function () {
     if (!this.files.length) {
         document.getElementById("photoReview").style.display = "none";
@@ -13,9 +14,9 @@ export function createCertificate() {
                 .then((data) => {
                     const cerModal = document.getElementById("cerModal");
                     cerModal.reset();
-                    const photoReview = document.getElementById("photoReview");
-                    const imagePath = "../../assets/img/default.jpg";
-                    photoReview.src = imagePath;
+                    const photoCertificate =
+                        document.getElementById("photoCertificate");
+                    photoCertificate.src = defaultImagePath;
                     const certificateModal = new bootstrap.Modal(
                         document.getElementById("certificateModal")
                     );

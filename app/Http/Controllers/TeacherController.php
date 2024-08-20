@@ -6,11 +6,12 @@ use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Attendance;
 use App\Models\Teacher;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class TeacherController extends Controller
 {
@@ -28,28 +29,37 @@ class TeacherController extends Controller
     }
     public function edit(string $id)
     {
-
         $user = $this->teacher_service->getId($id);
-        $teacher = $user->userable;
-        $experiences = $teacher->experiences;
-        $certificates = $teacher->certificates;
-        return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
+        if (Gate::allows('update', $user)) {
+            $teacher = $user->userable;
+            $experiences = $teacher->experiences;
+            $certificates = $teacher->certificates;
+            return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
+        } else {
+            flash()->error('Đã xảy ra lỗi .Vui lòng thử lại sau.');
+            return redirect()->back();
+        }
     }
 
     public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
-
         DB::beginTransaction();
         try {
-            $this->teacher_service->update($request->all(), $request->user_id);
+            $user = $this->teacher_service->update($request->all(), $request->user_id);
             DB::commit();
-            flash()->success('Bạn đã cập nhật thành công');
-            return redirect()->route('teacher.index');
+            if ($user) {
+                flash()->success('Bạn đã cập nhật thành công');
+                return redirect()->route('teacher.index');
+            } else {
+                flash()->error('Đã xảy ra lỗi khi cập nhật thông tin giáo viên. Vui lòng thử lại sau.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
+            flash()->error('Đã xảy ra lỗi khi cập nhật giáo viên. Vui lòng thử lại sau.');
+            return redirect()->back();
         }
     }
-
     public function listTimeKeeping(Request $request)
     {
 
@@ -77,6 +87,7 @@ class TeacherController extends Controller
         return view('teachers.inactive');
     }
 
+
     public function table_timekeeping(Request $request)
     {
 
@@ -87,5 +98,34 @@ class TeacherController extends Controller
     }
 
 
+
+    public function listCertificatesOfTeacher($id)
+    {
+        return response()->json([
+            'certificates' => $this->teacher_service->find($id)->certificates,
+        ], Response::HTTP_OK);
+    }
+
+    public function listExperiencesOfTeacher($id)
+    {
+        return response()->json([
+            'experiences' => $this->teacher_service->find($id)->experiences,
+        ], Response::HTTP_OK);
+    }
+
+    public function confirmTeacherInformation($id, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            DB::commit();
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->success(__('teacher.confirmations.confirm_successfull'));
+            return redirect()->route('teacher.inactive');
+        } catch (\Throwable $th) {
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->error(__('teacher.confirmations.confirm_failed'));
+            return redirect()->route('teacher.inactive');
+        }
+    }
 
 }

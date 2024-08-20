@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             //This following regex rule means:
             // - Allow client to type Vietnamese name with Vietnamese characters.
             // - Each word is separated by 1 space ' ' 
-            'name' => ['required', 'regex: /^[A-Za-zÀ-ỹà-ỹ]+(?:\s[A-Za-zÀ-ỹà-ỹ]+)*$/'],
+            'name' => ['required', 'regex: /^[A-Za-zÀ-ỹà-ỹ]+(?:\s[A-Za-zÀ-ỹà-ỹ]+)*$/', 'max:255'],
             'email_address' => [
                 'required', 
                 //The regex statement mentioned below will allow client to type an correct email address:
@@ -39,7 +39,8 @@ class RegisterRequest extends FormRequest
                 'required',
                 //This Regex statement means: Client can type at least 3 and maximum 64 characters with a-z or A-Z or 0-9 or some spacial characters listed below.
                 'regex:/^[a-zA-Z0-9_\-\*\!\#\%\&\.\'\*\+\^]{3,64}/',
-                'unique:users' 
+                'unique:users',
+                'max:255'
             ],
             'password' => [
                 'required',
@@ -48,7 +49,8 @@ class RegisterRequest extends FormRequest
                 // - At least 1 uppercase character and at least 1 of some special characters mentioned below
                 // - At least 1 numberic character
                 'regex:/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\!\@\#\$\%\^\&\*\(\_\\\.\<\>\;\:\'\"\-]{6,64}$/',
-                'confirmed'
+                'confirmed',
+                'max:255'
             ],
         ];
     }
@@ -58,14 +60,18 @@ class RegisterRequest extends FormRequest
         return [
             'name.required' => __('validation.custom.name.required'),
             'name.regex' => __('validation.custom.name.regex'),
+            'name.max' => __('validation.custom.name.max'),
             'email_address.required' => __('validation.custom.email_address.required'),
             'email_address.regex' => __('validation.custom.email_address.regex'),
             'email_address.unique' => __('validation.custom.email_address.unique'),
+            'email_address.max' => __('validation.custom.email_address.max'),
             'user_name.unique' => __('validation.custom.user_name_register.unique'),
             'user_name.required' => __('validation.custom.user_name_register.required'),
             'user_name.regex' => __('validation.custom.user_name_register.regex'),
+            'user_name.max' => __('validation.custom.user_name_register.max'),
             'password.required' => __('validation.custom.password.required'),
             'password.regex' => __('validation.custom.password.regex'),
+            'password.max' => __('validation.custom.password.max'),
         ];
      }
 }
