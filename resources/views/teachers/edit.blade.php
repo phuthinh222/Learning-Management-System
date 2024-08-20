@@ -11,7 +11,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <form method="POST" action="{{ route('teacher.update', ['teacher' => $teacher->id]) }}">
+                <form method="POST" action="{{ route('teacher.update', ['teacher' => $teacher->id]) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="card-header">
@@ -23,9 +24,16 @@
                             <input type="hidden" id="teacher_id" name="teacher_id" value="{{ $teacher->id }}" />
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="user_name">Tên đăng nhập <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="user_name" name="user_name"
-                                        value="{{ $user->user_name }}" {{ $user->user_name ? 'readonly' : '' }} />
+                                    <label>Ảnh dại diện: <span class="text-danger">*</span></label>
+                                    <input type="hidden" name="hiddenImage">
+                                    <input id="" type="file" class="form-control" name="avatar"
+                                        accept="image/*"
+                                        onchange="document.getElementById('photoReview').src = window.URL.createObjectURL(this.files[0])" />
+                                </div>
+                                <div class="avatar avatar-xxl">
+                                    <img id="photoReview"
+                                        src="{{ $user->avatar ? asset('storage/users/' . $user->avatar) : asset('assets/img/default.jpg') }}"
+                                        alt="User vatar" class="avatar-img ms-3">
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Họ tên giáo viên <span class="text-danger">*</span></label>
@@ -40,7 +48,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2">
+                                <div class="form-group">
+                                    <label for="user_name">Tên đăng nhập <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="user_name" name="user_name"
+                                        value="{{ $user->user_name }}" {{ $user->user_name ? 'readonly' : '' }} />
+                                </div>
                                 <div class="form-group">
                                     <label for="email">Địa chỉ email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" id="email" name="email_address"
@@ -300,14 +313,13 @@
                                     <input type="hidden" name="hiddenImage">
                                     <input id="cer_photo" type="file" class="form-control" name="photo_cer"
                                         accept="image/*"
-                                        onchange="document.getElementById('photoReview').src = window.URL.createObjectURL(this.files[0])" />
+                                        onchange="document.getElementById('photoCertificate').src = window.URL.createObjectURL(this.files[0])" />
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-sm-10">
                                         <input type="hidden" name="old_photo">
-                                        <img id="photoReview" class="img img-bordered" style="width:200px"
-                                            src="{{ asset('assets/img/default.jpg') }}" />
+                                        <img id="photoCertificate" class="img img-bordered" style="width:200px" />
                                     </div>
                                 </div>
                             </div>

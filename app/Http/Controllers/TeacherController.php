@@ -33,24 +33,25 @@ class TeacherController extends Controller
         $certificates = $teacher->certificates;
         return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
     }
-
     public function update(Request $request, Teacher $teacher)
     {
-
         DB::beginTransaction();
         try {
-            $this->teacher_service->update($request->all(), $request->user_id);
+            $user = $this->teacher_service->update($request->all(), $request->user_id);
             DB::commit();
-            flash()->success('Bạn đã cập nhật thành công');
-            return redirect()->route('teacher.index');
+            if ($user) {
+                flash()->success('Bạn đã cập nhật thành công');
+                return redirect()->route('teacher.index');
+            } else {
+                flash()->error('Đã xảy ra lỗi khi cập nhật thông tin giáo viên. Vui lòng thử lại sau.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
+            flash()->error('Đã xảy ra lỗi khi cập nhật giáo viên. Vui lòng thử lại sau.');
+            return redirect()->back();
         }
-
     }
-
-
-
     public function listTimeKeeping(Request $request)
     {
 

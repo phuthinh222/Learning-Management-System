@@ -32,7 +32,8 @@ class User extends Authenticatable
         'google_id',
         'email_verify_token',
         'userable_id',
-        'userable_type'
+        'userable_type',
+        'avatar'
     ];
 
     /**
