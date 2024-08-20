@@ -32,7 +32,7 @@
                             <div class="input-group">
                                 <input type="text" id="search_attendance" name="search_attendance"
                                     value="{{ request('search_attendance') ?? \Carbon\Carbon::now()->format('m/Y') }}"
-                                    class="form-control" placeholder="mm/yyyy">
+                                    class="form-control text-truncate" placeholder="mm/yyyy">
                                 <div class="btn btn-dark ms-1 icon_calendar">
                                     <i class="fa-regular fa-calendar"></i>
                                 </div>
