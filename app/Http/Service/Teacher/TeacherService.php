@@ -30,7 +30,7 @@ class TeacherService
     {
         $user = $this->user_repository->find($id);
         if ($user->user_name == $attributes['user_name'] && $user->email_address == $attributes['email_address']) {
-            $user = $this->user_repository->update($attributes, $id);
+            $user = $this->user_repository->updateUser($attributes, $id);
             $teacher = $user->userable;
             $teacher->update($attributes);
             return true;
@@ -42,23 +42,21 @@ class TeacherService
     public function checkin()
     {
 
-        if(!$this->attendance_repository->getCheckinStatus())
-        {
+        if (!$this->attendance_repository->getCheckinStatus()) {
             $data_checkin = [
-                'date' =>Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString(),
+                'date' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->toDateString(),
                 'time_check_in' => Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s'),
                 'time_check_out' => '00:00:00',
             ];
             $id_attendance = $this->attendance_repository->create($data_checkin);
             $data_checkin_teacher = [
-                'id_teacher' =>Auth::user()->id,
+                'id_teacher' => Auth::user()->id,
                 'id_attendance' => $id_attendance->id,
             ];
             $this->attendance_teacher_repository->create($data_checkin_teacher);
-        }else{
+        } else {
             return true;
         }
-
     }
     public function checkout()
     {
@@ -95,6 +93,4 @@ class TeacherService
     {
         return $this->attendance_repository->getListAttendances($user_id, $month, $year);
     }
-
 }
-

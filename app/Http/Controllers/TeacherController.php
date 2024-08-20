@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +29,7 @@ class TeacherController extends Controller
 
         $user = $this->teacher_service->getId($id);
         $teacher = $user->userable;
+        // dd($user->date_of_birth->format('d-m-Y'));
         $experiences = $teacher->experiences;
         $certificates = $teacher->certificates;
         return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
@@ -37,18 +37,23 @@ class TeacherController extends Controller
 
     public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
-
         DB::beginTransaction();
         try {
-            $this->teacher_service->update($request->all(), $request->user_id);
+            $user = $this->teacher_service->update($request->all(), $request->user_id);
             DB::commit();
-            flash()->success('Bạn đã cập nhật thành công');
-            return redirect()->route('teacher.index');
+            if ($user) {
+                flash()->success('Bạn đã cập nhật thành công');
+                return redirect()->route('teacher.index');
+            } else {
+                flash()->error('Đã xảy ra lỗi khi cập nhật thông tin giáo viên. Vui lòng thử lại sau.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
+            flash()->error('Đã xảy ra lỗi khi cập nhật giáo viên. Vui lòng thử lại sau.');
+            return redirect()->back();
         }
     }
-
     public function listTimeKeeping(Request $request)
     {
 
