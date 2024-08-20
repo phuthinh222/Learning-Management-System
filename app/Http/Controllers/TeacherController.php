@@ -17,7 +17,6 @@ class TeacherController extends Controller
 {
     protected $teacher_service;
 
-
     public function __construct(TeacherService $teacher_service)
     {
         $this->teacher_service = $teacher_service;
@@ -82,9 +81,23 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function listInactiveTeacher()
+    public function listInactiveTeacher(Request $request)
     {
-        return view('teachers.inactive');
+        if ($request->ajax()) {
+            $search = $request->input('search', '');
+
+            $users = $this->teacher_service->searchInactiveTeacher($search);
+
+            $hasUsers = !$users->isEmpty();
+            $message = 'Không tìm thấy tài khoản';
+
+            return response()->json([
+                'list' => $hasUsers ? view('admin.partials.list_accounts', compact('users'))->render() : view('admin.partials.list_accounts', compact('message'))->render(),
+                'paginate' => view('admin.partials.paginate', compact('users'))->render()
+            ]);
+        }
+        $users = $this->teacher_service->searchInactiveTeacher('');
+        return view('admin.inactive_teacher', compact('users'));
     }
 
 

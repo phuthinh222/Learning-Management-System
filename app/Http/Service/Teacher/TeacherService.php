@@ -2,8 +2,8 @@
 
 namespace App\Http\Service\Teacher;
 
-use Carbon\Carbon;
 use App\Repositories\Contracts\TeacherRepository;
+use Carbon\Carbon;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\AttendancesRepository;
 use App\Repositories\Contracts\AttendanceTeachersRepository;
@@ -25,6 +25,10 @@ class TeacherService
         $this->user_repository = $user_repository;
         $this->attendance_repository = $attendance_repository;
         $this->attendance_teacher_repository = $attendance_teacher_repository;
+    }
+    public function searchInactiveTeacher($search)
+    {
+        return $this->teacher_repository->getTeacherBySearchString($search);
     }
     public function getId($id)
     {

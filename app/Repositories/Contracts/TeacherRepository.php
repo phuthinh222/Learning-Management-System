@@ -11,5 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface TeacherRepository extends RepositoryInterface
 {
+    public function getTeacherBySearchString($search);
     //
 }
