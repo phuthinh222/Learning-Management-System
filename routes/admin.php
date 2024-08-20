@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth', 'role:Admin', 'MustVerifyEmail']], functi
         //Route to manage Teacher:
         Route::prefix('teacher')->group(function() {
             Route::get('/inactive', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.inactive');
+            Route::get('/inactive/search', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.search');
             Route::post('/confirm/{id}', [TeacherController::class, 'confirmTeacherInformation'])->name('teacher.confirmation');
             Route::get('/getCertificate/{id}', [TeacherController::class, 'listCertificatesOfTeacher'])->name('teacher_certificates');
             Route::get('/getExperience/{id}', [TeacherController::class, 'listExperiencesOfTeacher'])->name('teacher_experiences');
