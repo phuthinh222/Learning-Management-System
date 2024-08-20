@@ -12,13 +12,13 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="user_name" class="form-label">Họ tên:</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control text-truncate"
                                     id="user_name" value="Nguyễn Trần Trung Quân" readonly/>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control text-truncate"
                                     id="email" value="trungquan@gmail.com" readonly/>
                             </div>
                         </div>
@@ -26,12 +26,12 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="phone_number" class="form-label">Email:</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control text-truncate"
                                     id="phone_number" value="0336482918" readonly/>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="address" class="form-label">Địa chỉ:</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control text-truncate"
                                     id="address" value="Thừa Thiên Huế" readonly/>
                             </div>
                         </div>

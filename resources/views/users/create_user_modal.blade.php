@@ -13,7 +13,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="user_name" class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('user_name') is-invalid @enderror"
+                                <input type="text" class="form-control text-truncate @error('user_name') is-invalid @enderror"
                                     id="user_name" name="user_name" value="{{ old('user_name') }}"/>
                                 @error('user_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -23,7 +23,7 @@
                             <!-- Họ và tên -->
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label">Họ và tên <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                <input type="text" class="form-control text-truncate @error('name') is-invalid @enderror"
                                     id="name" name="name" value="{{ old('name') }}"/>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -34,7 +34,7 @@
                             <div class="form-group mb-3">
                                 <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    class="form-control text-truncate @error('password') is-invalid @enderror" name="password"
                                     autocomplete="new-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
                             <!-- Địa chỉ email -->
                             <div class="form-group mb-3">
                                 <label for="email" class="form-label">Địa chỉ email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control @error('email_address') is-invalid @enderror"
+                                <input type="email" class="form-control text-truncate @error('email_address') is-invalid @enderror"
                                     id="email" name="email_address" value="{{ old('email_address') }}" />
                                 @error('email_address')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -58,7 +58,7 @@
                             <!-- Sinh nhật -->
                             <div class="form-group mb-3">
                                 <label for="datepicker" class="form-label">Sinh nhật <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('date_of_birth') is-invalid @enderror"
+                                <input type="text" class="form-control text-truncate @error('date_of_birth') is-invalid @enderror"
                                     id="datepicker" name="date_of_birth" value="{{ old('date_of_birth') }}" />
                                 @error('date_of_birth')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -68,7 +68,7 @@
                             <!-- Số điện thoại -->
                             <div class="form-group mb-3">
                                 <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control @error('phone_number') is-invalid @enderror"
+                                <input type="tel" class="form-control text-truncate @error('phone_number') is-invalid @enderror"
                                     id="phone" name="phone_number" value="{{ old('phone_number') }}" />
                                 @error('phone_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -80,7 +80,7 @@
                             <!-- Nơi ở hiện tại -->
                             <div class="form-group mb-3">
                                 <label for="address" class="form-label">Nơi ở hiện tại <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                <input type="text" class="form-control text-truncate @error('address') is-invalid @enderror"
                                     id="address" name="address" value="{{ old('address') }}" />
                                 @error('address')
                                     <div class="invalid-feedback">{{ $message }}</div>

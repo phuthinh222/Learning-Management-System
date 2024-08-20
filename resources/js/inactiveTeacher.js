@@ -1,11 +1,11 @@
-import { route } from './url/route.js';
+import { routes } from './url/route.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     let currentKeyword = '';
 
     const fetchData = (page = 1, keyword = '') => {
-        fetch(route.teacher.searchInactive, {
+        fetch(routes.teacher.searchInactive, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
