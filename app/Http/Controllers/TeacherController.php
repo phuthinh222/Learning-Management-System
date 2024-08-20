@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class TeacherController extends Controller
 {
@@ -26,13 +27,16 @@ class TeacherController extends Controller
     }
     public function edit(string $id)
     {
-
         $user = $this->teacher_service->getId($id);
-        $teacher = $user->userable;
-        // dd($user->date_of_birth->format('d-m-Y'));
-        $experiences = $teacher->experiences;
-        $certificates = $teacher->certificates;
-        return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
+        if (Gate::allows('update', $user)) {
+            $teacher = $user->userable;
+            $experiences = $teacher->experiences;
+            $certificates = $teacher->certificates;
+            return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
+        } else {
+            flash()->error('Đã xảy ra lỗi .Vui lòng thử lại sau.');
+            return redirect()->back();
+        }
     }
 
     public function update(TeacherInformationRequest $request, Teacher $teacher)
