@@ -5,6 +5,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Certificate;
 use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 
@@ -21,11 +22,15 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AttendanceSeeder::class,
             CenterCostSeeder::class,
+            EmployeeSeeder::class,
+            TeacherSeeder::class,
             StudentSeeder::class,
             SubjectSeeder::class,
             TimeLineSeeder::class,
             AttendanceOfStudent::class,
             TeacherSeeder::class,
+            CertificatesSeeder::class,
+            ExperienceSeeder::class,
         ]);
     }
 }

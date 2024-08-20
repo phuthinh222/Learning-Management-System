@@ -28,16 +28,9 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Phê duyệt tài khoản giáo viên</h4>
-                        {{-- <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                            data-bs-target="#addRowModal">
-                            <i class="fa fa-plus"></i>
-                            Add Row
-                        </button> --}}
                     </div>
                 </div>
                 <div class="card-body">
-
-
                     <div class="table-responsive">
                         <table id="add-row" class="display table table-striped table-hover">
                             <thead>
@@ -64,8 +57,8 @@
                                     <td>01:01 01-01-2000</td>
                                     <td>
                                         <div class="form-button-action">
-                                            <button type="button" data-bs-toggle="tooltip" title=""
-                                                class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#confirm_teacher_information"
+                                               data-idteacher class="btn btn-link btn-primary btn-lg confirm_information">
                                                 <i class="fa fa-edit"></i>
                                             </button>
                                             <button type="button" data-bs-toggle="tooltip" title=""
@@ -83,4 +76,6 @@
             </div>
         </div>
     </div>
+    @vite('resources/js/teacher/fill_teacher_data.js')
+    @include('teachers.confirm_information_modal')
 @endsection

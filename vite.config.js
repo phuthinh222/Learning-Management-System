@@ -8,6 +8,12 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/css/Authentication/style.scss",
                 "resources/js/app.js",
+                "resources/css/Table/style.scss",
+                "resources/css/Teacher/timekeeping.scss",
+                "resources/js/certificate.js",
+                "resources/js/experience.js",
+                "resources/js/Authentication/verify-email.js",
+                "resources/js/teacher/fill_teacher_data.js"
             ],
             refresh: true,
         }),

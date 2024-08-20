@@ -2,13 +2,7 @@
 
 namespace Tests\Feature\Authentication;
 
-use App\Models\User;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\ParallelTesting;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -21,9 +15,9 @@ class LoginTest extends TestCase
 
     protected function testUrlStore()
     {
-        return route('login_store');
+        return route('login');
     }
-    /** @test */
+    #[Test]
     public function guest_user_can_access_to_login_page(): void
     {
         $response = $this->getTest($this->testUrlPage());
@@ -31,7 +25,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    /** @test */
+    #[Test]
     public function auth_user_cannot_access_to_login_page(): void
     {
         $user = $this->createUser();
@@ -56,7 +50,7 @@ class LoginTest extends TestCase
         ->assertRedirect(route('dashboard'));
     }
 
-      /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_wrong_user_name(): void
     {
         $user = $this->createUser();
@@ -69,12 +63,12 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertSessionHas([
-        'login_error_username' => __('auth.failed')
+        'login_error_username' => __('auth.not_found')
         ])
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_invalid_user_name(): void
     {
         $user = $this->createUser();
@@ -92,7 +86,7 @@ class LoginTest extends TestCase
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_send_wrong_password(): void
     {
         $user = $this->createUser();
@@ -105,12 +99,12 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertSessionHas([
-        'login_error_password' => __('auth.password')
+        'login_error_password' => __('auth.failed')
         ])
         ->assertStatus(Response::HTTP_FOUND);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_cannot_login_page_email_not_verified(): void
     {
         $user = $this->createUser();
@@ -124,6 +118,6 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHas(['login_error_verify' => __('auth.rerify_login')]);
+        ->assertSessionHas(['login_error_password' => __('auth.failed')]);
     }
 }

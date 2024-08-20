@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
+use App\Models\Teacher;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -13,60 +19,61 @@ class TeacherController extends Controller
     {
         $this->teacher_service = $teacher_service;
     }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $teacher = Auth::user();
+        return view('teachers.index', compact('teacher'));
+    }
+    public function edit(string $id)
+    {
+
+        $user = $this->teacher_service->getId($id);
+        $teacher = $user->userable;
+        // dd($user->date_of_birth->format('d-m-Y'));
+        $experiences = $teacher->experiences;
+        $certificates = $teacher->certificates;
+        return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $user = $this->teacher_service->update($request->all(), $request->user_id);
+            DB::commit();
+            if ($user) {
+                flash()->success('Bạn đã cập nhật thành công');
+                return redirect()->route('teacher.index');
+            } else {
+                flash()->error('Đã xảy ra lỗi khi cập nhật thông tin giáo viên. Vui lòng thử lại sau.');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            flash()->error('Đã xảy ra lỗi khi cập nhật giáo viên. Vui lòng thử lại sau.');
+            return redirect()->back();
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function listTimeKeeping(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $searchDate = $request->input('search_attendance');
+        $teacher = $this->teacher_service->getTeacherByAuth();
+        $attendance = $this->teacher_service->getCheckinStatus();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-        return view('teachers.edit');
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($searchDate) {
+            list($month, $year) = explode('/', $searchDate);
+            $listAttandance = $this->teacher_service->getListAttendances(Auth::user()->id, (int) $month, (int) $year);
+        } else {
+            $listAttandance = $this->teacher_service->getListAttendances(Auth::user()->id, Carbon::now()->month, Carbon::now()->year);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('teachers.timekeeping', [
+            'teacher' => $teacher,
+            'attendance' => $attendance,
+            'listAttandance' => $listAttandance->appends(['search_attendance' => $searchDate]),
+        ]);
     }
 
     public function listInactiveTeacher(Request $request)
@@ -86,5 +93,34 @@ class TeacherController extends Controller
         }
         $users = $this->teacher_service->searchInactiveTeacher('');
         return view('admin.inactive_teacher', compact('users'));
+    }
+
+    public function listCertificatesOfTeacher($id)
+    {
+        return response()->json([
+            'certificates' => $this->teacher_service->find($id)->certificates,
+        ], Response::HTTP_OK);
+    }
+
+    public function listExperiencesOfTeacher($id)
+    {
+        return response()->json([
+            'experiences' => $this->teacher_service->find($id)->experiences,
+        ], Response::HTTP_OK);
+    }
+
+    public function confirmTeacherInformation($id, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            DB::commit();
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->success(__('teacher.confirmations.confirm_successfull'));
+            return redirect()->route('teacher.inactive');
+        } catch (\Throwable $th) {
+            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+            ->error(__('teacher.confirmations.confirm_failed'));
+            return redirect()->route('teacher.inactive');
+        }
     }
 }

@@ -15,16 +15,6 @@ class SubjectSeeder extends Seeder
     {
         DB::table('subjects')->insert([
             [
-                'name' => 'Deleted Subject',
-                'amount' => 0,
-                'date_begin' => '2024-12-31',
-                'total_month' => 3,
-                'date_in_week' => 2,
-                'time_start' => '00:00:00',
-                'time_one_session' => 0,
-                'id_teacher' => 1
-            ],
-            [
                 'name' => 'Toán Cao Cấp',
                 'amount' => 300000,
                 'date_begin' => '2024-07-01',
@@ -42,7 +32,7 @@ class SubjectSeeder extends Seeder
                 'date_in_week' => 3,
                 'time_start' => '19:00:00',
                 'time_one_session' => 2,
-                'id_teacher' => 7
+                'id_teacher' => 1
             ],
             [
                 'name' => 'TOEIC FOR KIDS',
@@ -62,7 +52,7 @@ class SubjectSeeder extends Seeder
                 'date_in_week' => 6,
                 'time_start' => '18:00:00',
                 'time_one_session' => 2,
-                'id_teacher' => 2
+                'id_teacher' => 3
             ],
             [
                 'name' => 'Toán Trí Tuệ',
@@ -86,7 +76,7 @@ class SubjectSeeder extends Seeder
             [
                 'id_subject' => 2,
                 'id_student' => 2,
-                'id_employee' => 6,
+                'id_employee' => 2,
                 'date_collect' => '2024-07-05',
             ],
             [
@@ -98,19 +88,19 @@ class SubjectSeeder extends Seeder
             [
                 'id_subject' => 4,
                 'id_student' => 1,
-                'id_employee' => 6,
+                'id_employee' => 4,
                 'date_collect' => NULL,
             ],
             [
                 'id_subject' => 5,
                 'id_student' => 2,
-                'id_employee' => 6,
+                'id_employee' => 2,
                 'date_collect' => NULL,
             ],
             [
                 'id_subject' => 3,
                 'id_student' => 2,
-                'id_employee' => 6,
+                'id_employee' => 1,
                 'date_collect' => NULL,
             ],
         ]);

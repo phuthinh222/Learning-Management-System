@@ -12,6 +12,12 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface UserRepository extends RepositoryInterface
 {
     public function getAll();
-    
-    public function search($search_string);
+
+    public function searchToLogin($searchString);
+
+    public function getUsersByRoles(array $roles, $searchString);
+
+    public function createUser(array $data);
+
+    public function updateUser(array $data, $id);
 }

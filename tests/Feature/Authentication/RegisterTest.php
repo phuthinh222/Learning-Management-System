@@ -3,9 +3,9 @@
 namespace Tests\Feature\Authentication;
 
 use App\Mail\VerifycationEmail;
-use App\Models\Roles;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -18,9 +18,9 @@ class RegisterTest extends TestCase
 
     protected function getPostUrl()
     {
-        return route('register_store');
+        return route('register');
     }
-    /** @test */
+    #[Test]
     public function guest_user_can_access_register_page()
     {
         $response = $this->getTest($this->getTestUrl());
@@ -28,7 +28,7 @@ class RegisterTest extends TestCase
         ->assertViewIs('Authentication.register');
     }
 
-    /** @test */
+    #[Test]
     public function auth_user_can_not_access_register_page()
     {
         $user = $this->createUser();
@@ -37,7 +37,7 @@ class RegisterTest extends TestCase
         ->assertRedirect(route('dashboard'));
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_invalid_name()
     {
         $data = [
@@ -53,7 +53,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['name' => __('validation.custom.name.regex')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_not_send_name()
     {
         $data = [
@@ -67,7 +67,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['name' => __('validation.custom.name.required')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_invalid_email()
     {
         $data = [
@@ -83,7 +83,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['email_address' => __('validation.custom.email_address.regex')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_not_send_email()
     {
         $data = [
@@ -97,7 +97,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['email_address' => __('validation.custom.email_address.required')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_invalid_user_name()
     {
         $data = [
@@ -113,7 +113,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['user_name' => __('validation.custom.user_name_register.regex')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_not_send_user_name()
     {
         $data = [
@@ -127,7 +127,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['user_name' => __('validation.custom.user_name_register.required')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_invalid_password()
     {
         $data = [
@@ -143,7 +143,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['password' => __('validation.custom.password.regex')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_not_send_password()
     {
         $data = [
@@ -157,7 +157,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['password' => __('validation.custom.password.required')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_wrong_confirm_password()
     {
         $data = [
@@ -172,7 +172,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_not_register_send_exist_user_name()
     {
         $user = $this->createUser();
@@ -188,7 +188,7 @@ class RegisterTest extends TestCase
         ->assertSessionHasErrors(['user_name' => __('validation.custom.user_name_register.unique')]);
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_register_send_valid_information()
     {
         $role = Role::findOrCreate('Teacher'); 
@@ -203,17 +203,15 @@ class RegisterTest extends TestCase
         ];
         $response = $this->postTest($this->getPostUrl(), $data);
         $user = $this->findUserToTest($data['email_address']);
-        
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('email_verify', $user->id));
         
-
         Mail::assertSent(VerifycationEmail::class, function($email) use ($user) {
             return $email->hasTo($user->email_address);
         });
     }
 
-    /** @test */
+    #[Test]
     public function guest_user_can_register_send_wrong_verify_token()
     {
         $user = $this->createUser();
@@ -224,13 +222,13 @@ class RegisterTest extends TestCase
             'email_verify_token' => 'WrongVerifyToken',
         ];
     
-        $response = $this->postTest(route('email_verify_store', $user->id), $data);
+        $response = $this->postTestWithAuth(route('email_verify', $user->id), $user, $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertSessionHas(['failed_verify' => __('email.faile_verify')]);
     }
     
-    /** @test */
+    #[Test]
     public function guest_user_can_register_send_valid_verify_token()
     {
         $user = $this->createUser();
@@ -239,7 +237,7 @@ class RegisterTest extends TestCase
         $data = [
             'email_verify_token' => $user->email_verify_token,
         ];
-        $response = $this->postTest(route('email_verify_store', $user->id), $data);
+        $response = $this->postTestWithAuth(route('email_verify', $user->id), $user, $data);
 
         $response->assertStatus(Response::HTTP_FOUND)
         ->assertRedirect(route('login'));

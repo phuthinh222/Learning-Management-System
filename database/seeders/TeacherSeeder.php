@@ -15,8 +15,30 @@ class TeacherSeeder extends Seeder
     public function run(): void
     {
         DB::table('teachers')->insert([
-            'id_certificate' => null,
-            'id_experience' => null,
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
+            'department' => 'class',
+            'position' => 'developer',
+            'status' => 1,
+        ]);
+
+        DB::table('teachers')->insert([
             'department' => 'class',
             'position' => 'developer',
             'status' => 1,

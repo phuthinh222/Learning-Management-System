@@ -5,9 +5,8 @@ namespace App\Repositories\Eloquent;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\TeacherRepository;
-use App\Entities\Teacher;
-use App\Models\Teacher as ModelsTeacher;
 use App\Models\User;
+use App\Models\Teacher;
 
 /**
  * Class TeacherRepositoryEloquent.

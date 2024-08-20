@@ -13,8 +13,6 @@ class Teacher extends Model
     protected $table = 'teachers';
 
     protected $fillable = [
-        'id_certificate',
-        'id_experience',
         'department',
         'position',
         'status',
@@ -22,5 +20,13 @@ class Teacher extends Model
     public function user(): MorphOne
     {
         return $this->morphOne(User::class, 'userable');
+    }
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class, 'id_teacher');
+    }
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class, 'id_teacher');
     }
 }

@@ -9,11 +9,9 @@ Route::group([
     'middleware' => ['guest']
 ], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::post('/login', [LoginController::class, 'loginStore'])->name('login_store');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
-    Route::post('/register', [RegisterController::class, 'registerStore'])->name('register_store');
-    Route::get('/verify/{id}', [RegisterController::class, 'showVerify'])->name('email_verify');
-    Route::post('/verify/{id}', [RegisterController::class, 'emailVerifyStore'])->name('email_verify_store');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
     Route::get('/auth/google', [GoogleController::class, 'index'])->name('google_index');
     Route::get('/auth/google/callback', [GoogleController::class, 'callBack'])->name('google_callback');
 });
@@ -22,5 +20,13 @@ Route::group([
 Route::group([
     'middleware' => ['web']
 ], function () {
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/verify/{id}', [RegisterController::class, 'verifyEmailToken'])->name('email_verify');
+    Route::get('/verify/resendEmail', [RegisterController::class, 'resendEmailVerification']);
+    Route::group([
+        'middleware' => ['VerifyEmail']
+    ], function () {
+        Route::get('/verify/{id}', [RegisterController::class, 'verifyEmail'])->name('email_verify');
+
+    });
 });

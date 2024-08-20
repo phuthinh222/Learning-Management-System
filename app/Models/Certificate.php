@@ -14,6 +14,8 @@ class Certificate extends Model
     protected $fillable = [
         'major',
         'level',
-        'school'
+        'school',
+        'id_teacher',
+        'photo'
     ];
 }
