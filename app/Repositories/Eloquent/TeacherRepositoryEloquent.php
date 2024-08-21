@@ -38,7 +38,7 @@ class TeacherRepositoryEloquent extends BaseRepository implements TeacherReposit
     public function getTeacherBySearchString($search)
     {
         $query = User::role('Teacher')
-        ->whereHasMorph('userable', Teacher::class,  function ($query) {
+        ->whereHasMorph('userable',Teacher::class, function ($query) {
             $query->where('status', 0);
         });
 
