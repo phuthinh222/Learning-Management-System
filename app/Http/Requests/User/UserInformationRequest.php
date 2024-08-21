@@ -35,7 +35,8 @@ class UserInformationRequest extends FormRequest
                 'required',
                 //This Regex statement means: Client can type at least 3 and maximum 64 characters with a-z or A-Z or 0-9 or some spacial characters listed below.
                 'regex:/^[a-zA-Z0-9_\-\*\!\#\%\&\.\'\*\+\^]{3,64}/',
-                'unique:users' 
+                'unique:users',
+                'max: 255'
             ],
             'password' => [
                 'required',
@@ -44,6 +45,7 @@ class UserInformationRequest extends FormRequest
                 // - At least 1 uppercase character and at least 1 of some special characters mentioned below
                 // - At least 1 numberic character
                 'regex:/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\!\@\#\$\%\^\&\*\(\_\\\.\<\>\;\:\'\"\-]{6,64}$/',
+                'max: 255'
             ],
             'email_address' => [
                 'required',
@@ -53,16 +55,18 @@ class UserInformationRequest extends FormRequest
                 // - Between dots ('.'), client must type at least 2 characters with a-z or A-Z or 0-9
                 'regex:/^[a-zA-Z0-9_\-\*\!\#\%\&\'\.\*\+\^]{3,64}@[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,}){1,}$/',
                 'unique:users,email_address,' . Auth::user()->id,
+                'max:255'
             ],
             'phone_number' => [
                 'required',
                 //allow user to type valid phone numbers in vietnamese with +84 or start with 0...
                 'regex: /^(\+84|0)(3[2-9]|5[2|5|6|8]|7[0|6|7|8|9]|8[1-9]|9[0|1|4|6|7|8])[0-9]{7}$/',
              'unique:users,phone_number,' . Auth::user()->id,
+             'max:15'
             ],
             'date_of_birth' => [
                 'required',
-                'date_format:Y-m-d',
+                'date_format:d-m-Y',
                 'before:' . now()->subYears(18)->toDateString(), 
                 'after:' . now()->subYears(70)->toDateString(), 
             ],
@@ -82,14 +86,18 @@ class UserInformationRequest extends FormRequest
             'user_name.required' => __('validation.user_name.required'),
             'user_name.regex' => __('validation.user_name.regex'),
             'user_name.unique' => __('validation.user_name.unique'),
+            'user_name.max' => __('validation.custom.user_name.max'),
             'password.required' => __('validation.custom.password.required'),
             'password.regex' => __('validation.custom.password.regex'),
+            'password.max' => __('validation.custom.password.max'),
             'email_address.required' => __('validation.custom.email_address.required'),
             'email_address.regex' => __('validation.custom.email_address.regex'),
             'email_address.unique' => __('validation.custom.email_address.unique'),
+            'email_address.max' => __('validation.custom.email_address.max'),
             'phone_number.required' => __('validation.custom.phone_number.required'),
             'phone_number.regex' => __('validation.custom.phone_number.regex'),
             'phone_number.unique' => __('validation.custom.phone_number.unique'),
+            'phone_number.max' => __('validation.custom.phone_number.max'),
             'date_of_birth.date_format' => __('validation.custom.date_of_birth.date_format'),
             'date_of_birth.before' => __('validation.custom.date_of_birth.before'),
             'date_of_birth.after' => __('validation.custom.date_of_birth.after'),

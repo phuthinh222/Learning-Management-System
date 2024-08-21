@@ -33,7 +33,8 @@ class RegisterRequest extends FormRequest
                 // - After '@' character, we allow client to type domain at least 2 characters with a-z or A-Z or 0-9 and at least 1 dot('.')
                 // - Between dots ('.'), client must type at least 2 characters with a-z or A-Z or 0-9
                 'regex:/^[a-zA-Z0-9_\-\*\!\#\%\&\'\.\*\+\^]{3,64}@[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,}){1,}$/', 
-                'unique:users'
+                'unique:users',
+                'max:255'
             ],
             'user_name' => [
                 'required',
@@ -48,7 +49,7 @@ class RegisterRequest extends FormRequest
                 // - At least 6 characters and maximum 64 characters
                 // - At least 1 uppercase character and at least 1 of some special characters mentioned below
                 // - At least 1 numberic character
-                'regex:/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\!\@\#\$\%\^\&\*\(\_\\\.\<\>\;\:\'\"\-]{6,64}$/',
+                'regex:/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\!\@\#\$\%\^\&\*\(\_\\\.\<\>\;\:\'\"\-]{6,255}$/',
                 'confirmed',
                 'max:255'
             ],
