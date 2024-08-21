@@ -46,29 +46,29 @@
                         <table id="add-row" class="display table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-nowrap col-md-3">Họ Tên</th>
-                                    <th class="text-nowrap col-md-3">Chức Vụ</th>
+                                    <th class="text-center fixed-col1 width">Họ Tên</th>
+                                    <th class="text-center fixed-col2 width">Chức Vụ</th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
-                                        <th>{{ $i }}</th>
+                                        <th class="text-center">{{ $i }}</th>
                                     @endfor
-                                    <th>Tổng Công Làm</th>
-                                    <th>Tổng Công Nghỉ</th>
+                                    <th class="text-center">Tổng Công Làm</th>
+                                    <th class="text-center">Tổng Công Nghỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($workingDays as $teacherName => $attendanceData)
                                    
                                         <tr>
-                                            <td class="text-nowrap col-md-3">{{ $teacherName }}</td>
-                                            <td class="text-nowrap col-md-3">{{ $attendanceData['position'] ?? '' }}</td>
+                                            <td class="text-center fixed-col1 width">{{ $teacherName }}</td>
+                                            <td class="text-center fixed-col2 width">{{ $attendanceData['position'] ?? '' }}</td>
                                             @for ($i = 1; $i <= $daysInMonth; $i++)
                                                 @php
                                                     $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
                                                 @endphp
-                                                <td>{{ $attendanceData[$date] ?? 'N' }}</td>
+                                                <td class="text-center">{{ $attendanceData[$date] ?? 'N' }}</td>
                                             @endfor
-                                            <td>{{ $attendanceData['totalWorkingHours'] ?? 0 }}</td>
-                                            <td>{{ $attendanceData['totalDaysOff'] ?? $daysInMonth }}</td>
+                                            <td class="text-center">{{ $attendanceData['totalWorkingHours'] ?? 0 }}</td>
+                                            <td class="text-center">{{ $attendanceData['totalDaysOff'] ?? $daysInMonth }}</td>
                                         </tr>
                                   
                                 @endforeach

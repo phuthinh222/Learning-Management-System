@@ -2,21 +2,21 @@
 
 namespace App\Http\Service\Admin;
 
-use App\Models\Teacher;
-use App\Models\User;
 use App\Repositories\Contracts\AttendancesRepository;
+use App\Repositories\Contracts\UserRepository;
 use Carbon\Carbon;
 
 
 class AdminService
 {
     protected $attendance_repository;
+    protected $user_repository;
 
 
-
-    public function __construct(AttendancesRepository $attendance_repository)
+    public function __construct(AttendancesRepository $attendance_repository ,UserRepository $user_repository )
     {
         $this->attendance_repository = $attendance_repository;
+        $this->user_repository = $user_repository;
     }
 
 
@@ -38,7 +38,7 @@ class AdminService
             $dates[] = Carbon::create($year, $month, $i)->format('Y-m-d');
         }
     
-        $employees = User::where('userable_type', Teacher::class)->get();
+        $employees = $this->user_repository->getUserTypeTeacher();
         $attendances = $this->attendance_repository->getAttendancesAllTeacher($month, $year);
     
         $workingDays = [];

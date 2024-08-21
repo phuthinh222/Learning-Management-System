@@ -46,19 +46,19 @@
                         <table id="add-row" class="display table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-nowrap col-md-3">Họ Tên</th>
-                                    <th class="text-nowrap col-md-3">Chức Vụ</th>
+                                    <th class="text-center fixed-col1 width" >Họ Tên</th>
+                                    <th class="text-center fixed-col2 width">Chức Vụ</th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
-                                        <th>{{ $i }}</th>
+                                        <th class="text-center">{{ $i }}</th>
                                     @endfor
-                                    <th>Tổng Công Làm</th>
-                                    <th>Tổng Công Nghỉ</th>
+                                    <th class="text-center">Tổng Công Làm</th>
+                                    <th class="text-center">Tổng Công Nghỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="text-nowrap col-md-3">{{Auth::user()->name}}</th>
-                                    <th class="text-nowrap col-md-3">
+                                    <th class="text-center text-truncate fixed-col1 width" >{{Auth::user()->name}}</th>
+                                    <th class="text-center text-truncate fixed-col2 width">
                                         @if ($teacher)
                                         {{ $teacher->position }}
                                         @else
@@ -66,15 +66,15 @@
                                         @endif
                                     </th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
-                                        <th>
+                                        <th class="text-center">
                                             @php
                                                 $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
                                                 echo isset($workingDays[$date]) ? $workingDays[$date] : '';
                                             @endphp
                                         </th>
                                     @endfor
-                                    <th>{{ $totalWorkingHours }}</th>
-                                    <th>{{ $totalDaysOff }}</th>
+                                    <th class="text-center">{{ $totalWorkingHours }}</th>
+                                    <th class="text-center">{{ $totalDaysOff }}</th>
                                 </tr>
 
                             </tbody>
