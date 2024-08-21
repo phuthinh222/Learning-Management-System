@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="input-group">
                                         <input name="search_string" value="{{ request('search_string') }}" type="text"
-                                            placeholder="Search ..." class="form-control" id="basic-addon1" />
+                                            placeholder="Search ..." class="form-control text-truncate" id="basic-addon1" />
                                         <button class="input-group-text btn btn-search" id="basic-addon1">
                                             <i class="fa fa-search search-icon"></i>
                                         </button>
@@ -97,7 +97,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Ngày tạo</th>
                                     <th>Trạng Thái</th>
-                                    <th style="width: 8%">Chức vụ</th>
+                                    <th style="width: 15%">Chức vụ</th>
                                     <th style="width: 8%">Thao tác</th>
                                 </tr>
                             </thead>
@@ -122,10 +122,10 @@
                                         <td>{{ $user->created_at }}</td>
                                         <td>
                                             @if ($user->userable_type == 'App\Models\Teacher')
-                                                {{$user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ việc'}}
+                                                {{ $user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ việc' }}
                                             @endif
                                             @if ($user->userable_type == 'App\Models\Employees')
-                                                {{$user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ Việc'}}
+                                                {{ $user->userable->status == '1' ? 'Đang làm việc' : 'Đã nghỉ Việc' }}
                                             @endif
                                             @if ($user->userable_type == 'App\Models\Student')
                                                 Bình thường
@@ -142,7 +142,9 @@
                                                     class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-link btn-danger" data-original-title="Remove" data-bs-toggle="modal" data-bs-target="#modal-{{ $user->id }}">
+                                                <button type="button" class="btn btn-link btn-danger"
+                                                    data-original-title="Remove" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-{{ $user->id }}">
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
@@ -159,11 +161,14 @@
                                                             </div>
                                                             <div class="modal-footer">
 
-                                                                <form action="{{route('users.destroy',$user->id)}}" method="POST">
+                                                                <form action="{{ route('users.destroy', $user->id) }}"
+                                                                    method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger delete_button">Delete</button>
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger delete_button">Delete</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
                                                                 </form>
 
 

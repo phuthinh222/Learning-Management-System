@@ -44,6 +44,15 @@
                               </a>
                           </li>
                       @endif
+                      @if (Auth::check() && Auth::user()->hasRole('Teacher'))
+                          <li class="nav-item">
+                              <a href="{{ route('teacher.table_timekeeping') }}" class="dashboard">
+                                  <i class="bi bi-person-fill"></i>
+                                  <p>Bảng chấm công</p>
+                              </a>
+                          </li>
+                         
+                      @endif
                   </ul>
               </div>
           </div>

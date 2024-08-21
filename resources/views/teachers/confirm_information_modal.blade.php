@@ -1,38 +1,41 @@
-<div class="modal fade" id="confirm_teacher_information" tabindex="-1" aria-labelledby="confirmTeacherInformationLabel" aria-hidden="true">
+@foreach ($users as $user)
+<div class="modal fade" id="modalConfirm-{{$user->userable_id}}" tabindex="-1" aria-labelledby="confirmTeacherInformationLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="confirmTeacherInformationLabel">Phê duyệt thông tin Giáo Viên </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{route('teacher.confirmation', 1)}}" method="POST">
+            <form action="{{route('teacher.confirmation', $user->userable_id)}}" method="POST">
                 @csrf()
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="user_name" class="form-label">Họ tên:</label>
-                                <input type="text" class="form-control"
-                                    id="user_name" value="Nguyễn Trần Trung Quân" readonly/>
+                                <input type="text" class="form-control text-truncate"
+                                    id="name" value="{{$user->name}}" readonly/>
+                                <input type="hidden" class="form-control text-truncate"
+                                id="teacher_id" value="{{$user->id}}" readonly/>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="text" class="form-control"
-                                    id="email" value="trungquan@gmail.com" readonly/>
+                                <input type="text" class="form-control text-truncate"
+                                    id="email" value="{{$user->email_address}}" readonly/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="phone_number" class="form-label">Email:</label>
-                                <input type="text" class="form-control"
-                                    id="phone_number" value="0336482918" readonly/>
+                                <input type="text" class="form-control text-truncate"
+                                    id="phone_number" value="{{$user->phone_number}}" readonly/>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="address" class="form-label">Địa chỉ:</label>
-                                <input type="text" class="form-control"
-                                    id="address" value="Thừa Thiên Huế" readonly/>
+                                <input type="text" class="form-control text-truncate"
+                                    id="address" value="{{$user->address}}" readonly/>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -93,8 +96,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                     <button type="submit" class="btn btn-primary">Phê duyệt</button>
                 </div>
-            </form>
-                
+            </form>  
         </div>
     </div>
 </div>
+@endforeach

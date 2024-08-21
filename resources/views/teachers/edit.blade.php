@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Họ tên giáo viên <span class="text-danger">*</span></label>
-                                    <input type="text" @error('name') class="form-control is-invalid" @enderror
+                                    <input type="text" @error('name') class="form-control is-invalid text-truncate" @enderror
                                         class="form-control" id="name" name="name"
                                         @error('phone_number') value="{{ old('name') }}" @enderror
                                         value="{{ $user->name }}" />
@@ -64,20 +64,20 @@
                             <div class="col-md-6 mt-2">
                                 <div class="form-group">
                                     <label for="user_name">Tên đăng nhập <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="user_name" name="user_name"
+                                    <input type="text" class="form-control text-truncate" id="user_name" name="user_name"
                                         value="{{ $user->user_name }}" {{ $user->user_name ? 'readonly' : '' }} />
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Địa chỉ email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email_address"
+                                    <input type="email" class="form-control text-truncate" id="email" name="email_address"
                                         value="{{ $user->email_address }}" {{ $user->email_address ? 'readonly' : '' }} />
                                 </div>
                                 <div class="form-group">
                                     <label for="datepicker">Sinh nhật</label>
                                     <input type="text" @error('date_of_birth') class="form-control is-invalid" @enderror
-                                        class="form-control" id="datepicker" class="datepicker" name="date_of_birth"
+                                        class="form-control text-truncate" id="datepicker" class="datepicker" name="date_of_birth"
                                         @error('date_of_birth') value="{{ old('date_of_birth') }}" @enderror
-                                        value="{{ $user->date_of_birth->format('d-m-Y') }}" />
+                                        value="{{ \Carbon\Carbon::parse($user->date_of_birth)->format('d-m-Y')}}" />
                                     @error('date_of_birth')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
                                     <input type="tel" @error('phone_number') class="form-control is-invalid" @enderror
-                                        class="form-control" id="phone" name="phone_number"
+                                        class="form-control text-truncate" id="phone" name="phone_number"
                                         @error('phone_number') value="{{ old('phone_number') }}" @enderror
                                         value="{{ $user->phone_number }}" />
                                     @error('phone_number')
@@ -103,7 +103,7 @@
                                 <div class="form-group">
                                     <label for="department">Phòng ban <span class="text-danger">*</span></label>
                                     <input @error('department') class="form-control is-invalid" @enderror type="text"
-                                        class="form-control" id="department" name="department"
+                                        class="form-control text-truncate" id="department" name="department"
                                         @error('department') value="{{ old('department') }}" @enderror
                                         value="{{ $teacher->department }}" />
                                     @error('department')
@@ -117,7 +117,7 @@
                                 <div class="form-group">
                                     <label for="position">Vị trí <span class="text-danger">*</span></label>
                                     <input type="text" @error('position') class="form-control is-invalid" @enderror
-                                        class="form-control" id="position" name="position"
+                                        class="form-control text-truncate" id="position" name="position"
                                         @error('position') value="{{ old('position') }}" @enderror
                                         value="{{ $teacher->position }}" />
                                     @error('position')
@@ -153,7 +153,7 @@
                                 <div class="form-group">
                                     <label for="address">Nơi ở hiện tại <span class="text-danger">*</span></label>
                                     <input type="text" @error('address') class="form-control is-invalid" @enderror
-                                        class="form-control" id="address" name="address"
+                                        class="form-control text-truncate" id="address" name="address"
                                         @error('address') value="{{ old('address') }}" @enderror
                                         value="{{ $user->address }}" />
                                     @error('address')

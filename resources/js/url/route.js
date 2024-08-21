@@ -10,6 +10,7 @@ const routes = {
     teacher : {
         getCertificate : adminTeacher + '/getCertificate',
         getExperience : adminTeacher + '/getExperience',
+        searchInactive: adminTeacher + '/inactive/search'
     }
 }
 

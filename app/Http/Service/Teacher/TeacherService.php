@@ -2,8 +2,8 @@
 
 namespace App\Http\Service\Teacher;
 
-use Carbon\Carbon;
 use App\Repositories\Contracts\TeacherRepository;
+use Carbon\Carbon;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\AttendancesRepository;
 use App\Repositories\Contracts\AttendanceTeachersRepository;
@@ -25,6 +25,10 @@ class TeacherService
         $this->user_repository = $user_repository;
         $this->attendance_repository = $attendance_repository;
         $this->attendance_teacher_repository = $attendance_teacher_repository;
+    }
+    public function searchInactiveTeacher($search)
+    {
+        return $this->teacher_repository->getTeacherBySearchString($search);
     }
     public function getId($id)
     {
@@ -99,15 +103,66 @@ class TeacherService
         return $this->attendance_repository->getListAttendances($user_id, $month, $year);
     }
 
+
+    public function getTableDayAttendances($user_id, $searchDate = null)
+    {
+        
+        if ($searchDate) {
+            list($month, $year) = explode('/', $searchDate);
+            $daysInMonth = Carbon::create($year, $month)->daysInMonth;
+        } else {
+            $currentDate = Carbon::now()->timezone('Asia/Ho_Chi_Minh');
+            $month = $currentDate->month;
+            $year = $currentDate->year;
+            $daysInMonth = $currentDate->daysInMonth;
+        }
+        $currentDate = Carbon::now()->timezone('Asia/Ho_Chi_Minh');
+        $dates = [];
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $dates[] = Carbon::create($year, $month, $i)->format('Y-m-d');
+        }
+        $attendances = $this->attendance_repository->getListDayAttendances($user_id, $month, $year);
+        $workingDays = [];
+        $totalWorkingHours = 0;
+        $totalDaysOff = 0;
+
+        foreach ($dates as $date) {
+            $dateToCheck = Carbon::parse($date);
+    
+            if (isset($attendances[$date])) {
+                $workingDays[$date] = $attendances[$date]->total_hours;
+                $totalWorkingHours += $attendances[$date]->total_hours;
+            } else {
+                if ($dateToCheck->lt($currentDate)) {
+                    $workingDays[$date] = 'N';
+                    $totalDaysOff++;
+                } else {
+                    $workingDays[$date] = '';
+                }
+            }
+        }
+        return [
+            'daysInMonth' => $daysInMonth,
+            'month' => $month,
+            'year' => $year,
+            'workingDays' => $workingDays,
+            'totalWorkingHours' => $totalWorkingHours,
+            'totalDaysOff' => $totalDaysOff
+        ];
+    }
     public function find($id)
     {
         return $this->teacher_repository->find($id);
     }
 
+
     public function confirmTeacherInformation($id)
     {
-        $attributes['status'] = self::CONFIRMED;
-        $teacher = $this->teacher_repository->find($id);
-        return $teacher->update($attributes);
+        try {
+            $attributes['status'] = self::CONFIRMED;
+            return $this->teacher_repository->update($attributes, $id);
+        } catch (\Throwable $th) {
+            return FALSE;
+        }
     }
 }

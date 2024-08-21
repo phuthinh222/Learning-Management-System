@@ -47,15 +47,15 @@ class UpdateInformationRequest extends FormRequest
                 // - Allows the following characters: hyphens (-), commas (,), spaces, slashes (/), digits (0-9), and letters (a-z, A-Z) 
                 // - The address must consist of one or more of these characters 
                 // - Does not enforce any specific format or length restrictions 
-                'regex:/^[- ,\/0-9a-zA-Z]+$/',
+                'regex:/^[A-Za-zÀ-ỹà-ỹ0-9\s,.\-\/]+$/',
                 'max:150'
             ],
             'date_of_birth' => [
                 'nullable',
                 'date',
                 //this validate allow users at least 12 years old 
-                'before:' . now()->subYears(18)->toDateString(),
-                'after:' . now()->subYears(70)->toDateString(),
+                'before:' . now()->subYears(6)->toDateString(),
+                'after:' . now()->subYears(150)->toDateString(),
             ]
         ];
     }
