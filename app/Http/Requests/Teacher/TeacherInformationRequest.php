@@ -45,7 +45,7 @@ class TeacherInformationRequest extends FormRequest
                 'max: 11'
             ],
             'date_of_birth' => [
-                'date_format:Y-m-d',
+                'date_format:d-m-Y',
                 'before:' . now()->subYears(18)->toDateString(), 
                 'after:' . now()->subYears(70)->toDateString(), 
             ],
@@ -53,7 +53,7 @@ class TeacherInformationRequest extends FormRequest
                 'required',
                 'max:255',
                 //allow user to type characters in Vietnamese language and number, '-' symbol
-                'regex: /^[A-Za-zÀ-ỹà-ỹ\.0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.0-9]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ\.\-\_\0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.\-\_\0-9]+)*$/'
             ],
             'address' => [
                 'required',

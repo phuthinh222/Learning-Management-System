@@ -29,7 +29,7 @@
                     <!-- <h4 class="card-title">Phê duyệt tài khoản giáo viên</h4> -->
                     <div class="right-top-section">
                         <form action="" method="" class="search">
-                            <input type="search" class="form-control" name="search" id="search" placeholder="Search...">
+                            <input type="search" class="form-control text-truncate" name="search" id="search" placeholder="Search...">
                         </form>
                     </div>
                 </div>
@@ -45,4 +45,6 @@
         </div>
     </div>
 </div>
+@vite('resources/js/teacher/fill_teacher_data.js')
+@include('teachers.confirm_information_modal')
 @endsection

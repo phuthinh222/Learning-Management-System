@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="input-group">
                                         <input name="search_string" value="{{ request('search_string') }}" type="text"
-                                            placeholder="Search ..." class="form-control" id="basic-addon1" />
+                                            placeholder="Search ..." class="form-control text-truncate" id="basic-addon1" />
                                         <button class="input-group-text btn btn-search" id="basic-addon1">
                                             <i class="fa fa-search search-icon"></i>
                                         </button>
@@ -193,4 +193,5 @@
 
     <!-- Modal create user -->
     @include('users.create_user_modal')
+    @vite('resources/js/user/user.js')
 @endsection

@@ -39,8 +39,8 @@ class CertificateRepositoryEloquent extends BaseRepository implements Certificat
     }
     public function create(array $attributes)
     {
-        if (isset($attributes['photo_cer'])) {
-            $file = $attributes['photo_cer'];
+        if (isset($attributes['photo'])) {
+            $file = $attributes['photo'];
             if ($file->isValid()) {
                 $filename = time() . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('public/teachers', $filename);

@@ -97,7 +97,7 @@ class TeacherController extends Controller
             ]);
         }
         $users = $this->teacher_service->searchInactiveTeacher('');
-        return view('admin.inactive_teacher', compact('users'));
+        return view('teachers.inactive_teacher', compact('users'));
     }
 
 
@@ -130,17 +130,16 @@ class TeacherController extends Controller
 
     public function confirmTeacherInformation($id, Request $request)
     {
-        try {
-            DB::beginTransaction();
-            DB::commit();
+        $result = $this->teacher_service->confirmTeacherInformation($id);
+        
+        if ($result) {
             flash()->options(['timeout' => 6000, 'position' => 'top-center'])
             ->success(__('teacher.confirmations.confirm_successfull'));
             return redirect()->route('teacher.inactive');
-        } catch (\Throwable $th) {
-            flash()->options(['timeout' => 6000, 'position' => 'top-center'])
-            ->error(__('teacher.confirmations.confirm_failed'));
-            return redirect()->route('teacher.inactive');
         }
-    }
 
+        flash()->options(['timeout' => 6000, 'position' => 'top-center'])
+        ->error(__('teacher.confirmations.confirm_failed'));
+        return redirect()->route('teacher.inactive');
+    }
 }

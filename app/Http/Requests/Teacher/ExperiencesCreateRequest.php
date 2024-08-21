@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Teacher;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
 
 class ExperiencesCreateRequest extends FormRequest
 {
@@ -57,5 +60,13 @@ class ExperiencesCreateRequest extends FormRequest
             'year.max' => __('validation.teacher_experiences.year.max'),
             'year.numeric' => __('validation.teacher_experiences.year.numeric')
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

@@ -28,13 +28,9 @@
                 <td>{{$user->created_at}}</td>
                 <td>
                     <div class="form-button-action">
-                        <button type="button" data-bs-toggle="tooltip" title=""
-                            class="btn btn-link btn-success btn-lg" data-original-title="">
+                        <button id="confirmInf{{$user->id}}" type="button" data-bs-toggle="modal" data-bs-target="#modalConfirm-{{$user->userable_id}}"
+                            data-idteacher="{{$user->userable_id}}" class="btn btn-link btn-success btn-lg confirm_information">
                             <i class="fa fa-check"></i>
-                        </button>
-                        <button type="button" data-bs-toggle="tooltip" title=""
-                            class="btn btn-link btn-danger" data-original-title="Remove">
-                            <i class="fa fa-times"></i>
                         </button>
                     </div>
                 </td>

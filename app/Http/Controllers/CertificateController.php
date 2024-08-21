@@ -38,7 +38,7 @@ class CertificateController extends Controller
         flash()->success(__('teacher.certificate.create_success'));
         return response()->json([''], Response::HTTP_OK);
     }
-    public function update(Request $request)
+    public function update(CertificationCreateRequest $request)
     {
         $certificate = $this->certificate_service->update($request->all(), $request->cer_id);
         flash()->success(__('teacher.experience.create_success'));
