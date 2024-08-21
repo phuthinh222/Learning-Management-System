@@ -20,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'redirect.role' => \App\Http\Middleware\RedirectIfAuthenticated::class,
             'VerifyEmail' => \App\Http\Middleware\VerifyEmailMiddleware::class,
-            'MustVerifyEmail' => \App\Http\Middleware\MustVerifyEmail::class
+            'MustVerifyEmail' => \App\Http\Middleware\MustVerifyEmail::class,
+            'MustVerifyTeacher' => \App\Http\Middleware\MustVerifyTeacher::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
