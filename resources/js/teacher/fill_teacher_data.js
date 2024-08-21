@@ -1,10 +1,9 @@
-import { getTeacherCertificates } from "../url/get_data";
-import { getTeacherExperiences } from "../url/get_data";
+import { getTeacherCertificates, getTeacherExperiences } from "../url/get_data";
 $('.confirm_information').on('click', function(e) {
+    const id_teacher = document.getElementById('teacher_id').value;
     e.preventDefault();
-
     //Fill the Certication table of Teacher
-    getTeacherCertificates(1).then((certificates) => {
+    getTeacherCertificates(id_teacher).then((certificates) => {
         const certificateTable = document.getElementById('teacher_certificates');
         const defaultImg = '../../assets/img/default.jpg';
         certificateTable.innerHTML = ''
@@ -25,7 +24,7 @@ $('.confirm_information').on('click', function(e) {
     });
 
     //Fill the Experience table of Teacher
-    getTeacherExperiences(1).then((experience) => {
+    getTeacherExperiences(id_teacher).then((experience) => {
         const experienceTable = document.getElementById('teacher_experiences');
         experienceTable.innerHTML = ''
         experience.forEach(experience => {

@@ -45,4 +45,6 @@
         </div>
     </div>
 </div>
+@vite('resources/js/teacher/fill_teacher_data.js')
+@include('teachers.confirm_information_modal')
 @endsection

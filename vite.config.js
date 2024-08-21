@@ -13,7 +13,8 @@ export default defineConfig({
                 "resources/js/certificate.js",
                 "resources/js/experience.js",
                 "resources/js/Authentication/verify-email.js",
-                "resources/js/teacher/fill_teacher_data.js"
+                "resources/js/teacher/fill_teacher_data.js",
+                "resources/js/user/user.js"
             ],
             refresh: true,
         }),

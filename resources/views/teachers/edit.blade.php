@@ -77,7 +77,7 @@
                                     <input type="text" @error('date_of_birth') class="form-control is-invalid" @enderror
                                         class="form-control text-truncate" id="datepicker" class="datepicker" name="date_of_birth"
                                         @error('date_of_birth') value="{{ old('date_of_birth') }}" @enderror
-                                        value="{{ $user->date_of_birth->format('d-m-Y') }}" />
+                                        value="{{ \Carbon\Carbon::parse($user->date_of_birth)->format('d-m-Y')}}" />
                                     @error('date_of_birth')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -318,34 +318,46 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Chuyên ngành <span class="text-danger">*</span></label>
-                                    <input id="cer_major" name="major" type="text" class="form-control text-truncate" />
+                                    <input id="cer_major" name="major" type="text" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_mafor"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Cấp độ <span class="text-danger">*</span></label>
-                                    <input id="cer_level" name="level" type="text" class="form-control text-truncate" />
+                                    <input id="cer_level" name="level" type="text" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_level"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Trường học/ Trung tâm <span class="text-danger">*</span></label>
-                                    <input id="cer_school" name="school" type="text" class="form-control text-truncate" />
+                                    <input id="cer_school" name="school" type="text" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_school"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Ảnh minh họa: <span class="text-danger">*</span></label>
                                     <input type="hidden" name="hiddenImage">
-                                    <input id="cer_photo" type="file" class="form-control" name="photo_cer"
+                                    <input id="cer_photo" type="file" class="form-control" name="photo"
                                         accept="image/*"
                                         onchange="document.getElementById('photoCertificate').src = window.URL.createObjectURL(this.files[0])" />
+                                        <div class="invalid-feedback" >
+                                        <p id="invalid_photo"></p>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-sm-10">
                                         <input type="hidden" name="old_photo">
-                                        <img id="photoCertificate" class="img img-bordered" style="width:200px" />
+                                        <img src="{{asset('../../assets/img/default.jpg')}}" id="photoCertificate" class="img img-bordered" style="width:200px" />
                                     </div>
                                 </div>
                             </div>
@@ -384,19 +396,28 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Công ty <span class="text-danger">*</span></label>
-                                    <input id="exc_company" type="text" name="company" class="form-control text-truncate" />
+                                    <input id="exc_company" type="text" name="company" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_company"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Vị trí <span class="text-danger">*</span></label>
-                                    <input id="exc_position" type="text" name="position" class="form-control text-truncate" />
+                                    <input id="exc_position" type="text" name="position" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_position"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Thời gian (năm) <span class="text-danger">*</span></label>
-                                    <input id="exc_year" type="number" name="year" class="form-control text-truncate" />
+                                    <input id="exc_year" type="number" name="year" class="form-control" />
+                                    <div class="invalid-feedback" >
+                                        <p id="invalid_year"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

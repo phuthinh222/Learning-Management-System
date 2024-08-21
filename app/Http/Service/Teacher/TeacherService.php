@@ -158,12 +158,11 @@ class TeacherService
 
     public function confirmTeacherInformation($id)
     {
-        $attributes['status'] = self::CONFIRMED;
-        $teacher = $this->teacher_repository->find($id);
-        return $teacher->update($attributes);
+        try {
+            $attributes['status'] = self::CONFIRMED;
+            return $this->teacher_repository->update($attributes, $id);
+        } catch (\Throwable $th) {
+            return FALSE;
+        }
     }
-
 }
-
-    
-
