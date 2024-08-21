@@ -43,7 +43,7 @@
     @if (request()->routeIs('teacher.edit'))
         @vite(['resources/js/certificate.js', 'resources/js/experience.js'])
     @endif
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss', 'resources/css/Teacher/userSearchBar.scss'])
 
 
 </head>
