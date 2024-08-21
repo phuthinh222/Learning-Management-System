@@ -38,7 +38,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-3 form-search">
                             <form action="{{ route('user.listuser') }}">
                                 <div class="d-flex">
                                     <div class="col-3">
