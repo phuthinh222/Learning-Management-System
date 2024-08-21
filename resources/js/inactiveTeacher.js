@@ -12,7 +12,6 @@ $(document).ready(function() {
                 search: keyword,
             },
             success: function(response) {
-                console.log(response);
                 $('#list').html(response.list);
                 $('#paginate').html(response.paginate);
                 currentPage = page;
