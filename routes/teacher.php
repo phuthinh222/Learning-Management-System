@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
 Route::group(['middleware' => ['auth', 'role:Teacher', 'MustVerifyEmail']], function () {
-    //manage teacher verified
-    Route::group(['middleware' => ['MustVerifyTeacher']], function(){
-        Route::get('teacher/list_timekeeping', [TeacherController::class, 'listTimeKeeping'])->name('teacher.listTimeKeeping');
-        Route::get('teacher/checkin_teacher', [AttendancesTeacherController::class, 'checkin_teacher'])->name('teacher.checkin_teacher');
-        Route::get('teacher/checkout_teacher', [AttendancesTeacherController::class, 'checkout_teacher'])->name('teacher.checkout_teacher');
-        Route::get('teacher/attendance/search', [AttendancesTeacherController::class, 'attendance_search'])->name('attendance.search');
-        Route::get('teacher/table_timekeeping', [TeacherController::class, 'table_timekeeping'])->name('teacher.table_timekeeping');
-    });
+    Route::group(['prefix'=>'teacher', 'as' => 'teacher.'], function(){
+        //manage teacher verified
+        Route::group(['middleware' => ['MustVerifyTeacher']], function(){
+            Route::get('list_timekeeping', [TeacherController::class, 'listTimeKeeping'])->name('listTimeKeeping');
+            Route::get('checkin_teacher', [AttendancesTeacherController::class, 'checkin_teacher'])->name('checkin_teacher');
+            Route::get('checkout_teacher', [AttendancesTeacherController::class, 'checkout_teacher'])->name('checkout_teacher');
+            Route::get('attendance/search', [AttendancesTeacherController::class, 'attendance_search'])->name('attendance.search');
+            Route::get('table_timekeeping', [TeacherController::class, 'table_timekeeping'])->name('table_timekeeping');
+        });
 
-    Route::resource('/teacher', TeacherController::class);
-    Route::prefix('teacher/')->group(function () {
         Route::resource('{teacher}/experiences', ExperienceController::class);
         Route::resource('{teacher}/certificates', CertificateController::class);
-        
+        Route::resource('/', TeacherController::class)->parameters(['' => 'teacher']);
     });
+
 });
