@@ -26,8 +26,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class = "d-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Bảng Chấm Công - Tháng {{ $month }}/{{ $year }}</h4>
-                        <form action="{{ route('teacher.table_timekeeping') }}" method="GET"
+                        <h4 class="card-title">Bảng Chấm Công Của Giáo Viên - Tháng {{ $month }}/{{ $year }}</h4>
+                        <form action="{{ route('admin.table_timekeeping') }}" method="GET"
                             class="d-flex align-items-center header_content_timekeeping_search">
                             <div class="input-group">
                                 <input type="text" id="search_attendance" name="search_attendance"
@@ -56,26 +56,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="text-nowrap col-md-3">{{Auth::user()->name}}</th>
-                                    <th class="text-nowrap col-md-3">
-                                        @if ($teacher)
-                                        {{ $teacher->position }}
-                                        @else
-                                            Chưa có vị trí
-                                        @endif
-                                    </th>
-                                    @for ($i = 1; $i <= $daysInMonth; $i++)
-                                        <th>
-                                            @php
-                                                $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
-                                                echo isset($workingDays[$date]) ? $workingDays[$date] : '';
-                                            @endphp
-                                        </th>
-                                    @endfor
-                                    <th>{{ $totalWorkingHours }}</th>
-                                    <th>{{ $totalDaysOff }}</th>
-                                </tr>
+                                @foreach ($workingDays as $teacherName => $attendanceData)
+                                   
+                                        <tr>
+                                            <td class="text-nowrap col-md-3">{{ $teacherName }}</td>
+                                            <td class="text-nowrap col-md-3">{{ $attendanceData['position'] ?? '' }}</td>
+                                            @for ($i = 1; $i <= $daysInMonth; $i++)
+                                                @php
+                                                    $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
+                                                @endphp
+                                                <td>{{ $attendanceData[$date] ?? 'N' }}</td>
+                                            @endfor
+                                            <td>{{ $attendanceData['totalWorkingHours'] ?? 0 }}</td>
+                                            <td>{{ $attendanceData['totalDaysOff'] ?? $daysInMonth }}</td>
+                                        </tr>
+                                  
+                                @endforeach
 
                             </tbody>
                         </table>
