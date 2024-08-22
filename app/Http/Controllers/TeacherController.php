@@ -131,15 +131,15 @@ class TeacherController extends Controller
     public function confirmTeacherInformation($id, Request $request)
     {
         $result = $this->teacher_service->confirmTeacherInformation($id);
-        
+
         if ($result) {
             flash()->options(['timeout' => 6000, 'position' => 'top-center'])
-            ->success(__('teacher.confirmations.confirm_successfull'));
+                ->success(__('teacher.confirmations.confirm_successfull'));
             return redirect()->route('teacher.inactive');
         }
 
         flash()->options(['timeout' => 6000, 'position' => 'top-center'])
-        ->error(__('teacher.confirmations.confirm_failed'));
+            ->error(__('teacher.confirmations.confirm_failed'));
         return redirect()->route('teacher.inactive');
     }
 }

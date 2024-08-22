@@ -51,6 +51,13 @@
                                   <p>Bảng chấm công</p>
                               </a>
                           </li>
+                          <li class="nav-item">
+                              <a href="{{ route('teacher.courses.index', ['teacher' => $teacher->id]) }}"
+                                  class="dashboard">
+                                  <i class="fas fa-book"></i>
+                                  <p>Quản lý khóa học</p>
+                              </a>
+                          </li>
                       @endif
                       @if (Auth::check() && Auth::user()->hasRole('Admin'))
                           <li class="nav-item">
@@ -59,7 +66,6 @@
                                   <p>Bảng chấm công</p>
                               </a>
                           </li>
-                         
                       @endif
                   </ul>
               </div>

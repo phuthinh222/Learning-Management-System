@@ -51,6 +51,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Contracts\TeacherRepository',
             'App\Repositories\Eloquent\TeacherRepositoryEloquent'
         );
+        $this->app->bind(
+            'App\Repositories\Contracts\CourseRepository',
+            'App\Repositories\Eloquent\CourseRepositoryEloquent'
+        );
     }
 
     /**

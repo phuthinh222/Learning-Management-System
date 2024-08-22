@@ -17,7 +17,7 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'note' => $this->faker->text,
+            'note' => $this->faker->text(1000),
             'average_grade' => $this->faker->randomFloat(2, 0, 10),
             'id_parent' => 1
         ];

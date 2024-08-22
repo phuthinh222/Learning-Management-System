@@ -33,9 +33,9 @@ class UserFactory extends Factory
             'google_id' => $this->faker->optional()->uuid,
             'date_of_birth' => $this->faker->optional()->date(),
             'address' => $this->faker->optional()->address,
-            'phone_number' => $prefix. $this->faker->numerify('#######'),
+            'phone_number' => $prefix . $this->faker->unique()->numerify('#######'),
             'email_verified_at' => $this->faker->optional()->dateTime(),
-            'email_verify_token' => NULL, 
+            'email_verify_token' => NULL,
             'id_salary_recipe' => $salaryRecipe->id, // Default value for this column
             'userable_id' => $this->faker->optional()->randomNumber(),
             'userable_type' => $this->faker->optional()->word,
@@ -48,7 +48,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
