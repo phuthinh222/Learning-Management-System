@@ -128,7 +128,7 @@
     </div>
 @endsection
 
-@section('tinymce_js')
+@section('after_js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.3.0/tinymce.min.js"
         integrity="sha512-RUZ2d69UiTI+LdjfDCxqJh5HfjmOcouct56utQNVRjr90Ea8uHQa+gCxvxDTC9fFvIGP+t4TDDJWNTRV48tBpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
