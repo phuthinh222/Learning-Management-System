@@ -32,7 +32,7 @@ return [
         ],
         'password' => [
             'required' => 'Bạn chưa nhập mật khẩu',
-            'regex' => 'Mật khẩu chứa ít nhất môt chữ cái viết hoa và môt chữ số',
+            'regex' => 'Mật khẩu từ 6-255 ký tự, chứa ít nhất môt chữ cái viết hoa và môt chữ số',
             'confirmed' => 'Mật khẩu nhập lại chưa chính xác',
             'max' => 'Mật khẩu không được vượt quá :max ký tự'
         ],
@@ -51,7 +51,7 @@ return [
             'required' => 'Bạn chưa nhập địa chỉ Email',
             'regex' => 'Email sai định dạng',
             'unique' => 'Email đã tồn tại',
-            'max' => 'Email dài không được vượt quá :max ký tự'
+            'max' => 'Email không được vượt quá :max ký tự'
         ],
         'phone_number' => [
             'required' => 'Bạn chưa nhập số điện thoại',
@@ -85,7 +85,7 @@ return [
         'address' => [
             'required' => 'Bạn chưa nhập địa chỉ',
             'regex' => 'Địa chỉ sai định dạng',
-            'max' => 'Địa chỉ vượt quá số lượng kí tự cho phép'
+            'max' => 'Địa chỉ không được vượt quá :max ký tự'
         ],
         'date_of_birth' => [
             'date' => 'Ngày sinh sai định dạng',

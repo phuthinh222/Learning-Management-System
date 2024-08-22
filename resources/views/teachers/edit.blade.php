@@ -51,9 +51,9 @@
                                 <div class="form-group">
                                     <label for="name">Họ tên giáo viên <span class="text-danger">*</span></label>
                                     <input type="text" @error('name') class="form-control is-invalid text-truncate" @enderror
-                                        class="form-control" id="name" name="name"
+                                        class="form-control text-truncate" id="name" name="name"
                                         @error('phone_number') value="{{ old('name') }}" @enderror
-                                        value="{{ $user->name }}" />
+                                        value="{{ old('name', $user->name)}}" />
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -88,7 +88,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
-                                    <input type="tel" @error('phone_number') class="form-control is-invalid" @enderror
+                                    <input type="tel" @error('phone_number') class="form-control is-invalid text-truncate" @enderror
                                         class="form-control text-truncate" id="phone" name="phone_number"
                                         @error('phone_number') value="{{ old('phone_number') }}" @enderror
                                         value="{{ $user->phone_number }}" />
@@ -102,7 +102,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="department">Phòng ban <span class="text-danger">*</span></label>
-                                    <input @error('department') class="form-control is-invalid" @enderror type="text"
+                                    <input @error('department') class="form-control is-invalid text-truncate" @enderror type="text"
                                         class="form-control text-truncate" id="department" name="department"
                                         @error('department') value="{{ old('department') }}" @enderror
                                         value="{{ $teacher->department }}" />
@@ -116,7 +116,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="position">Vị trí <span class="text-danger">*</span></label>
-                                    <input type="text" @error('position') class="form-control is-invalid" @enderror
+                                    <input type="text" @error('position') class="form-control is-invalid text-truncate" @enderror
                                         class="form-control text-truncate" id="position" name="position"
                                         @error('position') value="{{ old('position') }}" @enderror
                                         value="{{ $teacher->position }}" />
@@ -152,7 +152,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="address">Nơi ở hiện tại <span class="text-danger">*</span></label>
-                                    <input type="text" @error('address') class="form-control is-invalid" @enderror
+                                    <input type="text" @error('address') class="form-control is-invalid text-truncate" @enderror
                                         class="form-control text-truncate" id="address" name="address"
                                         @error('address') value="{{ old('address') }}" @enderror
                                         value="{{ $user->address }}" />
@@ -318,7 +318,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Chuyên ngành <span class="text-danger">*</span></label>
-                                    <input id="cer_major" name="major" type="text" class="form-control" />
+                                    <input id="cer_major" name="major" type="text" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_mafor"></p>
                                     </div>
@@ -327,7 +327,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Cấp độ <span class="text-danger">*</span></label>
-                                    <input id="cer_level" name="level" type="text" class="form-control" />
+                                    <input id="cer_level" name="level" type="text" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_level"></p>
                                     </div>
@@ -336,7 +336,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Trường học/ Trung tâm <span class="text-danger">*</span></label>
-                                    <input id="cer_school" name="school" type="text" class="form-control" />
+                                    <input id="cer_school" name="school" type="text" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_school"></p>
                                     </div>
@@ -396,7 +396,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Công ty <span class="text-danger">*</span></label>
-                                    <input id="exc_company" type="text" name="company" class="form-control" />
+                                    <input id="exc_company" type="text" name="company" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_company"></p>
                                     </div>
@@ -405,7 +405,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Vị trí <span class="text-danger">*</span></label>
-                                    <input id="exc_position" type="text" name="position" class="form-control" />
+                                    <input id="exc_position" type="text" name="position" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_position"></p>
                                     </div>
@@ -414,7 +414,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Thời gian (năm) <span class="text-danger">*</span></label>
-                                    <input id="exc_year" type="number" name="year" class="form-control" />
+                                    <input id="exc_year" type="number" name="year" class="form-control text-truncate" />
                                     <div class="invalid-feedback" >
                                         <p id="invalid_year"></p>
                                     </div>

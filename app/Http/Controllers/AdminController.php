@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Service\Admin\AdminService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    protected $admin_service;
+
+    public function __construct(AdminService $admin_service)
+    {
+        $this->admin_service = $admin_service;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -61,4 +68,17 @@ class AdminController extends Controller
     {
         //
     }
+
+    public function table_timekeeping_list_teacher(Request $request)
+    {
+        $searchDate = $request->input('search_attendance');
+        $data = $this->admin_service->getAttendancesAllTeacher($searchDate);
+
+        
+        return view('admin.table_timekeeping_admin',$data);
+    }
+
+    
+
+
 }

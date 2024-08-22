@@ -70,12 +70,30 @@ class AttendancesRepositoryEloquent extends BaseRepository implements Attendance
     public function getListDayAttendances($user_id, $month, $year)
     {
         return Attendance::join('attendance_teachers', 'attendances.id', '=', 'attendance_teachers.id_attendance')
-            ->where('attendance_teachers.id_teacher',$user_id)
+            ->where('attendance_teachers.id_teacher', $user_id)
             ->whereMonth('attendances.date', $month)
             ->whereYear('attendances.date', $year)
             ->select('attendances.date', 'attendances.time_check_in', 'attendances.time_check_out', 'attendances.total_hours', 'attendances.status')
             ->get()
             ->keyBy('date');
+    }
+
+    public function getAttendancesAllTeacher($month, $year)
+    {
+        return Attendance::join('attendance_teachers as at', 'attendances.id', '=', 'at.id_attendance')
+            ->join('users as u', 'at.id_teacher', '=', 'u.id')
+            ->select(
+                'u.id',
+                'u.name as teacher_name',
+                'attendances.date',
+                'attendances.time_check_in',
+                'attendances.time_check_out',
+                'attendances.total_hours',
+                'attendances.status'
+            )
+            ->whereMonth('attendances.date', $month) 
+            ->whereYear('attendances.date', $year) 
+            ->get();
     }
 
 

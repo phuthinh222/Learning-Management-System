@@ -29,7 +29,8 @@ class UpdateInformationRequest extends FormRequest
                 //This following regex rule means: 
                 // - Allow client to type Vietnamese name with Vietnamese characters. 
                 // - Each word is separated by 1 space ' ' 
-                'regex: /^[A-Za-zÀ-ỹà-ỹ]+(?:\s[A-Za-zÀ-ỹà-ỹ]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ]+(?:\s[A-Za-zÀ-ỹà-ỹ]+)*$/',
+                'max:255'
             ],
             'phone_number' => [
                 'required',
@@ -39,7 +40,8 @@ class UpdateInformationRequest extends FormRequest
                 // - The phone number must start with one of the digits 3, 5, 7, 8, or 9 
                 // - Followed by exactly 8 digits 
                 'regex:/^(?:\+84|0)[\s.-]?([3|5|7|8|9]\d{8})$/',
-                Rule::unique('users')->ignore(Auth::user()->id)
+                Rule::unique('users')->ignore(Auth::user()->id),
+                'max:15'
             ],
             'address' => [
                 'required',
@@ -48,7 +50,7 @@ class UpdateInformationRequest extends FormRequest
                 // - The address must consist of one or more of these characters 
                 // - Does not enforce any specific format or length restrictions 
                 'regex:/^[A-Za-zÀ-ỹà-ỹ0-9\s,.\-\/]+$/',
-                'max:150'
+                'max:1000'
             ],
             'date_of_birth' => [
                 'nullable',
@@ -65,9 +67,11 @@ class UpdateInformationRequest extends FormRequest
         return [
             'name.required' => __('validation.custom.name.required'),
             'name.regex' => __('validation.custom.name.regex'),
+            'name.max' => __('validation.custom.name.max'),
             'phone_number.required' => __('validation.update_student.phone_number.required'),
             'phone_number.regex' => __('validation.update_student.phone_number.regex'),
             'phone_number.unique' => __('validation.update_student.phone_number.unique'),
+            'phone_number.max' => __('validation.custom.phone_number.max'),
             'address.required' => __('validation.update_student.address.required'),
             'address.regex' => __('validation.update_student.address.regex'),
             'address.max' => __('validation.update_student.address.max'),

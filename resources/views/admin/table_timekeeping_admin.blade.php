@@ -26,8 +26,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class = "d-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Bảng Chấm Công - Tháng {{ $month }}/{{ $year }}</h4>
-                        <form action="{{ route('teacher.table_timekeeping') }}" method="GET"
+                        <h4 class="card-title">Bảng Chấm Công Của Giáo Viên - Tháng {{ $month }}/{{ $year }}</h4>
+                        <form action="{{ route('admin.table_timekeeping') }}" method="GET"
                             class="d-flex align-items-center header_content_timekeeping_search">
                             <div class="input-group">
                                 <input type="text" id="search_attendance" name="search_attendance"
@@ -46,7 +46,7 @@
                         <table id="add-row" class="display table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-center fixed-col1 width" >Họ Tên</th>
+                                    <th class="text-center fixed-col1 width">Họ Tên</th>
                                     <th class="text-center fixed-col2 width">Chức Vụ</th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
                                         <th class="text-center">{{ $i }}</th>
@@ -56,26 +56,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="text-center text-truncate fixed-col1 width" >{{Auth::user()->name}}</th>
-                                    <th class="text-center text-truncate fixed-col2 width">
-                                        @if ($teacher)
-                                        {{ $teacher->position }}
-                                        @else
-                                            Chưa có vị trí
-                                        @endif
-                                    </th>
-                                    @for ($i = 1; $i <= $daysInMonth; $i++)
-                                        <th class="text-center">
-                                            @php
-                                                $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
-                                                echo isset($workingDays[$date]) ? $workingDays[$date] : '';
-                                            @endphp
-                                        </th>
-                                    @endfor
-                                    <th class="text-center">{{ $totalWorkingHours }}</th>
-                                    <th class="text-center">{{ $totalDaysOff }}</th>
-                                </tr>
+                                @foreach ($workingDays as $teacherName => $attendanceData)
+                                   
+                                        <tr>
+                                            <td class="text-center fixed-col1 width">{{ $teacherName }}</td>
+                                            <td class="text-center fixed-col2 width">{{ $attendanceData['position'] ?? '' }}</td>
+                                            @for ($i = 1; $i <= $daysInMonth; $i++)
+                                                @php
+                                                    $date = \Carbon\Carbon::create($year, $month, $i)->format('Y-m-d');
+                                                @endphp
+                                                <td class="text-center">{{ $attendanceData[$date] ?? 'N' }}</td>
+                                            @endfor
+                                            <td class="text-center">{{ $attendanceData['totalWorkingHours'] ?? 0 }}</td>
+                                            <td class="text-center">{{ $attendanceData['totalDaysOff'] ?? $daysInMonth }}</td>
+                                        </tr>
+                                  
+                                @endforeach
 
                             </tbody>
                         </table>

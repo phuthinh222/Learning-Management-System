@@ -20,4 +20,5 @@ interface UserRepository extends RepositoryInterface
     public function createUser(array $data);
 
     public function updateUser(array $data, $id);
+    public function getUserTypeTeacher();
 }
