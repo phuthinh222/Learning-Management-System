@@ -34,7 +34,7 @@ class ExperienceController extends Controller
         return response()->json($exc, Response::HTTP_OK);
     }
 
-    public function update(Request $request, $id_teacher, $id_exc)
+    public function update(ExperiencesCreateRequest $request, $id_teacher, $id_exc)
     {
         $this->experience_service->update($request->all(), $id_exc);
         flash()->success(__('teacher.certificate.update_success'));

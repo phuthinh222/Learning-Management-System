@@ -1,4 +1,3 @@
-const defaultImagePath = `../../assets/img/default.jpg`;
 document.getElementById("cer_photo").addEventListener("change", function () {
     if (!this.files.length) {
         document.getElementById("photoReview").style.display = "none";
@@ -13,10 +12,8 @@ export function createCertificate() {
                 .then((response) => response.json())
                 .then((data) => {
                     const cerModal = document.getElementById("cerModal");
-                    cerModal.reset();
                     const photoCertificate =
                         document.getElementById("photoCertificate");
-                    photoCertificate.src = defaultImagePath;
                     const certificateModal = new bootstrap.Modal(
                         document.getElementById("certificateModal")
                     );
@@ -97,6 +94,10 @@ export function delCertificate() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const major_input = document.getElementById("cer_major");
+    const level_input = document.getElementById("cer_level");
+    const school_input = document.getElementById("cer_school");
+    const photo_input = document.getElementById("cer_photo");
     const cerModal = document.getElementById("cerModal");
     cerModal.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -122,15 +123,41 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    return response.json().then((errorData) => {
+                        throw new Error(JSON.stringify(errorData.errors));
+                    });
                 }
                 return response.json();
             })
             .then(() => {
                 location.reload();
             })
-            .catch((error) => {
-                console.error("Error:", error);
+            .catch((errors) => {
+                const messages = JSON.parse(errors.message);
+                if (typeof messages.major !== 'undefined') {
+                    major_input.classList.add('is-invalid');
+                    document.getElementById("invalid_mafor").textContent = messages.major
+                } else {
+                    major_input.classList.remove('is-invalid');
+                }
+                if (typeof messages.level !== 'undefined') {
+                    level_input.classList.add('is-invalid');
+                    document.getElementById("invalid_level").textContent = messages.level
+                } else {
+                    level_input.classList.remove('is-invalid');
+                }
+                if (typeof messages.school !== 'undefined') {
+                    school_input.classList.add('is-invalid');
+                    document.getElementById("invalid_school").textContent = messages.school
+                } else {
+                    school_input.classList.remove('is-invalid');
+                }
+                if (typeof messages.photo !== 'undefined') {
+                    photo_input.classList.add('is-invalid');
+                    document.getElementById("invalid_photo").textContent = messages.photo
+                } else {
+                    photo_input.classList.remove('is-invalid');
+                }
             });
     });
 });

@@ -73,16 +73,16 @@ class TeacherService
         $attendance->time_check_out = Carbon::now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s');
         $timeCheckIn = Carbon::parse($attendance->time_check_in);
         $timeCheckOut = Carbon::parse($attendance->time_check_out);
-        $total_hours = $timeCheckIn->diffInHours($timeCheckOut) + round($timeCheckIn->diffInMinutes($timeCheckOut) / 60, 2);
+        $total_hours = $timeCheckIn->diffInHours($timeCheckOut) + round($timeCheckIn->diffInMinutes($timeCheckOut) / 60, 1);
         if ($total_hours >= 8) {
             $total_hours = 8;
         }
         $attendance->total_hours = $total_hours;
         if ($total_hours < 4) {
-            $hoursMissing = round(4 - $total_hours, 2);
+            $hoursMissing = round(4 - $total_hours, 1);
             $attendance->status = "Chưa đủ nửa công thiếu {$hoursMissing} giờ";
         } else if ($total_hours >= 4 && $total_hours < 8) {
-            $hoursMissing = round(8 - $total_hours, 2);
+            $hoursMissing = round(8 - $total_hours, 1);
             $attendance->status = "Chưa đủ ngày công thiếu {$hoursMissing} giờ";
         } else {
             $attendance->status = "Đủ ngày công";
@@ -158,12 +158,11 @@ class TeacherService
 
     public function confirmTeacherInformation($id)
     {
-        $attributes['status'] = self::CONFIRMED;
-        $teacher = $this->teacher_repository->find($id);
-        return $teacher->update($attributes);
+        try {
+            $attributes['status'] = self::CONFIRMED;
+            return $this->teacher_repository->update($attributes, $id);
+        } catch (\Throwable $th) {
+            return FALSE;
+        }
     }
-
 }
-
-    
-

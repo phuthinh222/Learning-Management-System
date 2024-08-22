@@ -51,6 +51,14 @@
                                   <p>Bảng chấm công</p>
                               </a>
                           </li>
+                      @endif
+                      @if (Auth::check() && Auth::user()->hasRole('Admin'))
+                          <li class="nav-item">
+                              <a href="{{ route('admin.table_timekeeping') }}" class="dashboard">
+                                  <i class="fa-regular fa-calendar"></i>
+                                  <p>Bảng chấm công</p>
+                              </a>
+                          </li>
                          
                       @endif
                   </ul>

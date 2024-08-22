@@ -1,0 +1,53 @@
+.fixed-col1 {
+    position: sticky;
+    background: #f8f9fa;
+    left:0;
+    z-index: 2;  
+}
+@media (min-width : 1025px){
+    .width {
+        min-width: 250px;
+    }
+    
+    .fixed-col2 {
+        position: sticky;
+        background: #f8f9fa;
+        left:250px;
+        z-index: 2;  
+    }
+} 
+
+@media (min-width : 740px) and (max-width : 1023px){
+    .width {
+        min-width: 200px !important;
+    }
+    .fixed-col2 {
+        position: sticky;
+        background: #f8f9fa;
+        left:200px;
+        z-index: 2;  
+    }
+    .text-truncate {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: normal !important;
+    }
+}
+
+@media (max-width : 739px){
+    .width {
+        min-width: 100px !important;
+    }
+    .fixed-col2 {
+        position: sticky;
+        background: #f8f9fa;
+        left:100px;
+        z-index: 2;  
+    }
+    .text-truncate {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: normal !important;
+    }
+   
+}

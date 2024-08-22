@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Teacher;
 use App\Models\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -113,5 +114,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
         $user->update($attributes);
         return $user;
+    }
+
+    public function getUserTypeTeacher()
+    {
+       return $this->model->where('userable_type', Teacher::class)->get();
     }
 }

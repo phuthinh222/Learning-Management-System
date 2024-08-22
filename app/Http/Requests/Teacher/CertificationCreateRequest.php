@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Teacher;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
 
 class CertificationCreateRequest extends FormRequest
 {
@@ -26,24 +29,24 @@ class CertificationCreateRequest extends FormRequest
                 'required',
                 'max: 255',
                 //allow user to type characters in Vietnamese language and number, '-' symbol
-                'regex: /^[A-Za-zÀ-ỹà-ỹ\.0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.0-9]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+)*$/'
             ],
             'level' => [
                 'required',
                 'max: 255',
                 //allow user to type characters in Vietnamese language and number, '-' symbol
-                'regex: /^[A-Za-zÀ-ỹà-ỹ\.0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.0-9]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+)*$/'
             ],
             'school' => [
                 'required',
                 'max: 1000',
                  //allow user to type characters in Vietnamese language and number, '-' symbol
-                'regex: /^[A-Za-zÀ-ỹà-ỹ\.0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.0-9]+)*$/'
+                'regex: /^[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+(?:\s[A-Za-zÀ-ỹà-ỹ\.\-\_\~\,0-9]+)*$/'
             ],
             'photo' => [
                 'required',
                 'mimes:jpeg,jpg,png,gif,svg,webp',
-                'max: 10240'
+                'max: 20480'
             ]
         ];
     }
@@ -61,7 +64,16 @@ class CertificationCreateRequest extends FormRequest
             'school.max' => __('validation.teacher_certificate.school_name.max'),
             'school.regex' => __('validation.teacher_certificate.school_name.regex'),
             'photo.required' => __('validation.teacher_certificate.certificate_image.required'),
-            'photo.mimes' => __('validation.teacher_certificate.certificate_image.mimes')
+            'photo.mimes' => __('validation.teacher_certificate.certificate_image.mimes'),
+            'photo.max' => __('validation.teacher_certificate.certificate_image.max')
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }
