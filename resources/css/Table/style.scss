@@ -56,3 +56,8 @@ $background-color_3: #28a745;
 .form-group {
 	margin-bottom: 15px;
 }
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

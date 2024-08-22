@@ -32,7 +32,8 @@ class User extends Authenticatable
         'google_id',
         'email_verify_token',
         'userable_id',
-        'userable_type'
+        'userable_type',
+        'avatar'
     ];
 
     /**
@@ -61,4 +62,7 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+    protected $casts = [
+        'date_of_birth' => 'datetime'
+    ];
 }

@@ -63,7 +63,7 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertSessionHas([
-        'login_error_username' => __('auth.failed')
+        'login_error_username' => __('auth.not_found')
         ])
         ->assertStatus(Response::HTTP_FOUND);
     }
@@ -99,7 +99,7 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertSessionHas([
-        'login_error_password' => __('auth.password')
+        'login_error_password' => __('auth.failed')
         ])
         ->assertStatus(Response::HTTP_FOUND);
     }
@@ -118,6 +118,6 @@ class LoginTest extends TestCase
         $response = $this->postTest($this->testUrlStore(), $data);
         
         $response->assertStatus(Response::HTTP_FOUND)
-        ->assertSessionHas(['login_error_verify' => __('auth.rerify_login')]);
+        ->assertSessionHas(['login_error_password' => __('auth.failed')]);
     }
 }

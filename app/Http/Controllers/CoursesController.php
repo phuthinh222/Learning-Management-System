@@ -40,7 +40,7 @@ class CoursesController extends Controller
             'timeout' => 3000,
             'position' => 'top-center',
         ])->success(__('teacher.course.create_success'));
-        return redirect()->route('courses.index', compact('teacher', 'courses'));
+        return redirect()->route('teacher.courses.index', compact('teacher', 'courses'));
     }
     public function edit($id_teacher, $id_course)
     {
@@ -58,7 +58,7 @@ class CoursesController extends Controller
             'timeout' => 3000,
             'position' => 'top-center',
         ])->success(__('teacher.course.update_success'));
-        return redirect()->route('courses.index', compact('teacher', 'courses'));
+        return redirect()->route('teacher.courses.index', compact('teacher', 'courses'));
     }
     public function destroy($id_teacher, $id_course)
     {
@@ -69,6 +69,6 @@ class CoursesController extends Controller
             'timeout' => 3000,
             'position' => 'top-center',
         ])->success(__('teacher.course.delete_success'));
-        return redirect()->route('courses.index', compact('teacher', 'courses'));
+        return redirect()->route('teacher.courses.index', compact('teacher', 'courses'));
     }
 }

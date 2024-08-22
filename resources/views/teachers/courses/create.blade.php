@@ -13,13 +13,13 @@
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="{{ route('courses.index', ['teacher' => $teacher->id]) }}">Quản lý khóa học</a>
+                <a href="{{ route('teacher.courses.index', ['teacher' => $teacher->id]) }}">Quản lý khóa học</a>
             </li>
             <li class="separator">
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="{{ route('courses.create', ['teacher' => $teacher->id]) }}">Thêm khóa học</a>
+                <a href="{{ route('teacher.courses.create', ['teacher' => $teacher->id]) }}">Thêm khóa học</a>
             </li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <form method="POST" action="{{ route('courses.store', ['teacher' => $teacher->id]) }}"
+                <form method="POST" action="{{ route('teacher.courses.store', ['teacher' => $teacher->id]) }}"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -82,9 +82,9 @@
                     </div>
             </div>
             <div class="card-action ">
-                <a href="{{ route('teacher.index') }}" class="btn btn-light">
+                <a href="{{ route('teacher.courses.index', ['teacher' => $teacher->id]) }}" class="btn btn-light">
                     <i class="fas fa-arrow-left me-1"></i>
-                    Trở về trang chủ
+                    Trở lại danh sách
                 </a>
                 <button type="submit" class="btn btn-success">
                     Lưu dữ liệu

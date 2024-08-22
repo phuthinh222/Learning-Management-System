@@ -6,21 +6,20 @@
             <form method="post" action="{{route('login')}}">
                 <div class="input-boxes">
                 <div class="input-box">
-                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-envelope"><span class="text-danger" > *</span></i>
                     <input
                         @if(Session::has('login_error_username')) class="input-with-errors" @endif
-                        @if(Session::has('login_error_verify')) class="input-with-errors" @endif
                         @error('user_name') class="input-with-errors" @enderror 
                     id="user_name" name="user_name" value="{{old('user_name')}}" type="text" placeholder="Email hoặc tên đăng nhập">
                 </div>
                 @if(Session::has('login_error_username')) <div class="text"><p class="p-error">{{Session::get('login_error_username')}}</p></div> @endif
-                @if(Session::has('login_error_verify')) <div class="text"><p class="p-error">{{Session::get('login_error_verify')}}</p></div> @endif
                 @error('user_name') <div class="text"><p class="p-error">{{$message}}</p></div> @enderror
                 <div class="input-box">
-                    <i class="fas fa-lock"></i>
-                    <input @if(Session::has('login_error_password')) class="input-with-errors" @endif id="password" name="password" type="password" placeholder="Mật khẩu">
+                    <i class="fas fa-lock"><span class="text-danger" > *</span></i>
+                    <input @error('password') class="input-with-errors" @enderror  @if(Session::has('login_error_password')) class="input-with-errors" @endif id="password" name="password" type="password" placeholder="Mật khẩu">
                 </div>
                 @if(Session::has('login_error_password')) <div class="text"><p class="p-error">{{Session::get('login_error_password')}}</p></div> @endif
+                @error('password') <div class="text"><p class="p-error">{{$message}}</p></div> @enderror
                 <div class="text"><a href="#">Quên mật khẩu?</a></div>
                 <div class="button input-box">
                     <input type="submit" value="Đăng nhập">

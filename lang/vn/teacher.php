@@ -17,6 +17,10 @@ return [
         'delete_success' => 'Xóa thông tin chứng chỉ thành công',
         'delete_error' => 'Xóa thông tin chứng chỉ thất bại',
     ],
+    'confirmations' => [
+        'confirm_successfull' => 'Phê duyệt thông tin giáo viên thành công',
+        'confirm_failed' => 'Phê duyệt thông tin giáo viên thất bại'
+    ],
     'course' => [
         'create_success' => 'Thêm thông tin khóa học thành công',
         'create_error' => 'Thêm thông tin khóa học thất bại',

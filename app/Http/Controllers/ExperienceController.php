@@ -22,7 +22,7 @@ class ExperienceController extends Controller
         return response()->json([''], Response::HTTP_OK);
     }
 
-    public function store(Request $request)
+    public function store(ExperiencesCreateRequest $request)
     {
         $exc = $this->experience_service->create($request->all());
         flash()->options([
@@ -37,7 +37,7 @@ class ExperienceController extends Controller
         return response()->json($exc, Response::HTTP_OK);
     }
 
-    public function update(Request $request, $id_teacher, $id_exc)
+    public function update(ExperiencesCreateRequest $request, $id_teacher, $id_exc)
     {
         $this->experience_service->update($request->all(), $id_exc);
         flash()->options([

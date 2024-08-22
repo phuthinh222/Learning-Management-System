@@ -1,6 +1,55 @@
-.course_image {
-    width: 200px;
+$breakpoints: (
+    phone-sm: 420px,
+    phone: 767px,
+    tablet: 768px,
+    tablet-lg: 1024px,
+    desktop: 1025px,
+    desktop-lg: 1600px,
+);
+@mixin for-size($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        $breakpoint-value: map-get($breakpoints, $breakpoint);
+        @media (max-width: $breakpoint-value) {
+            @content;
+        }
+    }
 }
-.course_content {
-    width: 150px;
+.course_item {
+    @include for-size(phone-sm) {
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+.course_text {
+    @include for-size(tablet-lg) {
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    @include for-size(phone-sm) {
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+.course_image {
+    height: 180px;
+    width: 200px;
+    @include for-size(tablet-lg) {
+        width: 100%;
+    }
+    @include for-size(phone-sm) {
+        width: 100%;
+    }
+}
+.course_button {
+    @include for-size(tablet-lg) {
+        padding: 10px;
+    }
+    @include for-size(phone-sm) {
+        padding: 4px;
+    }
 }

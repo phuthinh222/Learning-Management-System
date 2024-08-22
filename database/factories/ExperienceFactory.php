@@ -17,7 +17,7 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         return [
-            'company' => $this->faker->company(),
+            'company' => $this->faker->name(),
             'position' => $this->faker->jobTitle(),
             'year' => $this->faker->numberBetween(1, 10)
         ];

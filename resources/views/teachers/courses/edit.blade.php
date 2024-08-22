@@ -13,13 +13,14 @@
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="{{ route('courses.index', ['teacher' => $teacher->id]) }}">Quản lý khóa học</a>
+                <a href="{{ route('teacher.courses.index', ['teacher' => $teacher->id]) }}">Quản lý khóa học</a>
             </li>
             <li class="separator">
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $courses->id]) }}">Cập nhật khóa
+                <a href="{{ route('teacher.courses.edit', ['teacher' => $teacher->id, 'course' => $courses->id]) }}">Cập
+                    nhật khóa
                     học</a>
             </li>
         </ul>
@@ -31,7 +32,7 @@
         <div class="col-md-12">
             <div class="card">
                 <form method="POST"
-                    action="{{ route('courses.update', ['teacher' => $teacher->id, 'course' => $courses->id]) }}"
+                    action="{{ route('teacher.courses.update', ['teacher' => $teacher->id, 'course' => $courses->id]) }}"
                     enctype="multipart/form-data">
                     @csrf
                     @method('put')
@@ -74,7 +75,7 @@
                         </div>
                     </div>
                     <div class="card-action ">
-                        <a href="{{ route('courses.index', ['teacher' => $teacher->id]) }}" class="btn btn-light">
+                        <a href="{{ route('teacher.courses.index', ['teacher' => $teacher->id]) }}" class="btn btn-light">
                             <i class="fas fa-arrow-left me-1"></i>
                             Quay lại danh sách
                         </a>

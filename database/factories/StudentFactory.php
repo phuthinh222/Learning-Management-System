@@ -19,6 +19,7 @@ class StudentFactory extends Factory
         return [
             'note' => $this->faker->text(1000),
             'average_grade' => $this->faker->randomFloat(2, 0, 10),
+            'id_parent' => 1
         ];
     }
 }

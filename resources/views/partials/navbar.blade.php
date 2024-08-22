@@ -28,7 +28,7 @@
                     <ul class="dropdown-menu dropdown-search animated fadeIn">
                         <form class="navbar-left navbar-form nav-search">
                             <div class="input-group">
-                                <input type="text" placeholder="Search ..." class="form-control" />
+                                <input type="text" placeholder="Search ..." class="form-control text-truncate" />
                             </div>
                         </form>
                     </ul>
@@ -78,8 +78,8 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown">
                         <div class="avatar-sm">
-                            <img src="{{ asset('assets/img/profile.jpg') }}" alt="..."
-                                class="avatar-img rounded-circle" />
+                            <img src="{{ Auth::user()->avatar ? asset('storage/users/' . Auth::user()->avatar) : asset('assets/img/user_default.jpg') }}"
+                                alt="..." class="avatar-img rounded-circle" />
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Chào,</span>
@@ -102,11 +102,11 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        <img src="{{ asset('assets/img/profile.jpg') }}" alt="image profile"
-                                            class="avatar-img rounded" />
+                                        <img src="{{ Auth::user()->avatar ? asset('storage/users/' . Auth::user()->avatar) : asset('assets/img/user_default.jpg') }}"
+                                            alt="image profile" class="avatar-img rounded" />
                                     </div>
-                                    <div class="u-text">
-                                        <h4>{{ Auth::user()->name }}</h4>
+                                    <div class="u-text w-100">
+                                        <h4 class = "text-truncate">{{ Auth::user()->name }}</h4>
                                         <p class="text-muted">{{ Auth::user()->email }}</p>
                                         @if (Auth::user()->hasRole('Teacher'))
                                             <a href="{{ route('teacher.edit', ['teacher' => Auth::user()->id]) }}"

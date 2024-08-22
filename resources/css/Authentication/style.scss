@@ -155,6 +155,9 @@ body {
             font-weight: 500;
             border-bottom: 2px solid rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             &:focus {
                 border-color: $border-color_1;
             }
