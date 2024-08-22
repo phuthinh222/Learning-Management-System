@@ -10,6 +10,7 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/css/Table/style.scss",
                 "resources/css/Teacher/timekeeping.scss",
+                "resources/css/Teacher/table_timekeeping.scss",
                 "resources/js/certificate.js",
                 "resources/js/experience.js",
                 "resources/js/Authentication/verify-email.js",

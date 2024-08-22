@@ -9,12 +9,8 @@ use App\Http\Controllers\UserController;
 // Authentication Routes
 Route::group(['middleware' => ['auth', 'role:Admin', 'MustVerifyEmail']], function () {
 
-    // Logout route
-
-    Route::resource('/admin', AdminController::class);
-
     Route::prefix('admin')->group(function () {
-        //Route to manage Teacher:
+     
         Route::prefix('teacher')->group(function() {
             Route::get('/inactive', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.inactive');
             Route::get('/inactive/search', [TeacherController::class, 'listInactiveTeacher'])->name('teacher.search');
@@ -28,5 +24,9 @@ Route::group(['middleware' => ['auth', 'role:Admin', 'MustVerifyEmail']], functi
         Route::get('/filter/getDetails', [UserController::class, 'getSubjectsForFilter'])->name('getFilterDetails');
         Route::post('user/store', [UserController::class, 'store'])->name('users.store');
         Route::delete('user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/table_timekeeping', [AdminController::class, 'table_timekeeping_list_teacher'])->name('admin.table_timekeeping');
+      
     });
+
+    Route::resource('/admin', AdminController::class);
 });
