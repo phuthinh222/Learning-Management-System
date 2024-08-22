@@ -45,7 +45,6 @@
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/Table/style.scss', 'resources/css/Teacher/timekeeping.scss'])
 
-
 </head>
 
 <body>
@@ -98,6 +97,7 @@
 
 
     @yield('after_js')
+    @yield('tinymce_js')
 </body>
 
 </html>

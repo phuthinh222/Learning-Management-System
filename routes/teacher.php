@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendancesTeacherController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +21,6 @@ Route::group(['middleware' => ['auth', 'role:Teacher']], function () {
         Route::get('checkin_teacher', [AttendancesTeacherController::class, 'checkin_teacher'])->name('teacher.checkin_teacher');
         Route::get('checkout_teacher', [AttendancesTeacherController::class, 'checkout_teacher'])->name('teacher.checkout_teacher');
         Route::get('attendance/search', [AttendancesTeacherController::class, 'attendance_search'])->name('attendance.search');
+        Route::resource('{teacher}/courses', CoursesController::class);
     });
 });

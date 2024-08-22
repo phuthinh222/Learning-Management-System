@@ -44,6 +44,14 @@
                               </a>
                           </li>
                       @endif
+                      @if (Auth::check() && Auth::user()->hasRole('Teacher'))
+                          <li class="nav-item">
+                              <a href="{{ route('courses.index', ['teacher' => $teacher->id]) }}" class="dashboard">
+                                  <i class="fas fa-book"></i>
+                                  <p>Quản lý khóa học</p>
+                              </a>
+                          </li>
+                      @endif
                   </ul>
               </div>
           </div>

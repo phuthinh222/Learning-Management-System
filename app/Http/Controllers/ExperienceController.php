@@ -25,7 +25,10 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         $exc = $this->experience_service->create($request->all());
-        flash()->success(__('teacher.certificate.create_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.experience.create_success'));
         return response()->json($exc);
     }
     public function edit($id_teacher, $id_exc)
@@ -37,14 +40,20 @@ class ExperienceController extends Controller
     public function update(Request $request, $id_teacher, $id_exc)
     {
         $this->experience_service->update($request->all(), $id_exc);
-        flash()->success(__('teacher.certificate.update_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.experience.update_success'));
         return response()->json(Response::HTTP_OK);
     }
 
     public function destroy($id_teacher, $id_exc)
     {
         $this->experience_service->destroy($id_exc);
-        flash()->success(__('teacher.certificate.delete_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.experience.delete_success'));
         return response()->json([], Response::HTTP_OK);
     }
 }

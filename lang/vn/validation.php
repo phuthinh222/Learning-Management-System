@@ -176,4 +176,20 @@ return [
     */
 
     'attributes' => [],
+
+    'course' => [
+        'title' => [
+            'required' => 'Bạn chưa nhập tiêu đề',
+            'max' => 'Tiêu đề quá dài',
+        ],
+        'description' => [
+            'required' => 'Bạn chưa nhập mô tả khóa học',
+            'max' => 'Mô tả quá dài',
+        ],
+        'photoCourse' => [
+            'required' => 'Bạn chưa chọn ảnh khóa học',
+            'mimes' => 'Định dạng file không được hỗ trợ',
+            'max' => 'Kích thước file quá lớn'
+        ]
+    ]
 ];

@@ -35,19 +35,28 @@ class CertificateController extends Controller
     public function store(Request $request)
     {
         $this->certificate_service->create($request->all());
-        flash()->success(__('teacher.certificate.create_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.certificate.create_success'));
         return response()->json([''], Response::HTTP_OK);
     }
     public function update(Request $request)
     {
         $certificate = $this->certificate_service->update($request->all(), $request->cer_id);
-        flash()->success(__('teacher.experience.create_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.experience.create_success'));
         return response()->json($certificate, Response::HTTP_OK);
     }
     public function destroy($id_teacher, $id_cer)
     {
         $certificate = $this->certificate_service->delete($id_cer);
-        flash()->success(__('teacher.experience.delete_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.experience.delete_success'));
         return response()->json($certificate, Response::HTTP_OK);
     }
 }

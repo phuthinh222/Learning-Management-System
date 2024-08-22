@@ -29,4 +29,8 @@ class Teacher extends Model
     {
         return $this->hasMany(Experience::class, 'id_teacher');
     }
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'id_teacher');
+    }
 }

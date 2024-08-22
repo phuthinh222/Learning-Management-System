@@ -12,6 +12,8 @@ export default defineConfig({
                 "resources/css/Teacher/timekeeping.scss",
                 "resources/js/certificate.js",
                 "resources/js/experience.js",
+                "resources/css/Teacher/course.scss",
+                "resources/js/courses.js",
             ],
             refresh: true,
         }),

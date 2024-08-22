@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\CourseCreateRequest;
 use App\Http\Service\Teacher\CourseService;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Course;
@@ -22,8 +23,7 @@ class CoursesController extends Controller
     {
         $teacher = $this->teacher_service->getTeacherByAuth();
         $courses = $teacher->courses;
-        $user = $teacher->user;
-        return view('teachers.courses.index', compact('user', 'teacher', 'courses'));
+        return view('teachers.courses.index', compact('teacher', 'courses'));
     }
     public function create()
     {
@@ -31,12 +31,15 @@ class CoursesController extends Controller
         $user = $teacher->user;
         return view('teachers.courses.create', compact('user', 'teacher'));
     }
-    public function store(Request $request)
+    public function store(CourseCreateRequest $request)
     {
         $teacher = $this->teacher_service->getTeacherByAuth();
         $courses = $teacher->courses;
         $this->course_service->create($request->all());
-        flash()->success(__('teacher.course.create_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.course.create_success'));
         return redirect()->route('courses.index', compact('teacher', 'courses'));
     }
     public function edit($id_teacher, $id_course)
@@ -46,13 +49,26 @@ class CoursesController extends Controller
         $user = $teacher->user;
         return view('teachers.courses.edit', compact('user', 'teacher', 'courses'));
     }
-    // public function update(Request $request, $id_teacher, $id_course)
+    public function update(CourseCreateRequest $request, $id_teacher, $id_course)
+    {
+        $teacher = $this->teacher_service->getTeacherByAuth();
+        $courses = $this->course_service->getId($id_course);
+        $this->course_service->update($request->all(), $id_course);
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.course.update_success'));
+        return redirect()->route('courses.index', compact('teacher', 'courses'));
+    }
     public function destroy($id_teacher, $id_course)
     {
         $teacher = $this->teacher_service->getTeacherByAuth();
         $courses = $teacher->courses;
         $this->course_service->delete($id_course);
-        flash()->success(__('teacher.course.delete_success'));
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->success(__('teacher.course.delete_success'));
         return redirect()->route('courses.index', compact('teacher', 'courses'));
     }
 }

@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('courses_scss')
-    @vite(['resources/css/Teacher/course.scss']);
-@endsection
-
 @section('breadcrumbs')
     <div class="page-header">
         <h3 class="fw-bold mb-3">Quản lý khóa học</h3>
@@ -13,7 +9,6 @@
                     <i class="icon-home"></i>
                 </a>
             </li>
-
             <li class="separator">
                 <i class="icon-arrow-right"></i>
             </li>
@@ -44,94 +39,61 @@
                         </a>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    @foreach ($courses as $course)
-                        <div class="col-sm-6">
-                            <div class="box box-info">
-                                <div class="box-header with-border">
-                                    {{-- <div class="box-title">{{ $course->title }}</div> --}}
-                                    <div class="box-tools pull-right">
-                                        <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
-                                            type="button" class="btn btn-link btn-primary btn-lg">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
-                                            type="button" class="btn btn-link btn-primary btn-lg">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="box-body">
-                                    <div class="row">
-                                        <div class="col-sm-4"><img
-                                                src="{{ $course->photo ? asset('storage/courses/' . $course->photo) : asset('assets/img/default.jpg') }}"
-                                                class="course_image"></div>
-                                        <div class="col-sm-8">
-                                            <div class="list-group list-group-bubordered">
-                                                <div class="">
-                                                    {!! Str::limit($course->description, 100) !!}
+                <div class="row mt-4 mb-2">
+                    @if (count($courses) == 0)
+                        <h3 class="text-center">Hiện tại không có khóa học nào cả</h3>
+                    @else
+                        @foreach ($courses as $course)
+                            <div class="col-xl-4 col-sm-12 col-md-6">
+                                <div class="container">
+                                    <div class="card" style="height: 300px">
+                                        <div class="card-header">
+                                            <div class="card-head-row card-tools-still-right">
+                                                <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
+                                                    class="card-title">{!! Str::limit($course->title, 25) !!}</a>
+                                                <div class="card-tools">
+                                                    <form
+                                                        action="{{ route('courses.destroy', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
+                                                            type="button" class="btn btn-link btn-primary btn-lg">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                        <button
+                                                            onclick='confirm("Bạn có chắc chắn muốn xóa khóa học này không?")'
+                                                            type="submit" class="btn btn-link btn-danger btn-lg">
+                                                            <i class="fa fa-trash"></i>
+
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                                <div class="list-group-item">Ngày tạo:
-                                                    {{ $course->created_at->format('d-m-Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6"><img
+                                                        src="{{ $course->photo ? asset('storage/courses/' . $course->photo) : asset('assets/img/default.jpg') }}"
+                                                        style="height:180px; width:200px"></div>
+                                                <div class="col-6">
+                                                    <div class="list-group list-group-bubordered">
+                                                        <div style="height: 150px">
+                                                            {!! Str::limit($course->description, 35) !!}
+                                                        </div>
+                                                        <span>Ngày tạo:
+                                                            {{ $course->created_at->format('d-m-Y') }}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
                 </div>
-                {{-- <div class="card-body"> --}}
-                {{-- <div class="table-responsive">
-                        <table id="add-row" class="display table table-striped table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Tiêu đề</th>
-                                    <th>Mô tả</th>
-                                    <th>Ngày tạo</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($courses as $course)
-                                    <tr>
-                                        <td>{{ $loop->iteration }} </td>
-                                        <td>
-                                            <img src="{{ $course->photo ? asset('storage/courses/' . $course->photo) : asset('assets/img/default.jpg') }}"
-                                                class="course_image">
-                                        </td>
-                                        <td class="course_content">{{ $course->title }}</td>
-                                        <td class="text-break">
-                                            {!! Str::limit($course->description, 100) !!}</td>
-                                        <td>{{ $course->created_at->format('d-m-Y') }}</td>
-                                        <td>
-                                            <div class="form-button-action">
-                                                <a href="{{ route('courses.edit', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
-                                                    type="button" class="btn btn-link btn-primary btn-lg">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <form
-                                                    action="{{ route('courses.destroy', ['teacher' => $teacher->id, 'course' => $course->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link btn-danger"
-                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa mục này không?');">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div> --}}
-                {{-- </div> --}}
             </div>
         </div>
     </div>

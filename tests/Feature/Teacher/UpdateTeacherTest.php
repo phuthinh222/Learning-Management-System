@@ -14,14 +14,27 @@ class UpdateTeacherTest extends TestCase
     public function authenticated_user_can_updated_information(): void
     {
         $teacher = Teacher::factory()->create();
-        $dataTeacher = Teacher::factory()->create()->toArray();
-        $dataUser = User::factory()->create([
-            'userable_id' => $teacher->id,
-            'userable_type' => Teacher::class,
-        ])->toArray();
-        $response = $this->actingAs($this->getTeacherId())->put($this->getRouteUpdate($teacher), $dataTeacher, $dataUser);
-        $this->assertDatabaseHas('users', $dataUser);
-        $this->assertDatabaseHas('teachers', $dataTeacher);
+        // $dataTeacher = Teacher::factory()->create()->toArray();
+        // $dataUser = User::factory()->create([
+        //     'userable_id' => $teacher->id,
+        //     'userable_type' => Teacher::class,
+        // ]);
+        $data = [
+            'user' => [
+                'name' => 'Test User',
+                'email_address' => 'testuser@example.com',
+                'phone_number' => '0123456789',
+                'date_of_birth' => '1990-01-01',
+                'address' => '123 Main St',
+            ],
+            'teacher' => [
+                'position' => 'Test',
+                'department' => 'CNTT'
+            ]
+        ];
+        $response = $this->actingAs($this->getTeacherId())->put(route('teacher.update', ['teacher' => $teacher->id]), $data);
+        $this->assertDatabaseHas('users', $data['user']);
+        $this->assertDatabaseHas('teachers', $data['teacher']);
         $response->assertStatus(Response::HTTP_OK);
     }
 

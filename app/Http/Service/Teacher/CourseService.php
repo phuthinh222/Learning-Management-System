@@ -15,6 +15,10 @@ class CourseService
     {
         return $this->course_repository->create($data);
     }
+    public function update($data, $id)
+    {
+        return $this->course_repository->update($data, $id);
+    }
     public function delete($id)
     {
         return $this->course_repository->delete($id);

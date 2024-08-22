@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Teacher\TeacherInformationRequest;
 use App\Http\Service\Teacher\TeacherService;
 use App\Models\Teacher;
 use App\Models\User;
@@ -34,23 +35,22 @@ class TeacherController extends Controller
         return view('teachers.edit', compact('user', 'teacher', 'experiences', 'certificates'));
     }
 
-    public function update(Request $request, Teacher $teacher)
+    public function update(TeacherInformationRequest $request, Teacher $teacher)
     {
 
         DB::beginTransaction();
         try {
             $this->teacher_service->update($request->all(), $request->user_id);
             DB::commit();
-            flash()->success('Bạn đã cập nhật thành công');
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->success('Bạn đã cập nhật thành công');
             return redirect()->route('teacher.index');
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-
     }
-
-
-
     public function listTimeKeeping(Request $request)
     {
 
